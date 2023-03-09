@@ -1,8 +1,8 @@
 import 'styled-components';
-import { ColorsTypes, DeviceTypes } from './theme';
+import { DeviceTypes, TColorsTypes } from './theme';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    colors: ColorsTypes;
+    colors: TColorsTypes;
   }
 }

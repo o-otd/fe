@@ -1,4 +1,5 @@
 import Home from 'page/Home';
+import Member from 'page/Member';
 import Profile from 'page/Profile';
 import Search from 'page/Search';
 import SignIn from 'page/SignIn';
@@ -10,6 +11,7 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin/member" element={<Member />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/search" element={<Search />} />
         <Route path="/" element={<Home />} />
