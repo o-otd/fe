@@ -1,3 +1,4 @@
+import ContentSubmitButton from 'components/Common/ContentSubmitButton';
 import HeaderRectangle from 'components/SignIn/HeaderRectangle';
 import React from 'react';
 import styled from 'styled-components';
@@ -54,20 +55,6 @@ const ButtonContainer = styled.div`
   margin-top: 28px;
 `;
 
-const Button = styled.button`
-  width: 100%;
-  height: 48px;
-  border: none;
-  border-radius: 15px;
-  padding: 12px 16px;
-  color: ${({ theme }) => theme.colors.mainbackground};
-  font-weight: bold;
-  line-height: 127.3%;
-  letter-spacing: -1px;
-  cursor: pointer;
-  background-color: ${({ theme }) => theme.colors.content};
-`;
-
 function ResetEmailForm() {
   return (
     <Wrapper>
@@ -77,7 +64,7 @@ function ResetEmailForm() {
         <p>가입하신 이메일 주소로 비밀번호 재설정 메일을 보내드립니다.</p>
         <Input type="email" placeholder="이메일" />
         <ButtonContainer>
-          <Button>이메일 보내기</Button>
+          <ContentSubmitButton text="이메일 보내기" />
         </ButtonContainer>
       </MainForm>
     </Wrapper>
