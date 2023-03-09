@@ -1,4 +1,5 @@
 import HeaderRectangle from 'components/SignIn/HeaderRectangle';
+import ResetPasswordButton from 'components/SignIn/ResetPasswordButton';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -77,18 +78,6 @@ const Button = styled.button`
   }
 `;
 
-const ResetPassword = styled.div`
-  height: 54px;
-  display: flex;
-  align-items: center;
-  padding: 18px 0;
-  font-size: 14px;
-  letter-spacing: -1px;
-  cursor: pointer;
-  border-top: 1px solid ${({ theme }) => theme.colors.gray};
-  color: ${({ theme }) => theme.colors.textlightgray};
-`;
-
 const Terms = styled.p`
   color: ${({ theme }) => theme.colors.termsgray};
   font-size: 13px;
@@ -145,7 +134,7 @@ function SignIn() {
           </Button>
         </ButtonContainer>
 
-        <ResetPassword>비밀번호 재설정</ResetPassword>
+        <ResetPasswordButton />
         <Terms>
           SNS로 로그인 및 회원가입 시 오늘의옷장의 이용약관과 개인정보 수집 및
           이용에 동의한 것으로 간주합니다.

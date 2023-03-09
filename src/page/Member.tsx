@@ -1,4 +1,5 @@
 import HeaderRectangle from 'components/SignIn/HeaderRectangle';
+import ResetPasswordButton from 'components/SignIn/ResetPasswordButton';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -9,7 +10,7 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-const MainForm = styled.div`
+const MainForm = styled.main`
   & h1 {
     font-size: 24px;
     line-height: 127.3%;
@@ -75,16 +76,6 @@ const Button = styled.button`
   }
 `;
 
-const ResetPassword = styled.div`
-  padding: 18px 0;
-  font-size: 14px;
-  line-height: 127.3%;
-  letter-spacing: -1px;
-  cursor: pointer;
-  border-top: 1px solid ${({ theme }) => theme.colors.gray};
-  color: ${({ theme }) => theme.colors.textlightgray};
-`;
-
 function Member() {
   return (
     <Wrapper>
@@ -99,7 +90,7 @@ function Member() {
           <Button>로그인</Button>
           <Button>회원가입</Button>
         </ButtonContainer>
-        <ResetPassword>비밀번호 재설정</ResetPassword>
+        <ResetPasswordButton />
       </MainForm>
     </Wrapper>
   );
