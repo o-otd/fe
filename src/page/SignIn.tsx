@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -98,6 +99,10 @@ const Terms = styled.p`
 `;
 
 function SignIn() {
+  const navigation = useNavigate();
+  const onClickEmailLogIn = () => {
+    navigation('/signin/member');
+  };
   return (
     <Wrapper>
       <HeaderRectangle />
@@ -124,7 +129,7 @@ function SignIn() {
             </div>
             구글로 로그인
           </Button>
-          <Button>
+          <Button onClick={onClickEmailLogIn}>
             <div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
