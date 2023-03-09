@@ -13,6 +13,7 @@ const MainForm = styled.div`
   & h1 {
     font-size: 24px;
     line-height: 127.3%;
+    letter-spacing: -1px;
     color: ${({ theme }) => theme.colors.white};
     font-weight: bold;
   }

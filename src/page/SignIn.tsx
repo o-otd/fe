@@ -14,6 +14,7 @@ const Main = styled.main`
   & h1 {
     font-size: 24px;
     line-height: 127.3%;
+    letter-spacing: -1px;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.white};
   }
@@ -23,6 +24,7 @@ const HeaderButton = styled.div`
   margin: 22px 0;
   font-size: 14px;
   line-height: 127.3%;
+  letter-spacing: -1px;
   & span:first-child {
     color: ${({ theme }) => theme.colors.white};
     margin-right: 15px;
@@ -37,7 +39,7 @@ const HeaderButton = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  width: 315px;
+  width: 100%;
   height: 108px;
   display: flex;
   flex-direction: column;
@@ -52,6 +54,7 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   font-size: 15px;
+  letter-spacing: -1px;
   line-height: 127.3%;
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.gray};
@@ -80,7 +83,9 @@ const ResetPassword = styled.div`
   align-items: center;
   padding: 18px 0;
   font-size: 14px;
+  letter-spacing: -1px;
   cursor: pointer;
+  border-top: 1px solid ${({ theme }) => theme.colors.gray};
   color: ${({ theme }) => theme.colors.textlightgray};
 `;
 
