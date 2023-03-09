@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import HeaderRectangle from 'components/SignIn/HeaderRectangle';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -7,14 +8,6 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.mainbackground};
   padding-top: 47px;
   height: 100vh;
-`;
-
-const HeaderRectangle = styled.div`
-  width: 36px;
-  height: 36px;
-  border-radius: 7px;
-  background-color: ${({ theme }) => theme.colors.ligthgray};
-  margin: 25px 0;
 `;
 
 const Main = styled.main`
