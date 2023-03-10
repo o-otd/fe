@@ -3,3 +3,7 @@ export interface IContentSubmitButtonProps {
 }
 
 export interface IGraySubmitButtonProps extends IContentSubmitButtonProps {}
+
+export interface ILayoutProps {
+  children: React.ReactNode;
+}

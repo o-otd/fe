@@ -33,18 +33,18 @@ table {
   text-decoration: none;
   font-weight: inherit;
   letter-spacing: -0.025em;
-  /* -webkit-user-select:none;
+  -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
     user-select:none;
-    -webkit-user-drag: none;  */
+    -webkit-user-drag: none; 
 }
 
 
 body {
   font-weight: 700;
-  background-color: var(--gray1);
-  color: var(--white);
+  background-color: ${({ theme }) => theme.colors.gray1};
+  color:  ${({ theme }) => theme.colors.white};
 }
 
 fieldset,
@@ -63,7 +63,7 @@ button {
   width: 100%;
   line-height: 48px;
   height: 48px;
-  background-color: var(--main);
+  background-color:  ${({ theme }) => theme.colors.main};
   top: -48px;
   transition: top 0.5s;
   text-align: center;
