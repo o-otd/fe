@@ -1,4 +1,5 @@
 import HeaderRectangle from 'components/SignIn/HeaderRectangle';
+import ResetPasswordButton from 'components/SignIn/ResetPasswordButton';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -14,6 +15,7 @@ const Main = styled.main`
   & h1 {
     font-size: 24px;
     line-height: 127.3%;
+    letter-spacing: -1px;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.white};
   }
@@ -23,6 +25,7 @@ const HeaderButton = styled.div`
   margin: 22px 0;
   font-size: 14px;
   line-height: 127.3%;
+  letter-spacing: -1px;
   & span:first-child {
     color: ${({ theme }) => theme.colors.white};
     margin-right: 15px;
@@ -37,7 +40,7 @@ const HeaderButton = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  width: 315px;
+  width: 100%;
   height: 108px;
   display: flex;
   flex-direction: column;
@@ -52,6 +55,7 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   font-size: 15px;
+  letter-spacing: -1px;
   line-height: 127.3%;
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.gray};
@@ -72,16 +76,6 @@ const Button = styled.button`
   &:last-child {
     margin-top: 12px;
   }
-`;
-
-const ResetPassword = styled.div`
-  height: 54px;
-  display: flex;
-  align-items: center;
-  padding: 18px 0;
-  font-size: 14px;
-  cursor: pointer;
-  color: ${({ theme }) => theme.colors.textlightgray};
 `;
 
 const Terms = styled.p`
@@ -140,7 +134,7 @@ function SignIn() {
           </Button>
         </ButtonContainer>
 
-        <ResetPassword>비밀번호 재설정</ResetPassword>
+        <ResetPasswordButton />
         <Terms>
           SNS로 로그인 및 회원가입 시 오늘의옷장의 이용약관과 개인정보 수집 및
           이용에 동의한 것으로 간주합니다.

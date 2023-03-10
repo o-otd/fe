@@ -1,4 +1,7 @@
+import ContentSubmitButton from 'components/Common/ContentSubmitButton';
+import GraySubmitButton from 'components/Common/GraySubmitButton';
 import HeaderRectangle from 'components/SignIn/HeaderRectangle';
+import ResetPasswordButton from 'components/SignIn/ResetPasswordButton';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -9,10 +12,11 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-const MainForm = styled.div`
+const MainForm = styled.main`
   & h1 {
     font-size: 24px;
     line-height: 127.3%;
+    letter-spacing: -1px;
     color: ${({ theme }) => theme.colors.white};
     font-weight: bold;
   }
@@ -54,34 +58,10 @@ const ButtonContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 28px 0;
-`;
 
-const Button = styled.button`
-  width: 100%;
-  height: 48px;
-  border: none;
-  border-radius: 15px;
-  padding: 12px 16px;
-  color: ${({ theme }) => theme.colors.mainbackground};
-  font-weight: bold;
-  line-height: 127.3%;
-  letter-spacing: -1px;
-  cursor: pointer;
-  background-color: ${({ theme }) => theme.colors.content};
-  &:last-child {
+  & button:last-child {
     margin-top: 12px;
-    background-color: ${({ theme }) => theme.colors.ligthgray};
   }
-`;
-
-const ResetPassword = styled.div`
-  padding: 18px 0;
-  font-size: 14px;
-  line-height: 127.3%;
-  letter-spacing: -1px;
-  cursor: pointer;
-  border-top: 1px solid ${({ theme }) => theme.colors.gray};
-  color: ${({ theme }) => theme.colors.textlightgray};
 `;
 
 function Member() {
@@ -95,10 +75,10 @@ function Member() {
           <input type="password" placeholder="비밀번호" />
         </InputContainer>
         <ButtonContainer>
-          <Button>로그인</Button>
-          <Button>회원가입</Button>
+          <ContentSubmitButton text="로그인" />
+          <GraySubmitButton text="회원가입" />
         </ButtonContainer>
-        <ResetPassword>비밀번호 재설정</ResetPassword>
+        <ResetPasswordButton />
       </MainForm>
     </Wrapper>
   );

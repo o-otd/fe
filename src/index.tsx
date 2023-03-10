@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'styles/global';
+import GlobalFonts from 'styles/globalFonts';
 import { theme } from 'styles/theme';
 import App from './App';
 
@@ -12,6 +13,7 @@ root.render(
   <>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
+      <GlobalFonts />
       <App />
     </ThemeProvider>
   </>,
