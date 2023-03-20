@@ -35,8 +35,10 @@ const colors = {
 };
 
 const borderRadius = {
-  borderRadius30: '0 0 30px 30px',
+  borderRadius30: '30px',
   borderRadius50: '50px',
+  headerRadius30: '0 0 30px 30px',
+  borderRadius20: '20px',
 };
 
 const innerContainer = {
