@@ -107,74 +107,111 @@ const CardItems = styled.ul`
 
 const CardItem = styled.li``;
 
+const Look = styled.section`
+  & > h2 {
+    margin: 24px 20px 0 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
+
+const LookTabSwiper = styled.div`
+  margin-bottom: 17px;
+  margin: 0 20px;
+
+  & ul {
+    & li {
+      width: auto;
+      padding: 8px 0px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+  }
+`;
+
 function Home() {
   return (
-    <Card>
-      <div>
+    <>
+      <Card>
         <div>
           <div>
-            <CardHeader>
-              <CardHeaderUser>
-                <CardHeaderProfile></CardHeaderProfile>
-                <CardHeaderInfo>
-                  <strong>Anonymous</strong>
-                  <span>11월 3일 옷장</span>
-                </CardHeaderInfo>
-              </CardHeaderUser>
-              <CardHeaderUtil>
-                <li>
-                  <button>
-                    <LikesSvg />
+            <div>
+              <CardHeader>
+                <CardHeaderUser>
+                  <CardHeaderProfile></CardHeaderProfile>
+                  <CardHeaderInfo>
+                    <strong>Anonymous</strong>
+                    <span>11월 3일 옷장</span>
+                  </CardHeaderInfo>
+                </CardHeaderUser>
+                <CardHeaderUtil>
+                  <li>
+                    <button>
+                      <LikesSvg />
+                    </button>
+                  </li>
+                  <li>
+                    <button>
+                      <BookMarkSvg />
+                    </button>
+                  </li>
+                  <li>
+                    <button>
+                      <FollowSvg />
+                    </button>
+                  </li>
+                </CardHeaderUtil>
+              </CardHeader>
+              <CardItems>
+                <CardItem>
+                  <button type="button">
+                    <span>outer</span>
+                    <div></div>
                   </button>
-                </li>
-                <li>
-                  <button>
-                    <BookMarkSvg />
+                </CardItem>
+                <CardItem>
+                  <button type="button">
+                    <span>outer</span>
+                    <div></div>
                   </button>
-                </li>
-                <li>
-                  <button>
-                    <FollowSvg />
+                </CardItem>
+                <CardItem>
+                  <button type="button">
+                    <span>outer</span>
+                    <div></div>
                   </button>
-                </li>
-              </CardHeaderUtil>
-            </CardHeader>
-            <CardItems>
-              <CardItem>
-                <button type="button">
-                  <span>outer</span>
-                  <div></div>
-                </button>
-              </CardItem>
-              <CardItem>
-                <button type="button">
-                  <span>outer</span>
-                  <div></div>
-                </button>
-              </CardItem>
-              <CardItem>
-                <button type="button">
-                  <span>outer</span>
-                  <div></div>
-                </button>
-              </CardItem>
-              <CardItem>
-                <button type="button">
-                  <span>outer</span>
-                  <div></div>
-                </button>
-              </CardItem>
-              <CardItem>
-                <button type="button">
-                  <span>outer</span>
-                  <div></div>
-                </button>
-              </CardItem>
-            </CardItems>
+                </CardItem>
+                <CardItem>
+                  <button type="button">
+                    <span>outer</span>
+                    <div></div>
+                  </button>
+                </CardItem>
+                <CardItem>
+                  <button type="button">
+                    <span>outer</span>
+                    <div></div>
+                  </button>
+                </CardItem>
+              </CardItems>
+            </div>
           </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+      <Look>
+        <h2>오늘의 추천 look</h2>
+
+        <LookTabSwiper>
+          <ul>
+            <li>베스트룩 👍</li>
+            <li>기온별 추천룩 🌤</li>
+            <li>TPO 추천룩 👔</li>
+            <li>활동성 추천룩 🏄</li>
+          </ul>
+        </LookTabSwiper>
+      </Look>
+    </>
   );
 }
 
