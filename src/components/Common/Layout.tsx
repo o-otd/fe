@@ -7,7 +7,7 @@ import { ILayoutProps } from 'types/Common';
 const Header = styled.header`
   background-color: ${({ theme }) => theme.colors.gray3};
   height: 95px;
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius30};
+  border-radius: ${({ theme }) => theme.borderRadius.headerRadius30};
 `;
 
 const InnerContainer = styled.div`
