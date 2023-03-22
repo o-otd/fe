@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as BookMarkSvg } from '../styles/images/icons/bookmark.svg';
 import { ReactComponent as LikesSvg } from '../styles/images/icons/likes.svg';
 import { ReactComponent as FollowSvg } from '../styles/images/icons/follow.svg';
+import TodayCardModal from 'components/Home/TodayCardModal';
 
 const Card = styled.section`
   margin-top: 4px;
@@ -131,8 +132,16 @@ const LookTabSwiper = styled.div`
 `;
 
 function Home() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const onClickOpenModal = () => {
+    setIsOpen(true);
+  };
+
   return (
     <>
+      <TodayCardModal isOpen={isOpen} setIsOpen={setIsOpen} />
+
       <Card>
         <div>
           <div>
@@ -165,31 +174,31 @@ function Home() {
               </CardHeader>
               <CardItems>
                 <CardItem>
-                  <button type="button">
+                  <button type="button" onClick={onClickOpenModal}>
                     <span>outer</span>
                     <div></div>
                   </button>
                 </CardItem>
                 <CardItem>
-                  <button type="button">
+                  <button type="button" onClick={onClickOpenModal}>
                     <span>outer</span>
                     <div></div>
                   </button>
                 </CardItem>
                 <CardItem>
-                  <button type="button">
+                  <button type="button" onClick={onClickOpenModal}>
                     <span>outer</span>
                     <div></div>
                   </button>
                 </CardItem>
                 <CardItem>
-                  <button type="button">
+                  <button type="button" onClick={onClickOpenModal}>
                     <span>outer</span>
                     <div></div>
                   </button>
                 </CardItem>
                 <CardItem>
-                  <button type="button">
+                  <button type="button" onClick={onClickOpenModal}>
                     <span>outer</span>
                     <div></div>
                   </button>
