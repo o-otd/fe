@@ -132,8 +132,8 @@ const LookTabSwiper = styled.div`
   }
 `;
 
-const Modal = styled.div`
-  display: none;
+const Modal = styled.div<{ isOpen: boolean }>`
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   position: fixed;
   left: 0;
   top: 0;
@@ -280,10 +280,18 @@ const ModalClose = styled.button`
 `;
 
 function Home() {
-  //const [isOpen, setIsOpen] = useState()
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const onClickOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const onClickCloseModal = () => {
+    setIsOpen(false);
+  };
   return (
     <>
-      <Modal>
+      <Modal isOpen={isOpen}>
         <ModalWrapper>
           <ModalBackGround />
           <ModalContent>
@@ -312,7 +320,7 @@ function Home() {
               </ModalProduct>
             </ModalInner>
           </ModalContent>
-          <ModalClose>
+          <ModalClose onClick={onClickCloseModal}>
             <ModalCloseSvg />
           </ModalClose>
         </ModalWrapper>
@@ -350,31 +358,31 @@ function Home() {
               </CardHeader>
               <CardItems>
                 <CardItem>
-                  <button type="button">
+                  <button type="button" onClick={onClickOpenModal}>
                     <span>outer</span>
                     <div></div>
                   </button>
                 </CardItem>
                 <CardItem>
-                  <button type="button">
+                  <button type="button" onClick={onClickOpenModal}>
                     <span>outer</span>
                     <div></div>
                   </button>
                 </CardItem>
                 <CardItem>
-                  <button type="button">
+                  <button type="button" onClick={onClickOpenModal}>
                     <span>outer</span>
                     <div></div>
                   </button>
                 </CardItem>
                 <CardItem>
-                  <button type="button">
+                  <button type="button" onClick={onClickOpenModal}>
                     <span>outer</span>
                     <div></div>
                   </button>
                 </CardItem>
                 <CardItem>
-                  <button type="button">
+                  <button type="button" onClick={onClickOpenModal}>
                     <span>outer</span>
                     <div></div>
                   </button>
