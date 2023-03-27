@@ -21,6 +21,10 @@ const colors = {
   gray8: '#D9D9D9',
   gray9: '#F2F2F7',
 
+  tint1: '#FF2D55',
+
+  red2: '#ED6060',
+
   /* Main Btn State */
   hover: '#A2D900',
   disabled: '#6A744D',
