@@ -4,7 +4,6 @@ import { ReactComponent as BookMarkSvg } from '../../styles/images/icons/bookmar
 import { ReactComponent as LikesSvg } from '../../styles/images/icons/likes.svg';
 import { ReactComponent as FollowSvg } from '../../styles/images/icons/follow.svg';
 import { ITodayCardProps } from 'types/Home';
-import TodayCardNoneButton from './TodayCardNoneButton';
 
 const CardHeader = styled.div`
   display: flex;
