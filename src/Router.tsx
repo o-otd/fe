@@ -1,3 +1,4 @@
+import Layout from 'components/Common/Layout';
 import Home from 'page/Home';
 import Member from 'page/Member';
 import Profile from 'page/Profile';
@@ -11,13 +12,15 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signin/member" element={<Member />} />
-        <Route path="/signin/email" element={<ResetEmailForm />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route element={<Layout />}>
+          <Route path="/signin/member" element={<Member />} />
+          <Route path="/signin/email" element={<ResetEmailForm />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

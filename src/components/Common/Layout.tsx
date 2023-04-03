@@ -2,7 +2,7 @@ import React from 'react';
 import searchSvg from '../../styles/images/icons/search.svg';
 import noticeSvg from '../../styles/images/icons/notice.svg';
 import styled from 'styled-components';
-import { ILayoutProps } from 'types/Common';
+import { Outlet } from 'react-router-dom';
 
 const Header = styled.header`
   background-color: ${({ theme }) => theme.colors.gray3};
@@ -57,7 +57,7 @@ const HeaderNavList = styled.li`
   color: ${({ theme }) => theme.colors.gray7};
 `;
 
-function Layout({ children }: ILayoutProps) {
+function Layout() {
   return (
     <>
       <Header>
@@ -89,7 +89,7 @@ function Layout({ children }: ILayoutProps) {
         </InnerContainer>
       </Header>
 
-      {children}
+      <Outlet />
     </>
   );
 }
