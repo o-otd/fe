@@ -1,5 +1,5 @@
 import ContentSubmitButton from 'components/Common/ContentSubmitButton';
-import HeaderRectangle from 'components/SignIn/HeaderRectangle';
+import HeaderRectangle from 'components/Common/Logo';
 import React from 'react';
 import styled from 'styled-components';
 

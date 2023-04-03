@@ -1,6 +1,6 @@
 import ContentSubmitButton from 'components/Common/ContentSubmitButton';
 import GraySubmitButton from 'components/Common/GraySubmitButton';
-import HeaderRectangle from 'components/SignIn/HeaderRectangle';
+import HeaderRectangle from 'components/Common/Logo';
 import ResetPasswordButton from 'components/SignIn/ResetPasswordButton';
 import React from 'react';
 import styled from 'styled-components';
