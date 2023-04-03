@@ -90,13 +90,13 @@ function SignIn() {
         <AuthSocialList>
           <a href="#">
             <GoogleIconSvg />
-            구글로 회원가입
+            구글로 로그인
           </a>
         </AuthSocialList>
         <AuthSocialList>
           <a href="#">
             <EmailIconSvg />
-            이메일로 회원가입
+            이메일로 로그인
           </a>
         </AuthSocialList>
       </AuthSocialLists>
