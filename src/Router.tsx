@@ -13,9 +13,9 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin/member" element={<Member />} />
         <Route path="/signin" element={<SignIn />} />
         <Route element={<Layout />}>
-          <Route path="/signin/member" element={<Member />} />
           <Route path="/signin/email" element={<ResetEmailForm />} />
           <Route path="/search" element={<Search />} />
           <Route path="/" element={<Home />} />
