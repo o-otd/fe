@@ -93,14 +93,10 @@ const AuthFormInput = styled.div`
 `;
 
 const AuthFormLayout = styled.div`
-  border : 1px solid ${({ theme }) => theme.colors.main}
-  outline : none;
-
-  &  ${AuthFormInput} {
+  & ${AuthFormInput} {
     &:last-child {
-      margin-top : 12px;
+      margin-top: 12px;
     }
-   
   }
 `;
 
