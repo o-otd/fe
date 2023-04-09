@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { emailRegex } from '../util/index';
 import { IEmailSignInInputData } from 'types/SignIn';
+import Input from 'components/SignIn/Input';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -71,37 +72,17 @@ const AuthFormInput = styled.div<{ formError: string }>`
       }
     }
   }
-
-  & > button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 48px;
-    position: relative;
-    color: ${({ theme }) => theme.colors.white};
-    font-weight: 500;
-    border-radius: ${({ theme }) => theme.borderRadius.borderRadius15};
-  }
-
-  & > a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 48px;
-    position: relative;
-    color: ${({ theme }) => theme.colors.white};
-    font-weight: 500;
-    border-radius: ${({ theme }) => theme.borderRadius.borderRadius15};
-  }
 `;
 
 const AuthFormLayout = styled.div`
-  & ${AuthFormInput} {
+  /* & ${AuthFormInput} {
     &:last-child {
       margin-top: 12px;
     }
+  } */
+
+  & > div:last-child {
+    margin-top: 12px;
   }
 `;
 
@@ -181,41 +162,34 @@ function Member() {
       <h2>이메일로 로그인</h2>
       <AuthForm onSubmit={handleSubmit(onValid)}>
         <AuthFormLayout>
-          <AuthFormInput formError={errors.email?.message!}>
-            <div>
-              <input
-                autoComplete="off"
-                type="text"
-                {...register('email', {
-                  required: '이메일 ID를 입력해주세요.',
-                  pattern: {
-                    value: emailRegex,
-                    message: '올바른 이메일 형식이 아닙니다.',
-                  },
-                })}
-                placeholder="이메일"
-                autoFocus
-              />
-            </div>
-          </AuthFormInput>
+          <Input
+            placeHolder="이메일"
+            type="email"
+            errors={errors.email?.message}
+            register={register('email', {
+              required: '이메일 ID를 입력해주세요.',
+              pattern: {
+                value: emailRegex,
+                message: '올바른 이메일 형식이 아닙니다.',
+              },
+            })}
+          />
 
-          <AuthFormInput formError={errors.password?.message!}>
-            <div>
-              <input
-                type="password"
-                {...register('password', {
-                  required: '비밀번호를 입력해주세요.',
-                })}
-                placeholder="비밀번호"
-              />
-            </div>
+          <Input
+            placeHolder="비밀번호"
+            type="password"
+            errors={errors.password?.message}
+            register={register('password', {
+              required: '비밀번호를 입력해주세요.',
+            })}
+          >
             {(errors.email || errors.password) && (
               <ErrorMessage>
                 <ValidationErrorSvg />
                 {errors.email?.message || errors.password?.message}
               </ErrorMessage>
             )}
-          </AuthFormInput>
+          </Input>
         </AuthFormLayout>
 
         <AuthUtill>
@@ -223,7 +197,7 @@ function Member() {
             <button>로그인</button>
           </LogInButton>
           <RegisterButton>
-            <a href="#">회원가입</a>
+            <a href="/signup">회원가입</a>
           </RegisterButton>
         </AuthUtill>
       </AuthForm>
