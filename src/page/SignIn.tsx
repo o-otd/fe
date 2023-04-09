@@ -66,7 +66,7 @@ const AuthSocialLists = styled.ul`
 const AuthFind = styled.div`
   padding: 18px 0;
   font-size: 14px;
-  font-weigth: 500;
+  font-weight: 500;
   color: ${({ theme }) => theme.colors.gray7};
 `;
 
@@ -94,7 +94,7 @@ function SignIn() {
           </a>
         </AuthSocialList>
         <AuthSocialList>
-          <a href="#">
+          <a href="/signin/member">
             <EmailIconSvg />
             이메일로 로그인
           </a>

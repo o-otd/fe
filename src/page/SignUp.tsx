@@ -2,6 +2,9 @@ import Logo from 'components/Common/Logo';
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ValidationErrorSvg } from '../styles/images/icons/validation-error.svg';
+import { useForm } from 'react-hook-form';
+import { IEmailSignUpInputData } from 'types/SignIn';
+import { emailRegex } from '../util/index';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -31,7 +34,7 @@ const AuthForm = styled.form`
   padding: 22px 0 28px 0;
 `;
 
-const AuthFormInput = styled.div`
+const AuthFormInput = styled.div<{ formError: string }>`
   width: 100%;
   overflow: hidden;
   position: relative;
@@ -73,11 +76,13 @@ const AuthFormInput = styled.div`
       &:focus {
         border: 1px solid ${({ theme }) => theme.colors.main};
         outline: none;
+        border-color: ${(props) =>
+          props.formError ? props.theme.colors.error : props.theme.colors.main};
       }
     }
   }
 `;
-const AuthFormPasswordInput = styled.div`
+const AuthFormPasswordInput = styled.div<{ formError: string }>`
   margin-top: 20px;
   width: 100%;
   overflow: hidden;
@@ -120,6 +125,8 @@ const AuthFormPasswordInput = styled.div`
       &:focus {
         border: 1px solid ${({ theme }) => theme.colors.main};
         outline: none;
+        border-color: ${(props) =>
+          props.formError ? props.theme.colors.error : props.theme.colors.main};
       }
     }
   }
@@ -130,9 +137,6 @@ const AuthFormPasswordInput = styled.div`
 `;
 
 const AuthFormLayout = styled.div`
-  /* outline: none;
-  border: 1px solid ${({ theme }) => theme.colors.main}; */
-
   & ${AuthFormInput} {
     &:last-child {
       margin-top: 20px;
@@ -176,43 +180,108 @@ const AuthFormSubmit = styled.div`
 `;
 
 function SignUp() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm<IEmailSignUpInputData>();
+
+  const onValid = (signUpInputData: IEmailSignUpInputData) => {
+    console.log(signUpInputData);
+  };
+
   return (
     <Auth>
       <Logo />
       <h2>이메일로 회원가입</h2>
 
-      <AuthForm>
+      <AuthForm onSubmit={handleSubmit(onValid)}>
         <AuthFormLayout>
-          <AuthFormInput>
+          <AuthFormInput formError={errors.email?.message!}>
             <label>이메일 주소</label>
             <div>
-              <input type="text" placeholder="이메일 주소" autoFocus />
+              <input
+                type="text"
+                {...register('email', {
+                  required: '이메일 ID를 입력해주세요. ',
+                  pattern: {
+                    value: emailRegex,
+                    message: '올바른 이메이 형식이 아닙니다.',
+                  },
+                })}
+                placeholder="이메일 주소"
+                autoFocus
+                autoComplete="off"
+              />
             </div>
           </AuthFormInput>
 
-          <AuthFormPasswordInput>
+          <AuthFormPasswordInput
+            formError={
+              errors.password?.message! || errors.passwordCheck?.message!
+            }
+          >
             <label>비밀번호</label>
             <div>
-              <input type="password" placeholder="비밀번호" autoFocus />
+              <input
+                type="password"
+                {...register('password', {
+                  required: '비밀번호를 입력해주세요.',
+                })}
+                placeholder="비밀번호"
+                autoFocus
+              />
             </div>
             <div>
-              <input type="password" placeholder="비밀번호 확인" autoFocus />
+              <input
+                type="password"
+                {...register('passwordCheck', {
+                  required: '비밀번호를 다시 한번 입력해주세요.',
+                  validate: {
+                    matchesPreviousPassword: (value) => {
+                      const { password } = getValues();
+                      return (
+                        password === value || '비밀번호가 일치하지 않습니다.'
+                      );
+                    },
+                  },
+                })}
+                placeholder="비밀번호 확인"
+                autoFocus
+              />
             </div>
-            <ErrorMessage>
-              <ValidationErrorSvg />
-              비밀번호가 일치하지 않습니다.
-            </ErrorMessage>
+            {(errors.email?.message ||
+              errors.password?.message ||
+              errors.passwordCheck?.message) && (
+              <ErrorMessage>
+                <ValidationErrorSvg />
+                {errors.email?.message ||
+                  errors.password?.message ||
+                  errors.passwordCheck?.message}
+              </ErrorMessage>
+            )}
           </AuthFormPasswordInput>
 
-          <AuthFormInput>
+          <AuthFormInput formError={errors.nickName?.message!}>
             <label>닉네임</label>
             <div>
-              <input type="text" placeholder="닉네임" autoFocus />
+              <input
+                type="text"
+                autoComplete="off"
+                {...register('nickName', {
+                  required: '닉네임을 입력해주세요.',
+                })}
+                placeholder="닉네임"
+                autoFocus
+              />
             </div>
-            <ErrorMessage>
-              <ValidationErrorSvg />
-              이미 사용 중인 닉네임입니다.
-            </ErrorMessage>
+            {errors.nickName?.message && (
+              <ErrorMessage>
+                <ValidationErrorSvg />
+                {errors.nickName.message}
+              </ErrorMessage>
+            )}
           </AuthFormInput>
         </AuthFormLayout>
 
