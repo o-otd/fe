@@ -2,6 +2,9 @@ import Logo from 'components/Common/Logo';
 import React from 'react';
 import { ReactComponent as ValidationErrorSvg } from '../styles/images/icons/validation-error.svg';
 import styled from 'styled-components';
+import { useForm } from 'react-hook-form';
+import { emailRegex } from '../util/index';
+import { IEmailSignInInputData } from 'types/SignIn';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -32,7 +35,7 @@ const AuthForm = styled.form`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray3};
 `;
 
-const AuthFormInput = styled.div`
+const AuthFormInput = styled.div<{ formError: string }>`
   width: 100%;
   border-radius: ${({ theme }) => theme.borderRadius.borderRadius15};
   overflow: hidden;
@@ -57,6 +60,8 @@ const AuthFormInput = styled.div`
 
       &:focus {
         border: 1px solid ${({ theme }) => theme.colors.main};
+        border-color: ${(props) =>
+          props.formError ? props.theme.colors.error : props.theme.colors.main};
         outline: none;
       }
 
@@ -160,26 +165,56 @@ const AuthFind = styled.div`
 `;
 
 function Member() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IEmailSignInInputData>();
+
+  const onValid = (inputData: IEmailSignInInputData) => {
+    console.log(inputData);
+  };
+
   return (
     <Auth>
       <Logo />
       <h2>이메일로 로그인</h2>
-      <AuthForm>
+      <AuthForm onSubmit={handleSubmit(onValid)}>
         <AuthFormLayout>
-          <AuthFormInput>
+          <AuthFormInput formError={errors.email?.message!}>
             <div>
-              <input type="text" placeholder="이메일" autoFocus />
+              <input
+                autoComplete="off"
+                type="text"
+                {...register('email', {
+                  required: '이메일 ID를 입력해주세요.',
+                  pattern: {
+                    value: emailRegex,
+                    message: '올바른 이메일 형식이 아닙니다.',
+                  },
+                })}
+                placeholder="이메일"
+                autoFocus
+              />
             </div>
           </AuthFormInput>
 
-          <AuthFormInput>
+          <AuthFormInput formError={errors.password?.message!}>
             <div>
-              <input type="password" placeholder="비밀번호" />
+              <input
+                type="password"
+                {...register('password', {
+                  required: '비밀번호를 입력해주세요.',
+                })}
+                placeholder="비밀번호"
+              />
             </div>
-            <ErrorMessage>
-              <ValidationErrorSvg />
-              아이디 또는 비밀번호를 확인해주세요.
-            </ErrorMessage>
+            {(errors.email || errors.password) && (
+              <ErrorMessage>
+                <ValidationErrorSvg />
+                {errors.email?.message || errors.password?.message}
+              </ErrorMessage>
+            )}
           </AuthFormInput>
         </AuthFormLayout>
 
