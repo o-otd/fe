@@ -5,6 +5,7 @@ import Profile from 'page/Profile';
 import ResetEmailForm from 'page/ResetEmailForm';
 import ResetPassword from 'page/ResetPassword';
 import ResetPasswordForm from 'page/ResetPasswordForm';
+import SampleForm from 'page/SampleForm';
 import Search from 'page/Search';
 import SignIn from 'page/SignIn';
 import SignUp from 'page/SignUp';
@@ -19,6 +20,7 @@ function Router() {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/reset/password" element={<ResetPasswordForm />} />
+        <Route path="/sample" element={<SampleForm />} />
         <Route element={<Layout />}>
           <Route path="/signin/email" element={<ResetEmailForm />} />
           <Route path="/search" element={<Search />} />
