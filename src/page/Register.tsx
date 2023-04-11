@@ -77,31 +77,30 @@ const AuthInfo = styled.div`
   color: ${({ theme }) => theme.colors.gray6};
 `;
 
-function SignIn() {
+function Register() {
   return (
     <Auth>
       <Logo />
-      <h2>오늘의 옷장 로그인</h2>
+      <h2>오늘의 옷장 회원가입</h2>
       <p>
-        계정이 없으세요?
-        <a href="/signin/register">회원가입</a>
+        이미 계정이 있으세요? <a href="/signin">로그인</a>
       </p>
       <AuthSocialLists>
         <AuthSocialList>
           <a href="#">
             <GoogleIconSvg />
-            구글로 로그인
+            구글로 회원가입
           </a>
         </AuthSocialList>
         <AuthSocialList>
-          <a href="/signin/member">
+          <a href="/signup">
             <EmailIconSvg />
-            이메일로 로그인
+            이메일로 회원가입
           </a>
         </AuthSocialList>
       </AuthSocialLists>
       <AuthFind>
-        <a href="#">비밀번호 재설정</a>
+        <a href="#">아이디 찾기</a>
       </AuthFind>
 
       <AuthInfo>
@@ -113,4 +112,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Register;
