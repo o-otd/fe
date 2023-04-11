@@ -2,6 +2,10 @@ import Logo from 'components/Common/Logo';
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ValidationErrorSvg } from '../styles/images/icons/validation-error.svg';
+import Input from 'components/SignIn/Input';
+import { useForm } from 'react-hook-form';
+import { IResetEmailInputData } from 'types/SignIn';
+import { emailRegex } from '../util/index';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -94,6 +98,15 @@ const AuthUtil = styled.div`
 `;
 
 function ResetPassword() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IResetEmailInputData>();
+
+  const onValid = (emailInput: IResetEmailInputData) => {
+    console.log(emailInput);
+  };
   return (
     <Auth>
       <Logo />
@@ -103,17 +116,27 @@ function ResetPassword() {
         보내드립니다.
       </p>
 
-      <AuthForm>
+      <AuthForm onSubmit={handleSubmit(onValid)}>
         <div>
-          <AuthFormInput>
-            <div>
-              <input type="password" placeholder="이메일" />
-            </div>
-            <ErrorMessage>
-              <ValidationErrorSvg />
-              이메일 주소를 정확히 입력해주세요.
-            </ErrorMessage>
-          </AuthFormInput>
+          <Input
+            register={register('email', {
+              required: '이메일 주소를 입력해주세요.',
+              pattern: {
+                value: emailRegex,
+                message: '올바른 이메일 형식이 아닙니다.',
+              },
+            })}
+            type="email"
+            placeHolder="이메일"
+            errors={errors.email?.message}
+          >
+            {errors.email?.message && (
+              <ErrorMessage>
+                <ValidationErrorSvg />
+                {errors.email.message}
+              </ErrorMessage>
+            )}
+          </Input>
         </div>
 
         <AuthUtil>

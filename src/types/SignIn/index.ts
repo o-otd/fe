@@ -1,7 +1,10 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
 
-export interface IEmailSignInInputData {
+export interface IResetEmailInputData {
   email: string;
+}
+
+export interface IEmailSignInInputData extends IResetEmailInputData {
   password: string;
 }
 

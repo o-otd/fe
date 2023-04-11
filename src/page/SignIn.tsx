@@ -101,7 +101,7 @@ function SignIn() {
         </AuthSocialList>
       </AuthSocialLists>
       <AuthFind>
-        <a href="#">비밀번호 재설정</a>
+        <a href="/reset">비밀번호 재설정</a>
       </AuthFind>
 
       <AuthInfo>
