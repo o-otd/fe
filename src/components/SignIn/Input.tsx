@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IInputProps } from 'types/SignIn';
+import { IInputProps } from 'types/Auth';
 
 const AuthFormInput = styled.div<{ formError: string }>`
   width: 100%;
@@ -82,7 +82,6 @@ function Input({
               type={type}
               {...register}
               placeholder={placeHolder}
-              autoFocus
             />
           </div>
           {children ? children : null}
@@ -98,7 +97,6 @@ function Input({
               type="text"
               {...register}
               placeholder={placeHolder}
-              autoFocus
             />
           </div>
           {children ? children : null}

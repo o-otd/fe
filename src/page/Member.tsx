@@ -4,7 +4,7 @@ import { ReactComponent as ValidationErrorSvg } from '../styles/images/icons/val
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { emailRegex } from '../util/index';
-import { IEmailSignInInputData } from 'types/SignIn';
+import { IEmailSignInInputData } from 'types/Auth';
 import Input from 'components/SignIn/Input';
 
 const Auth = styled.section`
@@ -75,12 +75,6 @@ const AuthFormInput = styled.div<{ formError: string }>`
 `;
 
 const AuthFormLayout = styled.div`
-  /* & ${AuthFormInput} {
-    &:last-child {
-      margin-top: 12px;
-    }
-  } */
-
   & > div:last-child {
     margin-top: 12px;
   }
