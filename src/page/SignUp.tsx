@@ -3,9 +3,13 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ValidationErrorSvg } from '../styles/images/icons/validation-error.svg';
 import { useForm } from 'react-hook-form';
-import { IEmailSignUpInputData } from 'types/SignIn';
+import { IEmailSignUpInputData } from 'types/Auth';
 import { emailRegex } from '../util/index';
 import Input from 'components/SignIn/Input';
+import { RootState, useAppDispatch } from 'redux/store';
+import { authJoinByEmail } from 'redux/action/auth';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -91,12 +95,24 @@ function SignUp() {
     handleSubmit,
     formState: { errors },
     getValues,
+    setError,
   } = useForm<IEmailSignUpInputData>();
+  const navigation = useNavigate();
+  const dispatch = useAppDispatch();
+  const { authJoinByEmailDone, authJoinByEmailError } = useSelector(
+    (state: RootState) => state.auth,
+  );
 
   const [isError, setIsError] = useState<boolean>(false);
 
   const onValid = (signUpInputData: IEmailSignUpInputData) => {
-    console.log(signUpInputData);
+    dispatch(
+      authJoinByEmail({
+        email: signUpInputData.email,
+        name: signUpInputData.nickName,
+        password: signUpInputData.password,
+      }),
+    );
   };
 
   useEffect(() => {
@@ -111,6 +127,16 @@ function SignUp() {
       setIsError(false);
     }
   }, [errors.email, errors.nickName, errors.password, errors.passwordCheck]);
+
+  useEffect(() => {
+    if (authJoinByEmailDone) {
+      navigation('/signin');
+    }
+
+    if (authJoinByEmailError) {
+      setError('email', { message: authJoinByEmailError });
+    }
+  }, [authJoinByEmailDone, authJoinByEmailError]);
 
   return (
     <Auth>

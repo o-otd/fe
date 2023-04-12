@@ -21,3 +21,19 @@ export interface IInputProps {
   errors?: string;
   children?: React.ReactNode;
 }
+
+export interface IAuthJoinByEmailData {
+  email: string;
+  name: string;
+  password: string;
+}
+
+export interface IApiResponse {
+  ok: boolean;
+  code: number;
+  error: string | null;
+}
+
+export interface IAuthJoinByEmailResponse extends IApiResponse {
+  data: any;
+}
