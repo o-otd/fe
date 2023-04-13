@@ -1,11 +1,15 @@
 import Logo from 'components/Common/Logo';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ReactComponent as ValidationErrorSvg } from '../styles/images/icons/validation-error.svg';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { emailRegex } from '../util/index';
 import { IEmailSignInInputData } from 'types/Auth';
 import Input from 'components/SignIn/Input';
+import { RootState, useAppDispatch } from 'redux/store';
+import { authLoginByEmail } from 'redux/action/auth';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -144,11 +148,32 @@ function Member() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<IEmailSignInInputData>();
+  const dispatch = useAppDispatch();
+  const navigation = useNavigate();
+  const { authLoginByEmailDone, authLoginByEmailError } = useSelector(
+    (state: RootState) => state.auth,
+  );
 
   const onValid = (inputData: IEmailSignInInputData) => {
-    console.log(inputData);
+    dispatch(
+      authLoginByEmail({
+        email: inputData.email,
+        password: inputData.password,
+      }),
+    );
   };
+
+  useEffect(() => {
+    if (authLoginByEmailDone) {
+      navigation('/', { replace: false });
+    }
+
+    if (authLoginByEmailError) {
+      setError('email', { message: authLoginByEmailError });
+    }
+  }, [authLoginByEmailDone, authLoginByEmailError]);
 
   return (
     <Auth>
