@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import Api from 'api/Api';
 import { IAuthJoinByEmailData, IAuthJoinByEmailResponse } from 'types/Auth';
 
 export const authJoinByEmail = createAsyncThunk<
@@ -9,7 +9,7 @@ export const authJoinByEmail = createAsyncThunk<
   try {
     const { email, password, name } = data;
 
-    const response = await axios.post(
+    const response = await Api.post(
       `/api/auth/join?email=${email}&name=${name}&password=${password}`,
     );
 
