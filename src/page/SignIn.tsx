@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as EmailIconSvg } from '../styles/images/icons/email-icon.svg';
 import { ReactComponent as GoogleIconSvg } from '../styles/images/icons/google-icon.svg';
+import AuthSelectButton from 'components/SignIn/AuthSelectButton';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -27,36 +28,12 @@ const Auth = styled.section`
   }
 `;
 
-const AuthSocialList = styled.li`
-  width: 100%;
-  height: 48px;
-  background-color: ${({ theme }) => theme.colors.gray3};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius15};
-  overflow: hidden;
-
-  & a {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    font-size: 15px;
-    font-weight: 500;
-
-    & svg {
-      width: 24px;
-      height: 24px;
-      margin-right: 7px;
-    }
-  }
-`;
-
 const AuthSocialLists = styled.ul`
   width: 100%;
   padding: 22px 0 28px 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray3};
 
-  & ${AuthSocialList} {
+  & > li {
     &:last-child {
       margin-top: 12px;
     }
@@ -87,18 +64,17 @@ function SignIn() {
         <a href="/signin/register">회원가입</a>
       </p>
       <AuthSocialLists>
-        <AuthSocialList>
-          <a href="#">
-            <GoogleIconSvg />
-            구글로 로그인
-          </a>
-        </AuthSocialList>
-        <AuthSocialList>
-          <a href="/signin/member">
-            <EmailIconSvg />
-            이메일로 로그인
-          </a>
-        </AuthSocialList>
+        <AuthSelectButton
+          text="구글로 로그인"
+          href="#"
+          icon={<GoogleIconSvg />}
+        />
+
+        <AuthSelectButton
+          text="이메일로 로그인"
+          href="/signin/member"
+          icon={<EmailIconSvg />}
+        />
       </AuthSocialLists>
       <AuthFind>
         <a href="/reset">비밀번호 재설정</a>

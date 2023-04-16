@@ -47,3 +47,9 @@ export interface IAuthLogInByEmailResponse extends IApiResponse {
     token: string;
   };
 }
+
+export interface IAuthSelectButtonProps {
+  text: string;
+  href: string;
+  icon: React.ReactNode;
+}
