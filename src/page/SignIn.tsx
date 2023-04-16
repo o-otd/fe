@@ -44,9 +44,11 @@ const AuthSocialList = styled.li`
     font-weight: 500;
 
     & svg {
-      width: 24px;
-      height: 24px;
       margin-right: 7px;
+    }
+
+    & svg:first-child {
+      margin-left: 4px;
     }
   }
 `;
