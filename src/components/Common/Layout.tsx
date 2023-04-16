@@ -2,7 +2,9 @@ import React from 'react';
 import searchSvg from '../../styles/images/icons/search.svg';
 import noticeSvg from '../../styles/images/icons/notice.svg';
 import styled from 'styled-components';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 const Header = styled.header`
   background-color: ${({ theme }) => theme.colors.gray3};
@@ -57,25 +59,44 @@ const HeaderNavList = styled.li`
   color: ${({ theme }) => theme.colors.gray7};
 `;
 
+const HeaderLogIn = styled.button`
+  height: 22px;
+  line-height: 22px;
+  padding: 0 10px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid ${({ theme }) => theme.colors.gray9};
+  border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
+`;
+
 function Layout() {
+  const navigation = useNavigate();
+  const onClickLogIn = () => {
+    navigation('/signin');
+  };
+  const { accessToken } = useSelector((state: RootState) => state.auth);
   return (
     <>
       <Header>
         <InnerContainer>
           <HeaderTop>
             <HeaderLogo>LOGO</HeaderLogo>
-            <HeaderUtil>
-              <li>
-                <button type="button">
-                  <img src={searchSvg} alt="검색" />
-                </button>
-              </li>
-              <li>
-                <button type="button">
-                  <img src={noticeSvg} alt="알림" />
-                </button>
-              </li>
-            </HeaderUtil>
+            {accessToken ? (
+              <HeaderUtil>
+                <li>
+                  <button type="button">
+                    <img src={searchSvg} alt="검색" />
+                  </button>
+                </li>
+                <li>
+                  <button type="button">
+                    <img src={noticeSvg} alt="알림" />
+                  </button>
+                </li>
+              </HeaderUtil>
+            ) : (
+              <HeaderLogIn onClick={onClickLogIn}>로그인</HeaderLogIn>
+            )}
           </HeaderTop>
 
           <HeaderNav>
