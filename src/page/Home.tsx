@@ -7,6 +7,7 @@ import TodayCard from 'components/Home/TodayCard';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import LookSlideCard from 'components/Home/LookSlideCard';
+import { NavLink } from 'react-router-dom';
 
 const Card = styled.section`
   margin-top: 4px;
@@ -35,13 +36,18 @@ const LookTabLists = styled.ul`
   margin: 0 20px;
 `;
 
-const LookTabList = styled.li`
+const LookTabList = styled(NavLink)`
   font-size: 14px;
   font-weight: 700;
   flex-shrink: 0;
 
-  & + li {
+  & + a {
     margin-left: 37px;
+  }
+
+  &.active {
+    color: ${({ theme }) => theme.colors.main};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
   }
 `;
 
@@ -80,10 +86,10 @@ function Home() {
 
         <LookTab>
           <LookTabLists>
-            <LookTabList>베스트룩 👍</LookTabList>
-            <LookTabList>기온별 추천룩 🌤</LookTabList>
-            <LookTabList>TPO 추천룩 👔</LookTabList>
-            <LookTabList>활동성 추천룩 🏄</LookTabList>
+            <LookTabList to={'/'}>베스트룩 👍</LookTabList>
+            <LookTabList to={'/temperatures'}>기온별 추천룩 🌤</LookTabList>
+            <LookTabList to={'/tpo'}>TPO 추천룩 👔</LookTabList>
+            <LookTabList to={'/activity'}>활동성 추천룩 🏄</LookTabList>
           </LookTabLists>
         </LookTab>
 
