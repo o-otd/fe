@@ -24,7 +24,7 @@ const Look = styled.section`
 
 const LookTab = styled.div`
   overflow-x: scroll;
-
+  margin: 14px 0;
   &::-webkit-scrollbar {
     display: none;
   }
