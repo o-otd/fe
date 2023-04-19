@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import { ReactComponent as SuggestionColorSvg } from '../styles/images/icons/suggestion-color.svg';
+import { ReactComponent as SuggestionLinkSvg } from '../styles/images/icons/suggestion-link-btn.svg';
+import { Link } from 'react-router-dom';
 
 const LookTab = styled.div`
   overflow-x: scroll;
@@ -66,6 +68,69 @@ const SuggestionSwiper = styled(SwiperSlide)`
   font-weight: 600;
 `;
 
+const Looks = styled.section`
+  & h2 {
+    font-size: 34px;
+    color: ${({ theme }) => theme.colors.white};
+    font-weight: 300;
+    margin: 32px 0;
+    margin-left: 16px;
+
+    & strong {
+      font-weight: 700;
+    }
+  }
+`;
+
+const LooksLists = styled.ul`
+  display: grid;
+  grid-template-columns: 185px 185px;
+  grid-gap: 4px 4px;
+`;
+
+const LooksList = styled.li`
+  width: 185px;
+  height: 276px;
+  border-radius: ${({ theme }) => theme.borderRadius.borderRadius30};
+  background-color: ${({ theme }) => theme.colors.gray5};
+  overflow: hidden;
+  &:hover {
+    & > div {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+`;
+
+const LooksListText = styled.div`
+  text-decoration: underline;
+  font-size: 27px;
+  font-weight: 800;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 33px;
+`;
+
+const LooksListLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+
+  & svg {
+    border-bottom: 2px solid ${({ theme }) => theme.colors.gray1};
+  }
+`;
+
+const LookListHover = styled.div`
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  background-color: ${({ theme }) => theme.colors.main};
+  color: ${({ theme }) => theme.colors.gray1};
+  width: 100%;
+  height: 100%;
+`;
+
 function Activity() {
   return (
     <main>
@@ -101,6 +166,45 @@ function Activity() {
           </ul>
         </SuggestionLnb>
       </section>
+
+      <Looks>
+        <h2>
+          <strong>LOOK</strong>’S
+        </h2>
+        <LooksLists>
+          <LooksList>
+            <LookListHover>
+              <LooksListText>
+                2022
+                <br />
+                자켓룩
+                <br />
+                너무 좋아
+                <br />
+                아주 좋아
+              </LooksListText>
+              <LooksListLink to={'/'}>
+                <SuggestionLinkSvg />
+              </LooksListLink>
+            </LookListHover>
+          </LooksList>
+          <LooksList>
+            <div></div>
+          </LooksList>
+          <LooksList>
+            <div></div>
+          </LooksList>
+          <LooksList>
+            <div></div>
+          </LooksList>
+          <LooksList>
+            <div></div>
+          </LooksList>
+          <LooksList>
+            <div></div>
+          </LooksList>
+        </LooksLists>
+      </Looks>
     </main>
   );
 }
