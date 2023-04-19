@@ -1,4 +1,5 @@
 import Layout from 'components/Common/Layout';
+import Activity from 'page/Activity';
 import Home from 'page/Home';
 import Member from 'page/Member';
 import Profile from 'page/Profile';
@@ -9,6 +10,8 @@ import ResetPasswordForm from 'page/ResetPasswordForm';
 import Search from 'page/Search';
 import SignIn from 'page/SignIn';
 import SignUp from 'page/SignUp';
+import Temperatures from 'page/Temperatures';
+import Tpo from 'page/Tpo';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function Router() {
@@ -26,6 +29,9 @@ function Router() {
           <Route path="/signin/email" element={<ResetEmailForm />} />
           <Route path="/search" element={<Search />} />
           <Route path="/" element={<Home />} />
+          <Route path="/activity" element={<Activity />} />
+          <Route path="/tpo" element={<Tpo />} />
+          <Route path="/temperatures" element={<Temperatures />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
