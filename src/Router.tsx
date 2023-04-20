@@ -30,6 +30,11 @@ function Router() {
           <Route path="/search" element={<Search />} />
           <Route path="/" element={<Home />} />
           <Route path="/activity" element={<Activity />} />
+          <Route path="/activity/:type" element={<Activity />} />
+          {/* <Route path="/activity/vacation" element={<Activity />} />
+          <Route path="/activity/leisure" element={<Activity />} />
+          <Route path="/activity/golf" element={<Activity />} />
+          <Route path="/activity/climbing" element={<Activity />} /> */}
           <Route path="/tpo" element={<Tpo />} />
           <Route path="/temperatures" element={<Temperatures />} />
           <Route path="/profile" element={<Profile />} />
