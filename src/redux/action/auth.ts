@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Api from 'api/Api';
+import Cookie from 'js-cookie';
 import {
   IAuthJoinByEmailData,
   IAuthJoinByEmailResponse,
@@ -41,6 +42,7 @@ export const authLoginByEmail = createAsyncThunk<
     );
 
     if (response.data.ok) {
+      Cookie.set('accessToken', response.data.data.token);
       return response.data;
     } else {
       return thunkApi.rejectWithValue(response.data.error);
