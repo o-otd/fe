@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import TodayCardModal from 'components/Home/TodayCardModal';
 import TodayCard from 'components/Home/TodayCard';
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import LookSlideCard from 'components/Home/LookSlideCard';

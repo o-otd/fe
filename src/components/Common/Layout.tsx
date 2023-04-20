@@ -3,8 +3,7 @@ import searchSvg from '../../styles/images/icons/search.svg';
 import noticeSvg from '../../styles/images/icons/notice.svg';
 import styled from 'styled-components';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from 'redux/store';
+import Cookie from 'js-cookie';
 
 const Header = styled.header`
   background-color: ${({ theme }) => theme.colors.gray3};
@@ -74,7 +73,7 @@ function Layout() {
   const onClickLogIn = () => {
     navigation('/signin');
   };
-  const { accessToken } = useSelector((state: RootState) => state.auth);
+  const accessToken = Cookie.get('accessToken');
   return (
     <>
       <Header>

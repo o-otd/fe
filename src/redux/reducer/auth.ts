@@ -8,8 +8,6 @@ export interface IAuthState {
   authLoginByEmailLoading: boolean;
   authLoginByEmailDone: boolean;
   authLoginByEmailError: string | null;
-  accessToken: string | null;
-  accessTokenExpiration: number;
 }
 
 const initialState: IAuthState = {
@@ -19,8 +17,6 @@ const initialState: IAuthState = {
   authLoginByEmailLoading: false,
   authLoginByEmailDone: false,
   authLoginByEmailError: null,
-  accessToken: null,
-  accessTokenExpiration: 0,
 };
 
 const authSlice = createSlice({
@@ -53,8 +49,6 @@ const authSlice = createSlice({
         state.authLoginByEmailLoading = false;
         state.authLoginByEmailDone = true;
         state.authLoginByEmailError = null;
-        state.accessToken = action.payload.data.token;
-        state.accessTokenExpiration = action.payload.data.expiration;
       })
       .addCase(authLoginByEmail.rejected, (state, action) => {
         state.authLoginByEmailLoading = false;
