@@ -10,6 +10,7 @@ import { RootState, useAppDispatch } from 'redux/store';
 import { authLoginByEmail } from 'redux/action/auth';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -215,14 +216,15 @@ function Member() {
           <LogInButton>
             <button>로그인</button>
           </LogInButton>
+
           <RegisterButton>
-            <a href="/signup">회원가입</a>
+            <Link to={'/signup'}>회원가입</Link>
           </RegisterButton>
         </AuthUtill>
       </AuthForm>
 
       <AuthFind>
-        <a href="#">비밀번호 재설정</a>
+        <Link to={'/reset'}>비밀번호 재설정</Link>
       </AuthFind>
     </Auth>
   );

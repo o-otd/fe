@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { IAuthSelectButtonProps } from 'types/Auth';
 
@@ -31,10 +32,10 @@ const AuthSocialList = styled.li`
 function AuthSelectButton({ text, href, icon }: IAuthSelectButtonProps) {
   return (
     <AuthSocialList>
-      <a href={href}>
+      <Link to={href}>
         {icon}
         {text}
-      </a>
+      </Link>
     </AuthSocialList>
   );
 }
