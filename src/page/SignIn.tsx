@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { ReactComponent as EmailIconSvg } from '../styles/images/icons/email-icon.svg';
 import { ReactComponent as GoogleIconSvg } from '../styles/images/icons/google-icon.svg';
 import AuthSelectButton from 'components/SignIn/AuthSelectButton';
+import { Link } from 'react-router-dom';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -77,7 +78,7 @@ function SignIn() {
         />
       </AuthSocialLists>
       <AuthFind>
-        <a href="/reset">비밀번호 재설정</a>
+        <Link to={'/reset'}>비밀번호 재설정</Link>
       </AuthFind>
 
       <AuthInfo>
