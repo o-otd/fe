@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import searchSvg from '../../styles/images/icons/search.svg';
 import noticeSvg from '../../styles/images/icons/notice.svg';
 import styled from 'styled-components';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Cookie from 'js-cookie';
+import { Link } from 'react-router-dom';
 
 const Header = styled.header`
   background-color: ${({ theme }) => theme.colors.gray3};
@@ -54,8 +55,11 @@ const HeaderNavLists = styled.ul`
   display: flex;
   justify-content: space-between;
 `;
-const HeaderNavList = styled.li`
+const HeaderNavList = styled(Link)<{ $isActive: boolean }>`
   color: ${({ theme }) => theme.colors.gray7};
+
+  color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.white : theme.colors.gray7};
 `;
 
 const HeaderLogIn = styled.button`
@@ -74,6 +78,7 @@ function Layout() {
     navigation('/signin');
   };
   const accessToken = Cookie.get('accessToken');
+  const location = useLocation();
   return (
     <>
       <Header>
@@ -100,10 +105,35 @@ function Layout() {
 
           <HeaderNav>
             <HeaderNavLists>
-              <HeaderNavList>오늘의 옷장</HeaderNavList>
-              <HeaderNavList>일주일 옷장</HeaderNavList>
-              <HeaderNavList>컨펌</HeaderNavList>
-              <HeaderNavList>MY</HeaderNavList>
+              <HeaderNavList
+                $isActive={
+                  location.pathname === '/' ||
+                  location.pathname === '/activity' ||
+                  location.pathname === '/tpo' ||
+                  location.pathname === '/temperatures'
+                }
+                to={'/'}
+              >
+                오늘의 옷장
+              </HeaderNavList>
+              <HeaderNavList
+                $isActive={location.pathname.includes('/weekend')}
+                to={'/weekend'}
+              >
+                일주일 옷장
+              </HeaderNavList>
+              <HeaderNavList
+                $isActive={location.pathname.includes('/confirm')}
+                to={'/confirm'}
+              >
+                컨펌
+              </HeaderNavList>
+              <HeaderNavList
+                $isActive={location.pathname.includes('/profile')}
+                to={'/profile'}
+              >
+                MY
+              </HeaderNavList>
             </HeaderNavLists>
           </HeaderNav>
         </InnerContainer>

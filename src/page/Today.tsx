@@ -60,7 +60,7 @@ const LookListSwiper = styled.div`
   margin-top: 16px;
 `;
 
-function Home() {
+function Today() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -106,4 +106,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Today;

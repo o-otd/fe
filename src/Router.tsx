@@ -1,6 +1,5 @@
 import Layout from 'components/Common/Layout';
 import Activity from 'page/Activity';
-import Home from 'page/Home';
 import Member from 'page/Member';
 import Profile from 'page/Profile';
 import Register from 'page/Register';
@@ -13,6 +12,9 @@ import SignUp from 'page/SignUp';
 import Temperatures from 'page/Temperatures';
 import Tpo from 'page/Tpo';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Today from 'page/Today';
+import Weekend from 'page/Weekend';
+import Confirm from 'page/Confirm';
 
 function Router() {
   return (
@@ -28,11 +30,13 @@ function Router() {
         <Route element={<Layout />}>
           <Route path="/signin/email" element={<ResetEmailForm />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Today />} />
           <Route path="/activity" element={<Activity />} />
-          <Route path="/activity/:type" element={<Activity />} />
           <Route path="/tpo" element={<Tpo />} />
           <Route path="/temperatures" element={<Temperatures />} />
+
+          <Route path="/weekend" element={<Weekend />} />
+          <Route path="/confirm" element={<Confirm />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
