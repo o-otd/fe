@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import { ReactComponent as SuggestionColorSvg } from '../styles/images/icons/suggestion-color.svg';
 import { ReactComponent as SuggestionLinkSvg } from '../styles/images/icons/suggestion-link-btn.svg';
 import { Link } from 'react-router-dom';
 import { activityData } from 'constant';
+import qs from 'qs';
 
 const LookTab = styled.div`
   overflow-x: scroll;
@@ -61,7 +62,7 @@ const Category = styled.div<{ selected: boolean }>`
   padding: 11px 16px;
   display: flex;
   justify-content: ${({ selected }) => (selected ? 'center' : 'flex-start')};
-  align-items: ${({ selected }) => (selected ? 'center' : 'flex-end')}; ;
+  align-items: ${({ selected }) => (selected ? 'center' : 'flex-end')};
 `;
 
 const SuggestionLnb = styled(Swiper)`
@@ -145,15 +146,21 @@ const LookListHover = styled.div`
 `;
 
 function Activity() {
-  const { type } = useParams();
-  const [activities, setActivities] = useState<string | undefined>(type);
+  const location = useLocation();
+  const { category } = qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+  });
+
+  const [activities, setActivities] = useState<string | undefined>(
+    category as string,
+  );
   const navigation = useNavigate();
   const onClickCategory = (type: string) => {
     if (activities === type) {
       navigation('/activity');
       setActivities(undefined);
     } else {
-      navigation(`/activity/${type}`);
+      navigation(`/activity?category=${type}`);
       setActivities(type);
     }
   };
@@ -182,7 +189,7 @@ function Activity() {
                 key={index}
                 onClick={() => onClickCategory(activity.type)}
               >
-                <Category selected={type === activity.type ? true : false}>
+                <Category selected={category === activity.type ? true : false}>
                   {activity.name}
                 </Category>
               </SwiperSlide>
