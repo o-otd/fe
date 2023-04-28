@@ -7,6 +7,7 @@ import { ReactComponent as SuggestionLinkSvg } from '../styles/images/icons/sugg
 import { Link } from 'react-router-dom';
 import { activityData } from 'constant';
 import qs from 'qs';
+import BottomFilter from 'components/Common/BottomFilter';
 
 const LookTab = styled.div`
   overflow-x: scroll;
@@ -166,90 +167,96 @@ function Activity() {
   };
 
   return (
-    <main>
-      <LookTab>
-        <LookTabLists>
-          <LookTabList to={'/'}>베스트룩 👍</LookTabList>
-          <LookTabList to={'/temperatures'}>기온별 추천룩 🌤</LookTabList>
-          <LookTabList to={'/tpo'}>TPO 추천룩 👔</LookTabList>
-          <LookTabList to={'/activity'}>활동성 추천룩 🏄</LookTabList>
-        </LookTabLists>
-      </LookTab>
+    <>
+      <main>
+        <LookTab>
+          <LookTabLists>
+            <LookTabList to={'/'}>베스트룩 👍</LookTabList>
+            <LookTabList to={'/temperatures'}>기온별 추천룩 🌤</LookTabList>
+            <LookTabList to={'/tpo'}>TPO 추천룩 👔</LookTabList>
+            <LookTabList to={'/activity'}>활동성 추천룩 🏄</LookTabList>
+          </LookTabLists>
+        </LookTab>
 
-      <section>
-        <SuggestionCategory
-          slideToClickedSlide={true}
-          spaceBetween={4}
-          slidesPerView={'auto'}
-          speed={700}
-        >
-          <ul>
-            {activityData.map((activity, index) => (
-              <SwiperSlide
-                key={index}
-                onClick={() => onClickCategory(activity.type)}
-              >
-                <Category selected={category === activity.type ? true : false}>
-                  {activity.name}
-                </Category>
-              </SwiperSlide>
-            ))}
-          </ul>
-        </SuggestionCategory>
+        <section>
+          <SuggestionCategory
+            slideToClickedSlide={true}
+            spaceBetween={4}
+            slidesPerView={'auto'}
+            speed={700}
+          >
+            <ul>
+              {activityData.map((activity, index) => (
+                <SwiperSlide
+                  key={index}
+                  onClick={() => onClickCategory(activity.type)}
+                >
+                  <Category
+                    selected={category === activity.type ? true : false}
+                  >
+                    {activity.name}
+                  </Category>
+                </SwiperSlide>
+              ))}
+            </ul>
+          </SuggestionCategory>
 
-        <SuggestionLnb spaceBetween={4} slidesPerView={'auto'}>
-          <ul>
-            <SuggestionSwiper>성별</SuggestionSwiper>
-            <SuggestionSwiper>스타일</SuggestionSwiper>
-            <SuggestionSwiper>연령대</SuggestionSwiper>
-            <SuggestionSwiper>
-              <SuggestionColorSvg />
-            </SuggestionSwiper>
-            <SuggestionSwiper>키</SuggestionSwiper>
-            <SuggestionSwiper>몸무게</SuggestionSwiper>
-          </ul>
-        </SuggestionLnb>
-      </section>
+          <SuggestionLnb spaceBetween={4} slidesPerView={'auto'}>
+            <ul>
+              <SuggestionSwiper>성별</SuggestionSwiper>
+              <SuggestionSwiper>스타일</SuggestionSwiper>
+              <SuggestionSwiper>연령대</SuggestionSwiper>
+              <SuggestionSwiper>
+                <SuggestionColorSvg />
+              </SuggestionSwiper>
+              <SuggestionSwiper>키</SuggestionSwiper>
+              <SuggestionSwiper>몸무게</SuggestionSwiper>
+            </ul>
+          </SuggestionLnb>
+        </section>
 
-      <Looks>
-        <h2>
-          <strong>LOOK</strong>’S
-        </h2>
-        <LooksLists>
-          <LooksList>
-            <LookListHover>
-              <LooksListText>
-                2022
-                <br />
-                자켓룩
-                <br />
-                너무 좋아
-                <br />
-                아주 좋아
-              </LooksListText>
-              <LooksListLink to={'/'}>
-                <SuggestionLinkSvg />
-              </LooksListLink>
-            </LookListHover>
-          </LooksList>
-          <LooksList>
-            <div></div>
-          </LooksList>
-          <LooksList>
-            <div></div>
-          </LooksList>
-          <LooksList>
-            <div></div>
-          </LooksList>
-          <LooksList>
-            <div></div>
-          </LooksList>
-          <LooksList>
-            <div></div>
-          </LooksList>
-        </LooksLists>
-      </Looks>
-    </main>
+        <Looks>
+          <h2>
+            <strong>LOOK</strong>’S
+          </h2>
+          <LooksLists>
+            <LooksList>
+              <LookListHover>
+                <LooksListText>
+                  2022
+                  <br />
+                  자켓룩
+                  <br />
+                  너무 좋아
+                  <br />
+                  아주 좋아
+                </LooksListText>
+                <LooksListLink to={'/'}>
+                  <SuggestionLinkSvg />
+                </LooksListLink>
+              </LookListHover>
+            </LooksList>
+            <LooksList>
+              <div></div>
+            </LooksList>
+            <LooksList>
+              <div></div>
+            </LooksList>
+            <LooksList>
+              <div></div>
+            </LooksList>
+            <LooksList>
+              <div></div>
+            </LooksList>
+            <LooksList>
+              <div></div>
+            </LooksList>
+          </LooksLists>
+        </Looks>
+      </main>
+
+      <BottomFilter />
+    </>
   );
 }
 
