@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import GenderFilter from './GenderFilter';
 
 const BottomSheet = styled.div`
   position: fixed;
@@ -95,20 +96,22 @@ function BottomFilter() {
             <li>키</li>
             <li>몸무게</li>
           </BottomSheetCategorys>
-          <form>
-            <div></div>
-            <BottomSheetBtns>
-              <ul>
-                <li>
-                  <BottomSheetReset>성별 재설정</BottomSheetReset>
-                </li>
-                <li>
-                  <BottomSheetSubmit>옷장 구경하기</BottomSheetSubmit>
-                </li>
-              </ul>
-            </BottomSheetBtns>
-          </form>
         </BottomSheetCategory>
+        <form>
+          <div>
+            <GenderFilter />
+          </div>
+          <BottomSheetBtns>
+            <ul>
+              <li>
+                <BottomSheetReset>성별 재설정</BottomSheetReset>
+              </li>
+              <li>
+                <BottomSheetSubmit>옷장 구경하기</BottomSheetSubmit>
+              </li>
+            </ul>
+          </BottomSheetBtns>
+        </form>
       </BottomSheetMain>
     </BottomSheet>
   );
