@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import checkSVG from '../../styles/images/icons/check.svg';
+import checkSVG from '../../../styles/images/icons/check.svg';
 
 const BottomSheetGender = styled.div`
   padding: 0 16px;

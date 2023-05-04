@@ -7,7 +7,7 @@ import { ReactComponent as SuggestionLinkSvg } from '../styles/images/icons/sugg
 import { Link } from 'react-router-dom';
 import { activityData } from 'constant';
 import qs from 'qs';
-import BottomFilter from 'components/Common/BottomFilter';
+import BottomFilter from 'components/Common/Filter/BottomFilter';
 
 const LookTab = styled.div`
   overflow-x: scroll;

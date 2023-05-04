@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import StyleFilter from './StyleFilter';
 import GenderFilter from './GenderFilter';
 
 const BottomSheet = styled.div`
@@ -99,7 +100,8 @@ function BottomFilter() {
         </BottomSheetCategory>
         <form>
           <div>
-            <GenderFilter />
+            {/* <GenderFilter /> */}
+            <StyleFilter />
           </div>
           <BottomSheetBtns>
             <ul>
