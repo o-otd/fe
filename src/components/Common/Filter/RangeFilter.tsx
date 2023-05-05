@@ -3,21 +3,21 @@ import { usePercentage } from 'hooks/usePercentage';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const BottomSheetHeight = styled.div``;
+const BottomSheetRange = styled.div``;
 
-const HeightInfo = styled.div`
+const RangeInfo = styled.div`
   position: relative;
   padding: 0 34px;
 `;
 
-const HeightText = styled.div`
+const RangeText = styled.div`
   margin-top: 16px;
   font-size: 25px;
   font-weight: 900;
   color: ${({ theme }) => theme.colors.gray9};
 `;
 
-const HeightInput = styled.div`
+const RangeInput = styled.div`
   margin-top: 15px;
   position: relative;
   pointer-events: none;
@@ -115,9 +115,17 @@ const RangeControlsRight = styled.div<{ $right: any }>`
   right: ${({ $right }) => `${$right}%`};
 `;
 
-function HeightFilter() {
-  const [leftValue, setLeftValue] = useState<number>(148);
-  const [rightValue, setRightValue] = useState<number>(190);
+interface IRangeFilterProps {
+  filterType: 'height' | 'weight';
+}
+
+function RangeFilter({ filterType }: IRangeFilterProps) {
+  const [leftValue, setLeftValue] = useState<number>(
+    filterType === 'height' ? 148 : 38,
+  );
+  const [rightValue, setRightValue] = useState<number>(
+    filterType === 'height' ? 190 : 100,
+  );
 
   const updateLeftValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = +e.target.value;
@@ -140,28 +148,30 @@ function HeightFilter() {
   const [leftPercentage, rightPercentage] = usePercentage(
     leftValue,
     rightValue,
-    148,
-    190,
+    filterType === 'height' ? 148 : 38,
+    filterType === 'height' ? 190 : 100,
   );
 
   return (
-    <BottomSheetHeight>
-      <HeightInfo>
-        <HeightText>{`${leftValue}cm ~ ${rightValue}cm`}</HeightText>
-        <HeightInput>
+    <BottomSheetRange>
+      <RangeInfo>
+        <RangeText>{`${leftValue}${
+          filterType === 'height' ? 'cm' : 'kg'
+        } ~ ${rightValue}${filterType === 'height' ? 'cm' : 'kg'}`}</RangeText>
+        <RangeInput>
           <input
             type="range"
             id="input-left"
-            min="148"
-            max="190"
+            min={filterType === 'height' ? 148 : 38}
+            max={filterType === 'height' ? 190 : 100}
             value={leftValue}
             onChange={updateLeftValue}
           />
           <input
             type="range"
             id="input-right"
-            min="148"
-            max="190"
+            min={filterType === 'height' ? 148 : 38}
+            max={filterType === 'height' ? 190 : 100}
             value={rightValue}
             onChange={updateRightValue}
           />
@@ -175,10 +185,10 @@ function HeightFilter() {
               $right={100 - rightPercentage}
             ></RangeControlsRight>
           </RangeControls>
-        </HeightInput>
-      </HeightInfo>
-    </BottomSheetHeight>
+        </RangeInput>
+      </RangeInfo>
+    </BottomSheetRange>
   );
 }
 
-export default HeightFilter;
+export default RangeFilter;
