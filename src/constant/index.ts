@@ -32,3 +32,21 @@ export const styleCategory = [
   { name: '아메리칸 캐주얼', id: 9 },
   { name: '포멀', id: 10 },
 ];
+
+export const colorCategory = [
+  { name: 'black', id: 0 },
+  { name: 'gray', id: 1 },
+  { name: 'white', id: 2 },
+  { name: 'gold', id: 3 },
+  { name: 'silver', id: 4 },
+  { name: 'red', id: 5 },
+  { name: 'blue', id: 6 },
+  { name: 'green', id: 7 },
+  { name: 'navy', id: 8 },
+  { name: 'brown', id: 9 },
+  { name: 'beige', id: 10 },
+  { name: 'yellow', id: 11 },
+  { name: 'orange', id: 12 },
+  { name: 'pink', id: 13 },
+  { name: 'purple', id: 14 },
+];
