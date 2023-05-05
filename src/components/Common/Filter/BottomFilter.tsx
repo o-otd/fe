@@ -4,6 +4,7 @@ import StyleFilter from './StyleFilter';
 import GenderFilter from './GenderFilter';
 import AgeFilter from './AgeFilter';
 import ColorFilter from './ColorFilter';
+import HeightFilter from './HeightFilter';
 
 const BottomSheet = styled.div`
   position: fixed;
@@ -105,7 +106,8 @@ function BottomFilter() {
             {/* <GenderFilter /> */}
             {/* <StyleFilter /> */}
             {/* <AgeFilter /> */}
-            <ColorFilter />
+            {/* <ColorFilter /> */}
+            <HeightFilter />
           </div>
           <BottomSheetBtns>
             <ul>

@@ -50,3 +50,5 @@ export const colorCategory = [
   { name: 'pink', id: 13 },
   { name: 'purple', id: 14 },
 ];
+
+export const RANGE_GAP = 10;
