@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import StyleFilter from './StyleFilter';
 import GenderFilter from './GenderFilter';
+import AgeFilter from './AgeFilter';
 
 const BottomSheet = styled.div`
   position: fixed;
@@ -101,7 +102,8 @@ function BottomFilter() {
         <form>
           <div>
             {/* <GenderFilter /> */}
-            <StyleFilter />
+            {/* <StyleFilter /> */}
+            <AgeFilter />
           </div>
           <BottomSheetBtns>
             <ul>

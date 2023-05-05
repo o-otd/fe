@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import checkSVG from '../../../styles/images/icons/check.svg';
 
-const BottomSheetGender = styled.div`
+const BottomSheetAge = styled.div`
   padding: 0 16px;
 `;
 
-const GenderInput = styled.div`
+const AgeInput = styled.div`
   display: flex;
   align-items: center;
   height: 48px;
@@ -47,19 +47,23 @@ const GenderInput = styled.div`
   }
 `;
 
-function GenderFilter() {
+function AgeFilter() {
   return (
-    <BottomSheetGender>
-      <GenderInput>
-        <input type="radio" name="gender" value="남성" id="male" />
-        <label htmlFor="male">남성</label>
-      </GenderInput>
-      <GenderInput>
-        <input type="radio" name="gender" value="여성" id="female" />
-        <label htmlFor="female">여성</label>
-      </GenderInput>
-    </BottomSheetGender>
+    <BottomSheetAge>
+      <AgeInput>
+        <input type="radio" name="age" value="10대" id="teenager" />
+        <label htmlFor="teenager">10대</label>
+      </AgeInput>
+      <AgeInput>
+        <input type="radio" name="age" value="20대" id="twenties" />
+        <label htmlFor="twenties">20대</label>
+      </AgeInput>
+      <AgeInput>
+        <input type="radio" name="age" value="30대" id="thirties" />
+        <label htmlFor="thirties">30대</label>
+      </AgeInput>
+    </BottomSheetAge>
   );
 }
 
-export default GenderFilter;
+export default AgeFilter;
