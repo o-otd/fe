@@ -1,7 +1,8 @@
 import { RANGE_GAP } from 'constant';
 import { usePercentage } from 'hooks/usePercentage';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { IRangeFilterProps } from 'types/Common';
 
 const BottomSheetRange = styled.div``;
 
@@ -115,10 +116,6 @@ const RangeControlsRight = styled.div<{ $right: any }>`
   right: ${({ $right }) => `${$right}%`};
 `;
 
-interface IRangeFilterProps {
-  filterType: 'height' | 'weight';
-}
-
 function RangeFilter({ filterType }: IRangeFilterProps) {
   const [leftValue, setLeftValue] = useState<number>(
     filterType === 'height' ? 148 : 38,
@@ -151,6 +148,11 @@ function RangeFilter({ filterType }: IRangeFilterProps) {
     filterType === 'height' ? 148 : 38,
     filterType === 'height' ? 190 : 100,
   );
+
+  useEffect(() => {
+    setLeftValue(filterType === 'height' ? 148 : 38);
+    setRightValue(filterType === 'height' ? 190 : 100);
+  }, [filterType]);
 
   return (
     <BottomSheetRange>

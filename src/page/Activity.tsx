@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SwiperSlide, Swiper } from 'swiper/react';
-import { ReactComponent as SuggestionColorSvg } from '../styles/images/icons/suggestion-color.svg';
 import { ReactComponent as SuggestionLinkSvg } from '../styles/images/icons/suggestion-link-btn.svg';
 import { Link } from 'react-router-dom';
 import { activityData } from 'constant';
 import qs from 'qs';
 import BottomFilter from 'components/Common/Filter/BottomFilter';
+import Filters from 'components/Common/Filter/Filters';
 
 const LookTab = styled.div`
   overflow-x: scroll;
@@ -64,23 +64,6 @@ const Category = styled.div<{ selected: boolean }>`
   display: flex;
   justify-content: ${({ selected }) => (selected ? 'center' : 'flex-start')};
   align-items: ${({ selected }) => (selected ? 'center' : 'flex-end')};
-`;
-
-const SuggestionLnb = styled(Swiper)`
-  margin-top: 4px;
-`;
-
-const SuggestionSwiper = styled(SwiperSlide)`
-  width: auto;
-  height: 38px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 18px;
-  background-color: ${({ theme }) => theme.colors.gray4};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
-  font-size: 14px;
-  font-weight: 600;
 `;
 
 const Looks = styled.section`
@@ -148,6 +131,7 @@ const LookListHover = styled.div`
 
 function Activity() {
   const location = useLocation();
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const { category } = qs.parse(location.search, {
     ignoreQueryPrefix: true,
   });
@@ -201,18 +185,7 @@ function Activity() {
             </ul>
           </SuggestionCategory>
 
-          <SuggestionLnb spaceBetween={4} slidesPerView={'auto'}>
-            <ul>
-              <SuggestionSwiper>성별</SuggestionSwiper>
-              <SuggestionSwiper>스타일</SuggestionSwiper>
-              <SuggestionSwiper>연령대</SuggestionSwiper>
-              <SuggestionSwiper>
-                <SuggestionColorSvg />
-              </SuggestionSwiper>
-              <SuggestionSwiper>키</SuggestionSwiper>
-              <SuggestionSwiper>몸무게</SuggestionSwiper>
-            </ul>
-          </SuggestionLnb>
+          <Filters setIsFilterOpen={setIsFilterOpen} />
         </section>
 
         <Looks>
@@ -255,7 +228,7 @@ function Activity() {
         </Looks>
       </main>
 
-      <BottomFilter />
+      {isFilterOpen && <BottomFilter setIsFilterOpen={setIsFilterOpen} />}
     </>
   );
 }

@@ -51,4 +51,13 @@ export const colorCategory = [
   { name: 'purple', id: 14 },
 ];
 
+export const bottomSheetTabs = [
+  { name: '성별', id: 0 },
+  { name: '스타일', id: 1 },
+  { name: '연령대', id: 2 },
+  { name: '컬러', id: 3 },
+  { name: '키', id: 4 },
+  { name: '몸무게', id: 5 },
+];
+
 export const RANGE_GAP = 10;

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import StyleFilter from './StyleFilter';
 import GenderFilter from './GenderFilter';
 import AgeFilter from './AgeFilter';
 import ColorFilter from './ColorFilter';
 import RangeFilter from './RangeFilter';
+import { bottomSheetTabs } from 'constant';
+import { IBottomFilterProps } from 'types/Common';
 
 const BottomSheet = styled.div`
   position: fixed;
@@ -12,7 +14,7 @@ const BottomSheet = styled.div`
   height: 100vh;
   left: 0;
   bottom: 0;
-  z-index: 1000;
+  z-index: 100;
   background: rgba(12, 10, 10, 0.75);
 `;
 
@@ -23,6 +25,7 @@ const BottomSheetMain = styled.div`
   background-color: ${({ theme }) => theme.colors.gray2};
   width: 100%;
   height: 397px;
+  z-index: 200;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
 `;
@@ -34,12 +37,28 @@ const BottomSheetCategory = styled.div`
 const BottomSheetCategorys = styled.ul`
   display: flex;
   justify-content: space-between;
+`;
 
-  & li {
-    font-size: 17px;
-    font-weight: 600;
-    color: ${({ theme }) => theme.colors.gray6};
-  }
+const TabCategory = styled.li<{ $active: boolean }>`
+  font-size: 17px;
+  font-weight: 600;
+  color: ${({ theme, $active }) =>
+    $active ? theme.colors.white : theme.colors.gray6};
+  position: ${({ $active }) => ($active ? 'relative' : 'none')};
+  cursor: pointer;
+
+  ${({ $active, theme }) =>
+    $active &&
+    `&:after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: 4px;
+      height: 4px;
+      background-color: ${theme.colors.main};
+      border-radius: ${theme.borderRadius.borderRadius50};
+      }`};
 `;
 
 const BottomSheetBtns = styled.div`
@@ -87,33 +106,53 @@ const BottomSheetSubmit = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
 `;
 
-function BottomFilter() {
+function BottomFilter({ setIsFilterOpen }: IBottomFilterProps) {
+  const [activeTab, setActiveTab] = useState(0);
+  const onClickTab = (e: React.MouseEvent<HTMLLIElement>, tabId: number) => {
+    setActiveTab(tabId);
+  };
+
+  const tabItems = [
+    { name: '성별', id: 0, content: <GenderFilter /> },
+    { name: '스타일', id: 1, content: <StyleFilter /> },
+    { name: '연령대', id: 2, content: <AgeFilter /> },
+    { name: '컬러', id: 3, content: <ColorFilter /> },
+    { name: '키', id: 4, content: <RangeFilter filterType="height" /> },
+    { name: '몸무게', id: 5, content: <RangeFilter filterType="weight" /> },
+  ];
+
+  const onClickCloseFilter = () => {
+    setIsFilterOpen(false);
+  };
+
+  const onClickBottomSheetMain = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   return (
-    <BottomSheet>
-      <BottomSheetMain>
+    <BottomSheet onClick={onClickCloseFilter}>
+      <BottomSheetMain onClick={onClickBottomSheetMain}>
         <BottomSheetCategory>
           <BottomSheetCategorys>
-            <li>성별</li>
-            <li>스타일</li>
-            <li>연령대</li>
-            <li>컬러</li>
-            <li>키</li>
-            <li>몸무게</li>
+            {bottomSheetTabs.map((tab) => (
+              <TabCategory
+                $active={tab.id === activeTab}
+                key={tab.id}
+                onClick={(e) => onClickTab(e, tab.id)}
+              >
+                {tab.name}
+              </TabCategory>
+            ))}
           </BottomSheetCategorys>
         </BottomSheetCategory>
         <form>
-          <div>
-            {/* <GenderFilter /> */}
-            {/* <StyleFilter /> */}
-            {/* <AgeFilter /> */}
-            {/* <ColorFilter /> */}
-            <RangeFilter filterType="height" />
-            {/* <RangeFilter filterType="weight" /> */}
-          </div>
+          <div>{tabItems[activeTab].content}</div>
           <BottomSheetBtns>
             <ul>
               <li>
-                <BottomSheetReset>성별 재설정</BottomSheetReset>
+                <BottomSheetReset>
+                  {tabItems[activeTab].name} 재설정
+                </BottomSheetReset>
               </li>
               <li>
                 <BottomSheetSubmit>옷장 구경하기</BottomSheetSubmit>
