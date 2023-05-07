@@ -1,6 +1,6 @@
 import { RANGE_GAP } from 'constant';
 import { usePercentage } from 'hooks/usePercentage';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const BottomSheetRange = styled.div``;
@@ -151,6 +151,11 @@ function RangeFilter({ filterType }: IRangeFilterProps) {
     filterType === 'height' ? 148 : 38,
     filterType === 'height' ? 190 : 100,
   );
+
+  useEffect(() => {
+    setLeftValue(filterType === 'height' ? 148 : 38);
+    setRightValue(filterType === 'height' ? 190 : 100);
+  }, [filterType]);
 
   return (
     <BottomSheetRange>
