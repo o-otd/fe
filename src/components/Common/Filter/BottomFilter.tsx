@@ -6,6 +6,7 @@ import AgeFilter from './AgeFilter';
 import ColorFilter from './ColorFilter';
 import RangeFilter from './RangeFilter';
 import { bottomSheetTabs } from 'constant';
+import { IBottomFilterProps } from 'types/Common';
 
 const BottomSheet = styled.div`
   position: fixed;
@@ -13,7 +14,7 @@ const BottomSheet = styled.div`
   height: 100vh;
   left: 0;
   bottom: 0;
-  z-index: 1000;
+  z-index: 100;
   background: rgba(12, 10, 10, 0.75);
 `;
 
@@ -24,6 +25,7 @@ const BottomSheetMain = styled.div`
   background-color: ${({ theme }) => theme.colors.gray2};
   width: 100%;
   height: 397px;
+  z-index: 200;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
 `;
@@ -43,6 +45,7 @@ const TabCategory = styled.li<{ $active: boolean }>`
   color: ${({ theme, $active }) =>
     $active ? theme.colors.white : theme.colors.gray6};
   position: ${({ $active }) => ($active ? 'relative' : 'none')};
+  cursor: pointer;
 
   ${({ $active, theme }) =>
     $active &&
@@ -103,7 +106,7 @@ const BottomSheetSubmit = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
 `;
 
-function BottomFilter() {
+function BottomFilter({ setIsFilterOpen }: IBottomFilterProps) {
   const [activeTab, setActiveTab] = useState(0);
   const onClickTab = (e: React.MouseEvent<HTMLLIElement>, tabId: number) => {
     setActiveTab(tabId);
@@ -118,9 +121,17 @@ function BottomFilter() {
     { name: '몸무게', id: 5, content: <RangeFilter filterType="weight" /> },
   ];
 
+  const onClickCloseFilter = () => {
+    setIsFilterOpen(false);
+  };
+
+  const onClickBottomSheetMain = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   return (
-    <BottomSheet>
-      <BottomSheetMain>
+    <BottomSheet onClick={onClickCloseFilter}>
+      <BottomSheetMain onClick={onClickBottomSheetMain}>
         <BottomSheetCategory>
           <BottomSheetCategorys>
             {bottomSheetTabs.map((tab) => (
