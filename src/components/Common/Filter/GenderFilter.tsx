@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import checkSVG from '../../../styles/images/icons/check.svg';
+import { IGenderFilterProps } from 'types/Common';
+import { RootState, useAppDispatch } from 'redux/store';
+import { setCurrentFilter, syncCurrentFilter } from 'redux/reducer/filter';
+import { useSelector } from 'react-redux';
 
 const BottomSheetGender = styled.div`
   padding: 0 16px;
@@ -13,6 +17,7 @@ const GenderInput = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray4};
 
   & input {
+    cursor: pointer;
     position: relative;
     appearance: none;
     -webkit-appearance: none;
@@ -41,21 +46,60 @@ const GenderInput = styled.div`
   }
 
   & label {
+    cursor: pointer;
     font-size: 15px;
     font-weight: 600;
     margin-left: 8px;
   }
 `;
 
-function GenderFilter() {
+function GenderFilter({ filterIndex }: IGenderFilterProps) {
+  const dispatch = useAppDispatch();
+  const { currentFilter, filter } = useSelector(
+    (state: RootState) => state.filter,
+  );
+  const onChangeGenderFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      setCurrentFilter({
+        filterIndex: filterIndex,
+        filterValue: e.target.value,
+      }),
+    );
+  };
+
+  useEffect(() => {
+    if (filter[filterIndex].length > 0) {
+      dispatch(
+        syncCurrentFilter({
+          filterIndex: filterIndex,
+          filters: filter[filterIndex],
+        }),
+      );
+    }
+  }, [filter[filterIndex]]);
+
   return (
     <BottomSheetGender>
       <GenderInput>
-        <input type="radio" name="gender" value="남성" id="male" />
+        <input
+          onChange={onChangeGenderFilter}
+          type="checkbox"
+          name="gender"
+          value={0}
+          id="male"
+          checked={currentFilter[filterIndex].includes(0)}
+        />
         <label htmlFor="male">남성</label>
       </GenderInput>
       <GenderInput>
-        <input type="radio" name="gender" value="여성" id="female" />
+        <input
+          onChange={onChangeGenderFilter}
+          type="checkbox"
+          name="gender"
+          value={1}
+          checked={currentFilter[filterIndex].includes(1)}
+          id="female"
+        />
         <label htmlFor="female">여성</label>
       </GenderInput>
     </BottomSheetGender>

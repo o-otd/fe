@@ -60,4 +60,10 @@ export const bottomSheetTabs = [
   { name: '몸무게', id: 5 },
 ];
 
+export const ageCategory = [
+  { value: 10, id: 0 },
+  { value: 20, id: 1 },
+  { value: 30, id: 2 },
+];
+
 export const RANGE_GAP = 10;

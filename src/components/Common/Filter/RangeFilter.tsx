@@ -116,7 +116,7 @@ const RangeControlsRight = styled.div<{ $right: any }>`
   right: ${({ $right }) => `${$right}%`};
 `;
 
-function RangeFilter({ filterType }: IRangeFilterProps) {
+function RangeFilter({ filterType, filterIndex }: IRangeFilterProps) {
   const [leftValue, setLeftValue] = useState<number>(
     filterType === 'height' ? 148 : 38,
   );

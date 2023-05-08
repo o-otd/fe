@@ -4,7 +4,19 @@ export interface IContentSubmitButtonProps {
 
 export interface IGraySubmitButtonProps extends IContentSubmitButtonProps {}
 
-export interface IRangeFilterProps {
+export interface IFilterProps {
+  filterIndex: number;
+}
+
+export interface IGenderFilterProps extends IFilterProps {}
+
+export interface IStyleFilterProps extends IFilterProps {}
+
+export interface IAgeFilterProps extends IFilterProps {}
+
+export interface IColorFilterProps extends IFilterProps {}
+
+export interface IRangeFilterProps extends IFilterProps {
   filterType: 'height' | 'weight';
 }
 
