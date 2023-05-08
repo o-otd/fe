@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { setCurrentFilter, syncCurrentFilter } from 'redux/reducer/filter';
 import { RootState, useAppDispatch } from 'redux/store';
 import styled from 'styled-components';
-import { IStyleFIlterProps } from 'types/Common';
+import { IStyleFilterProps } from 'types/Common';
 
 const BottomSheetStyle = styled.div`
   & ul {
@@ -16,6 +16,7 @@ const BottomSheetStyle = styled.div`
 
 const StyleBadge = styled.li<{ $isFilterChecked: boolean }>`
   display: flex;
+  cursor: pointer;
   font-size: 14px;
   font-weight: 500;
   color: ${({ theme, $isFilterChecked }) =>
@@ -28,7 +29,7 @@ const StyleBadge = styled.li<{ $isFilterChecked: boolean }>`
   border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
 `;
 
-function StyleFilter({ filterIndex }: IStyleFIlterProps) {
+function StyleFilter({ filterIndex }: IStyleFilterProps) {
   const dispatch = useAppDispatch();
   const { currentFilter, filter } = useSelector(
     (state: RootState) => state.filter,
@@ -49,6 +50,7 @@ function StyleFilter({ filterIndex }: IStyleFIlterProps) {
       );
     }
   }, [filter[filterIndex]]);
+
   return (
     <BottomSheetStyle>
       <ul>

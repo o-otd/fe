@@ -46,9 +46,30 @@ const filterSlice = createSlice({
 
       state.currentFilter[filterIndex] = syncFilters;
     },
+
+    setCurrentColorFilter: (state, action) => {
+      const { filterIndex, filterValue } = action.payload;
+      let clickedColors = [...state.currentFilter[filterIndex]];
+      if (!clickedColors.includes(filterValue)) {
+        clickedColors.push(filterValue);
+      } else {
+        clickedColors = clickedColors.filter((color) => color !== filterValue);
+      }
+
+      if (clickedColors.length > 3) {
+        clickedColors.shift();
+      }
+
+      state.currentFilter[filterIndex] = [...clickedColors];
+    },
   },
 });
 
-export const { setCurrentFilter, resetFilters, setFilters, syncCurrentFilter } =
-  filterSlice.actions;
+export const {
+  setCurrentFilter,
+  setCurrentColorFilter,
+  resetFilters,
+  setFilters,
+  syncCurrentFilter,
+} = filterSlice.actions;
 export default filterSlice;

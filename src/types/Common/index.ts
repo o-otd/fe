@@ -10,7 +10,7 @@ export interface IFilterProps {
 
 export interface IGenderFilterProps extends IFilterProps {}
 
-export interface IStyleFIlterProps extends IFilterProps {}
+export interface IStyleFilterProps extends IFilterProps {}
 
 export interface IAgeFilterProps extends IFilterProps {}
 
