@@ -7,6 +7,8 @@ import ColorFilter from './ColorFilter';
 import RangeFilter from './RangeFilter';
 import { bottomSheetTabs } from 'constant';
 import { IBottomFilterProps } from 'types/Common';
+import { useAppDispatch } from 'redux/store';
+import { resetFilters, setFilters } from 'redux/reducer/filter';
 
 const BottomSheet = styled.div`
   position: fixed;
@@ -69,6 +71,7 @@ const BottomSheetBtns = styled.div`
   height: 70px;
   padding: 8px 16px 0 16px;
   border-top: 1px solid ${({ theme }) => theme.colors.gray4};
+  cursor: pointer;
 
   & ul {
     display: flex;
@@ -111,14 +114,23 @@ function BottomFilter({ setIsFilterOpen }: IBottomFilterProps) {
   const onClickTab = (e: React.MouseEvent<HTMLLIElement>, tabId: number) => {
     setActiveTab(tabId);
   };
+  const dispatch = useAppDispatch();
 
   const tabItems = [
-    { name: '성별', id: 0, content: <GenderFilter /> },
-    { name: '스타일', id: 1, content: <StyleFilter /> },
-    { name: '연령대', id: 2, content: <AgeFilter /> },
-    { name: '컬러', id: 3, content: <ColorFilter /> },
-    { name: '키', id: 4, content: <RangeFilter filterType="height" /> },
-    { name: '몸무게', id: 5, content: <RangeFilter filterType="weight" /> },
+    { name: '성별', id: 0, content: <GenderFilter filterIndex={0} /> },
+    { name: '스타일', id: 1, content: <StyleFilter filterIndex={1} /> },
+    { name: '연령대', id: 2, content: <AgeFilter filterIndex={2} /> },
+    { name: '컬러', id: 3, content: <ColorFilter filterIndex={3} /> },
+    {
+      name: '키',
+      id: 4,
+      content: <RangeFilter filterType="height" filterIndex={4} />,
+    },
+    {
+      name: '몸무게',
+      id: 5,
+      content: <RangeFilter filterType="weight" filterIndex={5} />,
+    },
   ];
 
   const onClickCloseFilter = () => {
@@ -127,6 +139,22 @@ function BottomFilter({ setIsFilterOpen }: IBottomFilterProps) {
 
   const onClickBottomSheetMain = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
+  };
+
+  const onClickFilterReset = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    activeTab: number,
+  ) => {
+    e.preventDefault();
+    dispatch(resetFilters(activeTab));
+  };
+
+  const onClickSetFilter = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    activeTab: number,
+  ) => {
+    e.preventDefault();
+    dispatch(setFilters(activeTab));
   };
 
   return (
@@ -150,12 +178,18 @@ function BottomFilter({ setIsFilterOpen }: IBottomFilterProps) {
           <BottomSheetBtns>
             <ul>
               <li>
-                <BottomSheetReset>
+                <BottomSheetReset
+                  onClick={(e) => onClickFilterReset(e, activeTab)}
+                >
                   {tabItems[activeTab].name} 재설정
                 </BottomSheetReset>
               </li>
               <li>
-                <BottomSheetSubmit>옷장 구경하기</BottomSheetSubmit>
+                <BottomSheetSubmit
+                  onClick={(e) => onClickSetFilter(e, activeTab)}
+                >
+                  옷장 구경하기
+                </BottomSheetSubmit>
               </li>
             </ul>
           </BottomSheetBtns>

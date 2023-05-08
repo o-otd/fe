@@ -1,6 +1,7 @@
 import { styleCategory } from 'constant';
 import React from 'react';
 import styled from 'styled-components';
+import { IStyleFIlterProps } from 'types/Common';
 
 const BottomSheetStyle = styled.div`
   & ul {
@@ -21,7 +22,7 @@ const BottomSheetStyle = styled.div`
   }
 `;
 
-function StyleFilter() {
+function StyleFilter({ filterIndex }: IStyleFIlterProps) {
   return (
     <BottomSheetStyle>
       <ul>

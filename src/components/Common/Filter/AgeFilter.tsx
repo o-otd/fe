@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import checkSVG from '../../../styles/images/icons/check.svg';
+import { ageCategory } from 'constant';
+import { RootState, useAppDispatch } from 'redux/store';
+import { setCurrentAgeFilter, syncCurrentFilter } from 'redux/reducer/filter';
+import { useSelector } from 'react-redux';
+import { IAgeFilterProps } from 'types/Common';
 
 const BottomSheetAge = styled.div`
   padding: 0 16px;
@@ -20,7 +25,7 @@ const AgeInput = styled.div`
     height: 20px;
     border: 2px solid ${({ theme }) => theme.colors.gray4};
     border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
-
+    cursor: pointer;
     &:checked {
       width: 20px;
       height: 20px;
@@ -44,24 +49,51 @@ const AgeInput = styled.div`
     font-size: 15px;
     font-weight: 600;
     margin-left: 8px;
+    cursor: pointer;
   }
 `;
 
-function AgeFilter() {
+function AgeFilter({ filterIndex }: IAgeFilterProps) {
+  const dispatch = useAppDispatch();
+  const [] = useState();
+  const { currentFilter, filter } = useSelector(
+    (state: RootState) => state.filter,
+  );
+  const onChangeAgeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      setCurrentAgeFilter({
+        filterIndex: filterIndex,
+        filterValue: e.target.value,
+      }),
+    );
+  };
+
+  useEffect(() => {
+    if (filter[filterIndex].length > 0) {
+      dispatch(
+        syncCurrentFilter({
+          filterIndex: filterIndex,
+          filters: filter[filterIndex],
+        }),
+      );
+    }
+  }, [filter[filterIndex]]);
+
   return (
     <BottomSheetAge>
-      <AgeInput>
-        <input type="radio" name="age" value="10대" id="teenager" />
-        <label htmlFor="teenager">10대</label>
-      </AgeInput>
-      <AgeInput>
-        <input type="radio" name="age" value="20대" id="twenties" />
-        <label htmlFor="twenties">20대</label>
-      </AgeInput>
-      <AgeInput>
-        <input type="radio" name="age" value="30대" id="thirties" />
-        <label htmlFor="thirties">30대</label>
-      </AgeInput>
+      {ageCategory.map((age) => (
+        <AgeInput key={age.id}>
+          <input
+            type="checkbox"
+            name="age"
+            value={age.value}
+            id={String(age.value)}
+            checked={currentFilter[filterIndex].includes(age.value)}
+            onChange={onChangeAgeFilter}
+          />
+          <label htmlFor={String(age.value)}>{age.value}대</label>
+        </AgeInput>
+      ))}
     </BottomSheetAge>
   );
 }

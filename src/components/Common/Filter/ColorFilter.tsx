@@ -1,6 +1,7 @@
 import { colorCategory } from 'constant';
 import React from 'react';
 import styled from 'styled-components';
+import { IColorFilterProps } from 'types/Common';
 
 const BottomSheetColors = styled.div`
   & ul {
@@ -32,7 +33,7 @@ const ColorName = styled.span`
   display: block;
 `;
 
-function ColorFilter() {
+function ColorFilter({ filterIndex }: IColorFilterProps) {
   return (
     <BottomSheetColors>
       <ul>

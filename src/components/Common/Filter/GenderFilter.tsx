@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import checkSVG from '../../../styles/images/icons/check.svg';
+import { IGenderFilterProps } from 'types/Common';
 
 const BottomSheetGender = styled.div`
   padding: 0 16px;
@@ -47,7 +48,7 @@ const GenderInput = styled.div`
   }
 `;
 
-function GenderFilter() {
+function GenderFilter({ filterIndex }: IGenderFilterProps) {
   return (
     <BottomSheetGender>
       <GenderInput>
