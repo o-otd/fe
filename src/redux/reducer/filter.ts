@@ -14,7 +14,7 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setCurrentAgeFilter: (state, action) => {
+    setCurrentFilter: (state, action) => {
       const { filterIndex, filterValue } = action.payload;
       const age = parseInt(filterValue);
       let currentAges = [...state.currentFilter[filterIndex]];
@@ -49,10 +49,6 @@ const filterSlice = createSlice({
   },
 });
 
-export const {
-  setCurrentAgeFilter,
-  resetFilters,
-  setFilters,
-  syncCurrentFilter,
-} = filterSlice.actions;
+export const { setCurrentFilter, resetFilters, setFilters, syncCurrentFilter } =
+  filterSlice.actions;
 export default filterSlice;

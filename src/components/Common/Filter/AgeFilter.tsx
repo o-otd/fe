@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import checkSVG from '../../../styles/images/icons/check.svg';
 import { ageCategory } from 'constant';
 import { RootState, useAppDispatch } from 'redux/store';
-import { setCurrentAgeFilter, syncCurrentFilter } from 'redux/reducer/filter';
+import { setCurrentFilter, syncCurrentFilter } from 'redux/reducer/filter';
 import { useSelector } from 'react-redux';
 import { IAgeFilterProps } from 'types/Common';
 
@@ -61,7 +61,7 @@ function AgeFilter({ filterIndex }: IAgeFilterProps) {
   );
   const onChangeAgeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
-      setCurrentAgeFilter({
+      setCurrentFilter({
         filterIndex: filterIndex,
         filterValue: e.target.value,
       }),

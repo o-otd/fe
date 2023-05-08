@@ -155,6 +155,7 @@ function BottomFilter({ setIsFilterOpen }: IBottomFilterProps) {
   ) => {
     e.preventDefault();
     dispatch(setFilters(activeTab));
+    setIsFilterOpen(false);
   };
 
   return (
