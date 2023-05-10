@@ -5,6 +5,7 @@ import { ReactComponent as LikesSvg } from '../../styles/images/icons/likes.svg'
 import { ReactComponent as FollowSvg } from '../../styles/images/icons/follow.svg';
 import { ITodayCardProps } from 'types/Home';
 import { ReactComponent as PlusSVG } from '../../styles/images/icons/plus.svg';
+import { todayCardCategory } from 'constant';
 
 const CardHeader = styled.div`
   display: flex;
@@ -165,10 +166,10 @@ function TodayCard({ setIsOpen }: ITodayCardProps) {
         </CardHeaderUtil>
       </CardHeader>
       <CardItems>
-        {[1, 2, 3, 4, 5].map((item, index) => (
-          <li key={index}>
+        {todayCardCategory.map((category) => (
+          <li key={category.id}>
             <button type="button" onClick={onClickOpenModal}>
-              <span>outer</span>
+              <span>{category.name}</span>
               <div>
                 <PlusSVG />
               </div>
