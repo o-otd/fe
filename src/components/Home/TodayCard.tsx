@@ -4,6 +4,7 @@ import { ReactComponent as BookMarkSvg } from '../../styles/images/icons/bookmar
 import { ReactComponent as LikesSvg } from '../../styles/images/icons/likes.svg';
 import { ReactComponent as FollowSvg } from '../../styles/images/icons/follow.svg';
 import { ITodayCardProps } from 'types/Home';
+import { ReactComponent as PlusSVG } from '../../styles/images/icons/plus.svg';
 
 const CardHeader = styled.div`
   display: flex;
@@ -73,6 +74,9 @@ const CardItems = styled.ul`
       margin-top: 5px;
       width: 72px;
       height: 72px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background-color: ${({ theme }) => theme.colors.gray5};
       border-radius: ${({ theme }) => theme.borderRadius.borderRadius20};
     }
@@ -165,7 +169,9 @@ function TodayCard({ setIsOpen }: ITodayCardProps) {
           <li key={index}>
             <button type="button" onClick={onClickOpenModal}>
               <span>outer</span>
-              <div></div>
+              <div>
+                <PlusSVG />
+              </div>
             </button>
           </li>
         ))}
