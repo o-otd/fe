@@ -62,6 +62,12 @@ const filterSlice = createSlice({
 
       state.currentFilter[filterIndex] = [...clickedColors];
     },
+
+    setCurrentRangeFilter: (state, action) => {
+      const { filterIndex, leftValue, rightValue } = action.payload;
+      state.currentFilter[filterIndex][0] = leftValue;
+      state.currentFilter[filterIndex][1] = rightValue;
+    },
   },
 });
 
@@ -71,5 +77,6 @@ export const {
   resetFilters,
   setFilters,
   syncCurrentFilter,
+  setCurrentRangeFilter,
 } = filterSlice.actions;
 export default filterSlice;
