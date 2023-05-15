@@ -5,12 +5,14 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { emailRegex } from '../util/index';
 import { IEmailSignInInputData } from 'types/Auth';
-import Input from 'components/SignIn/Input';
+import Input from 'components/Auth/Input';
 import { RootState, useAppDispatch } from 'redux/store';
 import { authLoginByEmail } from 'redux/action/auth';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import AuthSubmitButton from 'components/Auth/AuthSubmitButton';
+import useValidErrors from 'hooks/useValidErrors';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -41,44 +43,6 @@ const AuthForm = styled.form`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray3};
 `;
 
-const AuthFormInput = styled.div<{ formError: string }>`
-  width: 100%;
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius15};
-  overflow: hidden;
-
-  & > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 48px;
-    position: relative;
-    color: ${({ theme }) => theme.colors.white};
-    font-weight: 500;
-    border-radius: ${({ theme }) => theme.borderRadius.borderRadius15};
-
-    & > input {
-      width: 100%;
-      height: 100%;
-      border-radius: ${({ theme }) => theme.borderRadius.borderRadius15};
-      background-color: ${({ theme }) => theme.colors.gray3};
-      padding: 16px;
-
-      &:focus {
-        border: 1px solid ${({ theme }) => theme.colors.main};
-        border-color: ${(props) =>
-          props.formError ? props.theme.colors.error : props.theme.colors.main};
-        outline: none;
-      }
-
-      &::placeholder {
-        font-weight: 500;
-        color: ${({ theme }) => theme.colors.gray6};
-      }
-    }
-  }
-`;
-
 const AuthFormLayout = styled.div`
   & > div:last-child {
     margin-top: 12px;
@@ -99,23 +63,6 @@ const ErrorMessage = styled.p`
 
   & svg {
     margin-right: 7px;
-  }
-`;
-
-const LogInButton = styled.div`
-  background-color: ${({ theme }) => theme.colors.main};
-  width: 100%;
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius15};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 48px;
-  position: relative;
-
-  & button {
-    color: ${({ theme }) => theme.colors.gray1};
-    font-size: 15px;
-    font-weight: 700;
   }
 `;
 
@@ -153,9 +100,8 @@ function Member() {
   } = useForm<IEmailSignInInputData>();
   const dispatch = useAppDispatch();
   const navigation = useNavigate();
-  const { authLoginByEmailDone, authLoginByEmailError } = useSelector(
-    (state: RootState) => state.auth,
-  );
+  const { authDone, authError } = useSelector((state: RootState) => state.auth);
+  const validErrors = useValidErrors(errors);
 
   const onValid = (inputData: IEmailSignInInputData) => {
     dispatch(
@@ -167,14 +113,14 @@ function Member() {
   };
 
   useEffect(() => {
-    if (authLoginByEmailDone) {
+    if (authDone) {
       navigation('/', { replace: false });
     }
 
-    if (authLoginByEmailError) {
-      setError('email', { message: authLoginByEmailError });
+    if (authError) {
+      setError('email', { message: authError });
     }
-  }, [authLoginByEmailDone, authLoginByEmailError]);
+  }, [authDone, authError]);
 
   return (
     <Auth>
@@ -213,9 +159,7 @@ function Member() {
         </AuthFormLayout>
 
         <AuthUtill>
-          <LogInButton>
-            <button>로그인</button>
-          </LogInButton>
+          <AuthSubmitButton text="로그인" isError={validErrors} />
 
           <RegisterButton>
             <Link to={'/signup'}>회원가입</Link>
