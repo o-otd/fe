@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as EmailIconSvg } from '../styles/images/icons/email-icon.svg';
 import { ReactComponent as GoogleIconSvg } from '../styles/images/icons/google-icon.svg';
-import AuthSelectButton from 'components/SignIn/AuthSelectButton';
+import AuthSelectButton from 'components/Auth/AuthSelectButton';
 import { Link } from 'react-router-dom';
 
 const Auth = styled.section`

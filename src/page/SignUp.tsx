@@ -1,15 +1,17 @@
 import Logo from 'components/Common/Logo';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ValidationErrorSvg } from '../styles/images/icons/validation-error.svg';
 import { useForm } from 'react-hook-form';
 import { IEmailSignUpInputData } from 'types/Auth';
 import { emailRegex } from '../util/index';
-import Input from 'components/SignIn/Input';
+import Input from 'components/Auth/Input';
 import { RootState, useAppDispatch } from 'redux/store';
 import { authJoinByEmail } from 'redux/action/auth';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import AuthSubmitButton from 'components/Auth/AuthSubmitButton';
+import useValidErrors from 'hooks/useValidErrors';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -62,25 +64,6 @@ const AuthUtil = styled.div`
   margin-top: 28px;
 `;
 
-const AuthFormSubmit = styled.div<{ error: any }>`
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius15};
-  & button {
-    color: ${({ theme }) => theme.colors.gray1};
-    font-weight: 700;
-    font-size: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 48px;
-    background-color: ${(props) =>
-      props.error === true ? '#6A744D' : props.theme.colors.main};
-  }
-`;
-
 const PasswordInputContainer = styled.div`
   margin-top: 20px;
 
@@ -99,11 +82,8 @@ function SignUp() {
   } = useForm<IEmailSignUpInputData>();
   const navigation = useNavigate();
   const dispatch = useAppDispatch();
-  const { authJoinByEmailDone, authJoinByEmailError } = useSelector(
-    (state: RootState) => state.auth,
-  );
-
-  const [isError, setIsError] = useState<boolean>(false);
+  const { authDone, authError } = useSelector((state: RootState) => state.auth);
+  const validError = useValidErrors(errors);
 
   const onValid = (signUpInputData: IEmailSignUpInputData) => {
     dispatch(
@@ -116,27 +96,14 @@ function SignUp() {
   };
 
   useEffect(() => {
-    if (
-      errors.email?.message ||
-      errors.nickName?.message ||
-      errors.password?.message ||
-      errors.passwordCheck?.message
-    ) {
-      setIsError(true);
-    } else {
-      setIsError(false);
-    }
-  }, [errors.email, errors.nickName, errors.password, errors.passwordCheck]);
-
-  useEffect(() => {
-    if (authJoinByEmailDone) {
+    if (authDone) {
       navigation('/signin');
     }
 
-    if (authJoinByEmailError) {
-      setError('email', { message: authJoinByEmailError });
+    if (authError) {
+      setError('email', { message: authError });
     }
-  }, [authJoinByEmailDone, authJoinByEmailError]);
+  }, [authDone, authError]);
 
   return (
     <Auth>
@@ -216,9 +183,7 @@ function SignUp() {
         </AuthFormLayout>
 
         <AuthUtil>
-          <AuthFormSubmit error={isError}>
-            <button>회원가입 완료</button>
-          </AuthFormSubmit>
+          <AuthSubmitButton text="회원가입 완료" isError={validError} />
         </AuthUtil>
       </AuthForm>
     </Auth>
