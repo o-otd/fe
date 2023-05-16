@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import dummyImage from '../styles/images/dummy-profile.png';
+import confirmImage from '../styles/images/confirm-img-dummy.png';
 import { ReactComponent as RefreshSVG } from '../styles/images/icons/refresh.svg';
 import { ReactComponent as ConfirmVoteSVG } from '../styles/images/icons/confirm-vote-icon.svg';
 
@@ -162,6 +166,33 @@ const ConfirmVoteResult = styled.button`
   color: ${({ theme }) => theme.colors.gray8};
 `;
 
+const ConfirmSlider = styled.div`
+  margin-top: 4px;
+  position: relative;
+`;
+
+const ConfirmSliderItem = styled(SwiperSlide)`
+  width: 375px;
+  height: 375px;
+  overflow: hidden;
+  border-radius: ${({ theme }) => theme.borderRadius.borderRadius30};
+`;
+
+const CustomSwiper = styled(Swiper)`
+  .swiper-pagination {
+    top: auto;
+    bottom: 8px;
+  }
+  .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: ${({ theme }) => theme.colors.white};
+  }
+`;
+
 function Confirm() {
   return (
     <>
@@ -212,6 +243,16 @@ function Confirm() {
                   <ConfirmVoteResult type="button">결과 확인</ConfirmVoteResult>
                 </ConfirmVoteBtns>
               </ConfirmVote>
+
+              <ConfirmSlider>
+                <CustomSwiper pagination modules={[Pagination]}>
+                  {[1, 2, 3, 4, 5].map((item) => (
+                    <ConfirmSliderItem key={item}>
+                      <CoverImage src={confirmImage} alt="thumbnail" />
+                    </ConfirmSliderItem>
+                  ))}
+                </CustomSwiper>
+              </ConfirmSlider>
             </li>
           </ul>
         </section>
