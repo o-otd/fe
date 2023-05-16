@@ -44,6 +44,7 @@ const borderRadius = {
   headerRadius30: '0 0 30px 30px',
   borderRadius20: '20px',
   borderRadius7: '7px',
+  borderRadius10: '10px',
   borderRadius15: '15px',
 };
 
