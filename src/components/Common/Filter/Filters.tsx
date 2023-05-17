@@ -7,27 +7,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { bottomSheetTabs } from 'constant/bottomFilters';
 
-const SuggestionLnb = styled(Swiper)`
-  margin-top: 4px;
-`;
-
-const SuggestionSwiper = styled(SwiperSlide)<{ $isFilterChecked: boolean }>`
-  width: auto;
-  height: 38px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 18px;
-  background-color: ${({ theme, $isFilterChecked }) =>
-    $isFilterChecked ? theme.colors.main : theme.colors.gray4};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
-  font-size: 14px;
-  font-weight: ${({ $isFilterChecked }) => ($isFilterChecked ? '700' : '600')};
-  cursor: pointer;
-  color: ${({ $isFilterChecked, theme }) =>
-    $isFilterChecked ? theme.colors.gray1 : theme.colors.white};
-`;
-
 function Filters({ setIsFilterOpen }: IFiltersProps) {
   const onClickFilter = () => {
     setIsFilterOpen(true);
@@ -63,3 +42,24 @@ function Filters({ setIsFilterOpen }: IFiltersProps) {
 }
 
 export default Filters;
+
+const SuggestionLnb = styled(Swiper)`
+  margin-top: 4px;
+`;
+
+const SuggestionSwiper = styled(SwiperSlide)<{ $isFilterChecked: boolean }>`
+  width: auto;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 18px;
+  background-color: ${({ theme, $isFilterChecked }) =>
+    $isFilterChecked ? theme.colors.main : theme.colors.gray4};
+  border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
+  font-size: 14px;
+  font-weight: ${({ $isFilterChecked }) => ($isFilterChecked ? '700' : '600')};
+  cursor: pointer;
+  color: ${({ $isFilterChecked, theme }) =>
+    $isFilterChecked ? theme.colors.gray1 : theme.colors.white};
+`;

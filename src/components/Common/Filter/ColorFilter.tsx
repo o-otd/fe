@@ -1,10 +1,44 @@
 import { colorCategory } from 'constant/bottomFilters';
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { setCurrentColorFilter, syncCurrentFilter } from 'redux/reducer/filter';
-import { RootState, useAppDispatch } from 'redux/store';
+import useSetCurrentFilters from 'hooks/useSetCurrentFilters';
+import useSyncFilters from 'hooks/useSyncFilters';
+import React from 'react';
 import styled from 'styled-components';
 import { IColorFilterProps } from 'types/Common';
+
+function ColorFilter({ filterIndex }: IColorFilterProps) {
+  const { currentFilter, setCurrentColorFilterValues } = useSetCurrentFilters();
+
+  useSyncFilters(filterIndex);
+  const onClickColorFilter = (colorIndex: number) => {
+    setCurrentColorFilterValues(filterIndex, colorIndex);
+  };
+
+  return (
+    <BottomSheetColors>
+      <ul>
+        {colorCategory.map((color) => (
+          <li onClick={() => onClickColorFilter(color.id)} key={color.id}>
+            <ColorShape
+              $isFilterChecked={Boolean(
+                currentFilter[filterIndex].includes(color.id),
+              )}
+              $color={color.name}
+            />
+            <ColorName
+              $isFilterChecked={Boolean(
+                currentFilter[filterIndex].includes(color.id),
+              )}
+            >
+              {color.name}
+            </ColorName>
+          </li>
+        ))}
+      </ul>
+    </BottomSheetColors>
+  );
+}
+
+export default ColorFilter;
 
 const BottomSheetColors = styled.div`
   & ul {
@@ -39,56 +73,3 @@ const ColorName = styled.span<{ $isFilterChecked: boolean }>`
   margin-top: 4px;
   display: block;
 `;
-
-function ColorFilter({ filterIndex }: IColorFilterProps) {
-  const dispatch = useAppDispatch();
-  const { currentFilter, filter } = useSelector(
-    (state: RootState) => state.filter,
-  );
-
-  const onClickColorFilter = (colorIndex: number) => {
-    dispatch(
-      setCurrentColorFilter({
-        filterIndex: filterIndex,
-        filterValue: colorIndex,
-      }),
-    );
-  };
-
-  useEffect(() => {
-    if (filter[filterIndex].length > 0) {
-      dispatch(
-        syncCurrentFilter({
-          filterIndex: filterIndex,
-          filters: filter[filterIndex],
-        }),
-      );
-    }
-  }, [filter[filterIndex]]);
-
-  return (
-    <BottomSheetColors>
-      <ul>
-        {colorCategory.map((color) => (
-          <li onClick={() => onClickColorFilter(color.id)} key={color.id}>
-            <ColorShape
-              $isFilterChecked={Boolean(
-                currentFilter[filterIndex].includes(color.id),
-              )}
-              $color={color.name}
-            />
-            <ColorName
-              $isFilterChecked={Boolean(
-                currentFilter[filterIndex].includes(color.id),
-              )}
-            >
-              {color.name}
-            </ColorName>
-          </li>
-        ))}
-      </ul>
-    </BottomSheetColors>
-  );
-}
-
-export default ColorFilter;

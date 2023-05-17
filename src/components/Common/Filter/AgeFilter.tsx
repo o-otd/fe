@@ -1,11 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import checkSVG from '../../../styles/images/icons/check.svg';
-import { RootState, useAppDispatch } from 'redux/store';
-import { setCurrentFilter, syncCurrentFilter } from 'redux/reducer/filter';
-import { useSelector } from 'react-redux';
 import { IAgeFilterProps } from 'types/Common';
 import { ageCategory } from 'constant/bottomFilters';
+import useSetCurrentFilters from 'hooks/useSetCurrentFilters';
+import useSyncFilters from 'hooks/useSyncFilters';
+
+function AgeFilter({ filterIndex }: IAgeFilterProps) {
+  useSyncFilters(filterIndex);
+  const { currentFilter, setCurrentFilterValues } = useSetCurrentFilters();
+  const onChangeAgeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentFilterValues(filterIndex, e.target.value);
+  };
+
+  return (
+    <BottomSheetAge>
+      {ageCategory.map((age) => (
+        <AgeInput key={age.id}>
+          <input
+            type="checkbox"
+            name="age"
+            value={age.value}
+            id={String(age.value)}
+            checked={currentFilter[filterIndex].includes(age.value)}
+            onChange={onChangeAgeFilter}
+          />
+          <label htmlFor={String(age.value)}>{age.value}대</label>
+        </AgeInput>
+      ))}
+    </BottomSheetAge>
+  );
+}
+
+export default AgeFilter;
 
 const BottomSheetAge = styled.div`
   padding: 0 16px;
@@ -52,50 +79,3 @@ const AgeInput = styled.div`
     cursor: pointer;
   }
 `;
-
-function AgeFilter({ filterIndex }: IAgeFilterProps) {
-  const dispatch = useAppDispatch();
-  const [] = useState();
-  const { currentFilter, filter } = useSelector(
-    (state: RootState) => state.filter,
-  );
-  const onChangeAgeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(
-      setCurrentFilter({
-        filterIndex: filterIndex,
-        filterValue: e.target.value,
-      }),
-    );
-  };
-
-  useEffect(() => {
-    if (filter[filterIndex].length > 0) {
-      dispatch(
-        syncCurrentFilter({
-          filterIndex: filterIndex,
-          filters: filter[filterIndex],
-        }),
-      );
-    }
-  }, [filter[filterIndex]]);
-
-  return (
-    <BottomSheetAge>
-      {ageCategory.map((age) => (
-        <AgeInput key={age.id}>
-          <input
-            type="checkbox"
-            name="age"
-            value={age.value}
-            id={String(age.value)}
-            checked={currentFilter[filterIndex].includes(age.value)}
-            onChange={onChangeAgeFilter}
-          />
-          <label htmlFor={String(age.value)}>{age.value}대</label>
-        </AgeInput>
-      ))}
-    </BottomSheetAge>
-  );
-}
-
-export default AgeFilter;
