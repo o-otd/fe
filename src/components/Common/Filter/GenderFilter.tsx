@@ -2,9 +2,45 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import checkSVG from '../../../styles/images/icons/check.svg';
 import { IGenderFilterProps } from 'types/Common';
-import { RootState, useAppDispatch } from 'redux/store';
-import { setCurrentFilter, syncCurrentFilter } from 'redux/reducer/filter';
-import { useSelector } from 'react-redux';
+import useSetCurrentFilters from '../../../hooks/useSetCurrentFilters';
+import useSyncFilters from 'hooks/useSyncFilters';
+
+function GenderFilter({ filterIndex }: IGenderFilterProps) {
+  useSyncFilters(filterIndex);
+  const { currentFilter, setCurrentFilterValues } = useSetCurrentFilters();
+  const onChangeGenderFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentFilterValues(filterIndex, e.target.value);
+  };
+
+  return (
+    <BottomSheetGender>
+      <GenderInput>
+        <input
+          onChange={onChangeGenderFilter}
+          type="checkbox"
+          name="gender"
+          value={0}
+          id="male"
+          checked={currentFilter[filterIndex].includes(0)}
+        />
+        <label htmlFor="male">남성</label>
+      </GenderInput>
+      <GenderInput>
+        <input
+          onChange={onChangeGenderFilter}
+          type="checkbox"
+          name="gender"
+          value={1}
+          checked={currentFilter[filterIndex].includes(1)}
+          id="female"
+        />
+        <label htmlFor="female">여성</label>
+      </GenderInput>
+    </BottomSheetGender>
+  );
+}
+
+export default GenderFilter;
 
 const BottomSheetGender = styled.div`
   padding: 0 16px;
@@ -52,58 +88,3 @@ const GenderInput = styled.div`
     margin-left: 8px;
   }
 `;
-
-function GenderFilter({ filterIndex }: IGenderFilterProps) {
-  const dispatch = useAppDispatch();
-  const { currentFilter, filter } = useSelector(
-    (state: RootState) => state.filter,
-  );
-  const onChangeGenderFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(
-      setCurrentFilter({
-        filterIndex: filterIndex,
-        filterValue: e.target.value,
-      }),
-    );
-  };
-
-  useEffect(() => {
-    if (filter[filterIndex].length > 0) {
-      dispatch(
-        syncCurrentFilter({
-          filterIndex: filterIndex,
-          filters: filter[filterIndex],
-        }),
-      );
-    }
-  }, [filter[filterIndex]]);
-
-  return (
-    <BottomSheetGender>
-      <GenderInput>
-        <input
-          onChange={onChangeGenderFilter}
-          type="checkbox"
-          name="gender"
-          value={0}
-          id="male"
-          checked={currentFilter[filterIndex].includes(0)}
-        />
-        <label htmlFor="male">남성</label>
-      </GenderInput>
-      <GenderInput>
-        <input
-          onChange={onChangeGenderFilter}
-          type="checkbox"
-          name="gender"
-          value={1}
-          checked={currentFilter[filterIndex].includes(1)}
-          id="female"
-        />
-        <label htmlFor="female">여성</label>
-      </GenderInput>
-    </BottomSheetGender>
-  );
-}
-
-export default GenderFilter;

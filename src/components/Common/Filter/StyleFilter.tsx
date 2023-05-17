@@ -1,10 +1,37 @@
-import { styleCategory } from 'constant';
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { setCurrentFilter, syncCurrentFilter } from 'redux/reducer/filter';
-import { RootState, useAppDispatch } from 'redux/store';
+import { styleCategory } from 'constant/bottomFilters';
+import useSetCurrentFilters from 'hooks/useSetCurrentFilters';
+import useSyncFilters from 'hooks/useSyncFilters';
+import React from 'react';
 import styled from 'styled-components';
 import { IStyleFilterProps } from 'types/Common';
+
+function StyleFilter({ filterIndex }: IStyleFilterProps) {
+  useSyncFilters(filterIndex);
+
+  const { currentFilter, setCurrentFilterValues } = useSetCurrentFilters();
+  const onClickStyleFilter = (styleId: number) => {
+    const id = String(styleId);
+    setCurrentFilterValues(filterIndex, id);
+  };
+
+  return (
+    <BottomSheetStyle>
+      <ul>
+        {styleCategory.map((style) => (
+          <StyleBadge
+            $isFilterChecked={currentFilter[filterIndex].includes(style.id)}
+            onClick={() => onClickStyleFilter(style.id)}
+            key={style.id}
+          >
+            {style.name}
+          </StyleBadge>
+        ))}
+      </ul>
+    </BottomSheetStyle>
+  );
+}
+
+export default StyleFilter;
 
 const BottomSheetStyle = styled.div`
   & ul {
@@ -28,44 +55,3 @@ const StyleBadge = styled.li<{ $isFilterChecked: boolean }>`
       $isFilterChecked ? theme.colors.main : theme.colors.gray5};
   border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
 `;
-
-function StyleFilter({ filterIndex }: IStyleFilterProps) {
-  const dispatch = useAppDispatch();
-  const { currentFilter, filter } = useSelector(
-    (state: RootState) => state.filter,
-  );
-  const onClickStyleFilter = (styleIndex: number) => {
-    dispatch(
-      setCurrentFilter({ filterIndex: filterIndex, filterValue: styleIndex }),
-    );
-  };
-
-  useEffect(() => {
-    if (filter[filterIndex].length > 0) {
-      dispatch(
-        syncCurrentFilter({
-          filterIndex: filterIndex,
-          filters: filter[filterIndex],
-        }),
-      );
-    }
-  }, [filter[filterIndex]]);
-
-  return (
-    <BottomSheetStyle>
-      <ul>
-        {styleCategory.map((style) => (
-          <StyleBadge
-            $isFilterChecked={currentFilter[filterIndex].includes(style.id)}
-            onClick={() => onClickStyleFilter(style.id)}
-            key={style.id}
-          >
-            {style.name}
-          </StyleBadge>
-        ))}
-      </ul>
-    </BottomSheetStyle>
-  );
-}
-
-export default StyleFilter;

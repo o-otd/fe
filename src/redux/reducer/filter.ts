@@ -16,12 +16,12 @@ const filterSlice = createSlice({
   reducers: {
     setCurrentFilter: (state, action) => {
       const { filterIndex, filterValue } = action.payload;
-      const age = parseInt(filterValue);
+      const value = parseInt(filterValue);
       let currentAges = [...state.currentFilter[filterIndex]];
-      if (!currentAges.includes(age)) {
-        currentAges.push(age);
+      if (!currentAges.includes(value)) {
+        currentAges.push(value);
       } else {
-        const temp = currentAges.filter((ageItem) => ageItem !== age);
+        const temp = currentAges.filter((valueItem) => valueItem !== value);
         currentAges = [...temp];
       }
       state.currentFilter[filterIndex] = [...currentAges];

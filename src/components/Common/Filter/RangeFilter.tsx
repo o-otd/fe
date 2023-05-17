@@ -1,11 +1,115 @@
-import { RANGE_GAP } from 'constant';
+import { RANGE_GAP } from 'constant/bottomFilters';
 import { usePercentage } from 'hooks/usePercentage';
+import useSetCurrentFilters from 'hooks/useSetCurrentFilters';
+import useSyncFilters from 'hooks/useSyncFilters';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { setCurrentRangeFilter, syncCurrentFilter } from 'redux/reducer/filter';
-import { RootState, useAppDispatch } from 'redux/store';
 import styled from 'styled-components';
 import { IRangeFilterProps } from 'types/Common';
+
+function RangeFilter({ filterType, filterIndex }: IRangeFilterProps) {
+  useSyncFilters(filterIndex);
+
+  const { currentFilter, setCurrentRangeFilterValues } = useSetCurrentFilters();
+
+  const [leftValue, setLeftValue] = useState<number>(
+    filterType === 'height' ? 148 : 38,
+  );
+  const [rightValue, setRightValue] = useState<number>(
+    filterType === 'height' ? 190 : 100,
+  );
+
+  const updateLeftValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = +e.target.value;
+    const inputRightValue = currentFilter[filterIndex][1]
+      ? currentFilter[filterIndex][1]
+      : rightValue;
+
+    value =
+      inputRightValue - value < RANGE_GAP ? inputRightValue - RANGE_GAP : value;
+
+    setCurrentRangeFilterValues(filterIndex, value, inputRightValue);
+    setLeftValue(value);
+  };
+
+  const updateRightValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = +e.target.value;
+    const inputLeftValue = currentFilter[filterIndex][0]
+      ? currentFilter[filterIndex][0]
+      : leftValue;
+
+    value =
+      value - inputLeftValue < RANGE_GAP ? inputLeftValue + RANGE_GAP : value;
+
+    setCurrentRangeFilterValues(filterIndex, inputLeftValue, value);
+    setRightValue(value);
+  };
+
+  const [leftPercentage, rightPercentage] = usePercentage(
+    currentFilter[filterIndex][0] ? currentFilter[filterIndex][0] : leftValue,
+    currentFilter[filterIndex][1] ? currentFilter[filterIndex][1] : rightValue,
+    filterType === 'height' ? 148 : 38,
+    filterType === 'height' ? 190 : 100,
+  );
+
+  useEffect(() => {
+    setLeftValue(filterType === 'height' ? 148 : 38);
+    setRightValue(filterType === 'height' ? 190 : 100);
+  }, [filterType]);
+
+  return (
+    <BottomSheetRange>
+      <RangeInfo>
+        <RangeText>{`${
+          currentFilter[filterIndex][0]
+            ? currentFilter[filterIndex][0]
+            : leftValue
+        }${filterType === 'height' ? 'cm' : 'kg'} ~ ${
+          currentFilter[filterIndex][1]
+            ? currentFilter[filterIndex][1]
+            : rightValue
+        }${filterType === 'height' ? 'cm' : 'kg'}`}</RangeText>
+        <RangeInput>
+          <input
+            type="range"
+            id="input-left"
+            min={filterType === 'height' ? 148 : 38}
+            max={filterType === 'height' ? 190 : 100}
+            value={
+              currentFilter[filterIndex][0]
+                ? currentFilter[filterIndex][0]
+                : leftValue
+            }
+            onChange={updateLeftValue}
+          />
+          <input
+            type="range"
+            id="input-right"
+            min={filterType === 'height' ? 148 : 38}
+            max={filterType === 'height' ? 190 : 100}
+            value={
+              currentFilter[filterIndex][1]
+                ? currentFilter[filterIndex][1]
+                : rightValue
+            }
+            onChange={updateRightValue}
+          />
+          <RangeControls>
+            <RangeControlsCalc
+              $left={leftPercentage}
+              $right={100 - rightPercentage}
+            ></RangeControlsCalc>
+            <RangeControlsLeft $left={leftPercentage}></RangeControlsLeft>
+            <RangeControlsRight
+              $right={100 - rightPercentage}
+            ></RangeControlsRight>
+          </RangeControls>
+        </RangeInput>
+      </RangeInfo>
+    </BottomSheetRange>
+  );
+}
+
+export default RangeFilter;
 
 const BottomSheetRange = styled.div``;
 
@@ -118,132 +222,3 @@ const RangeControlsRight = styled.div<{ $right: any }>`
 
   right: ${({ $right }) => `${$right}%`};
 `;
-
-function RangeFilter({ filterType, filterIndex }: IRangeFilterProps) {
-  const dispatch = useAppDispatch();
-  const { currentFilter, filter } = useSelector(
-    (state: RootState) => state.filter,
-  );
-
-  const [leftValue, setLeftValue] = useState<number>(
-    filterType === 'height' ? 148 : 38,
-  );
-  const [rightValue, setRightValue] = useState<number>(
-    filterType === 'height' ? 190 : 100,
-  );
-
-  const updateLeftValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = +e.target.value;
-    const inputRightValue = currentFilter[filterIndex][1]
-      ? currentFilter[filterIndex][1]
-      : rightValue;
-
-    value =
-      inputRightValue - value < RANGE_GAP ? inputRightValue - RANGE_GAP : value;
-
-    dispatch(
-      setCurrentRangeFilter({
-        filterIndex,
-        leftValue: value,
-        rightValue: inputRightValue,
-      }),
-    );
-    setLeftValue(value);
-  };
-
-  const updateRightValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = +e.target.value;
-    const inputLeftValue = currentFilter[filterIndex][0]
-      ? currentFilter[filterIndex][0]
-      : leftValue;
-
-    value =
-      value - inputLeftValue < RANGE_GAP ? inputLeftValue + RANGE_GAP : value;
-
-    dispatch(
-      setCurrentRangeFilter({
-        filterIndex,
-        leftValue: inputLeftValue,
-        rightValue: value,
-      }),
-    );
-    setRightValue(value);
-  };
-
-  const [leftPercentage, rightPercentage] = usePercentage(
-    currentFilter[filterIndex][0] ? currentFilter[filterIndex][0] : leftValue,
-    currentFilter[filterIndex][1] ? currentFilter[filterIndex][1] : rightValue,
-    filterType === 'height' ? 148 : 38,
-    filterType === 'height' ? 190 : 100,
-  );
-
-  useEffect(() => {
-    setLeftValue(filterType === 'height' ? 148 : 38);
-    setRightValue(filterType === 'height' ? 190 : 100);
-  }, [filterType]);
-
-  useEffect(() => {
-    if (filter[filterIndex].length > 0) {
-      dispatch(
-        syncCurrentFilter({
-          filterIndex: filterIndex,
-          filters: filter[filterIndex],
-        }),
-      );
-    }
-  }, [filter[filterIndex]]);
-
-  return (
-    <BottomSheetRange>
-      <RangeInfo>
-        <RangeText>{`${
-          currentFilter[filterIndex][0]
-            ? currentFilter[filterIndex][0]
-            : leftValue
-        }${filterType === 'height' ? 'cm' : 'kg'} ~ ${
-          currentFilter[filterIndex][1]
-            ? currentFilter[filterIndex][1]
-            : rightValue
-        }${filterType === 'height' ? 'cm' : 'kg'}`}</RangeText>
-        <RangeInput>
-          <input
-            type="range"
-            id="input-left"
-            min={filterType === 'height' ? 148 : 38}
-            max={filterType === 'height' ? 190 : 100}
-            value={
-              currentFilter[filterIndex][0]
-                ? currentFilter[filterIndex][0]
-                : leftValue
-            }
-            onChange={updateLeftValue}
-          />
-          <input
-            type="range"
-            id="input-right"
-            min={filterType === 'height' ? 148 : 38}
-            max={filterType === 'height' ? 190 : 100}
-            value={
-              currentFilter[filterIndex][1]
-                ? currentFilter[filterIndex][1]
-                : rightValue
-            }
-            onChange={updateRightValue}
-          />
-          <RangeControls>
-            <RangeControlsCalc
-              $left={leftPercentage}
-              $right={100 - rightPercentage}
-            ></RangeControlsCalc>
-            <RangeControlsLeft $left={leftPercentage}></RangeControlsLeft>
-            <RangeControlsRight
-              $right={100 - rightPercentage}
-            ></RangeControlsRight>
-          </RangeControls>
-        </RangeInput>
-      </RangeInfo>
-    </BottomSheetRange>
-  );
-}
-
-export default RangeFilter;
