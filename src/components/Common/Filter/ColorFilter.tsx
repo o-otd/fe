@@ -1,4 +1,4 @@
-import { colorCategory } from 'constant';
+import { colorCategory } from 'constant/bottomFilters';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { setCurrentColorFilter, syncCurrentFilter } from 'redux/reducer/filter';
@@ -56,12 +56,14 @@ function ColorFilter({ filterIndex }: IColorFilterProps) {
   };
 
   useEffect(() => {
-    dispatch(
-      syncCurrentFilter({
-        filterIndex: filterIndex,
-        filters: filter[filterIndex],
-      }),
-    );
+    if (filter[filterIndex].length > 0) {
+      dispatch(
+        syncCurrentFilter({
+          filterIndex: filterIndex,
+          filters: filter[filterIndex],
+        }),
+      );
+    }
   }, [filter[filterIndex]]);
 
   return (

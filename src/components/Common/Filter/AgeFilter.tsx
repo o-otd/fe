@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import checkSVG from '../../../styles/images/icons/check.svg';
-import { ageCategory } from 'constant';
 import { RootState, useAppDispatch } from 'redux/store';
 import { setCurrentFilter, syncCurrentFilter } from 'redux/reducer/filter';
 import { useSelector } from 'react-redux';
 import { IAgeFilterProps } from 'types/Common';
+import { ageCategory } from 'constant/bottomFilters';
 
 const BottomSheetAge = styled.div`
   padding: 0 16px;

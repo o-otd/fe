@@ -1,4 +1,4 @@
-import { styleCategory } from 'constant';
+import { styleCategory } from 'constant/bottomFilters';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { setCurrentFilter, syncCurrentFilter } from 'redux/reducer/filter';

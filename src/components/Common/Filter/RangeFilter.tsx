@@ -1,4 +1,4 @@
-import { RANGE_GAP } from 'constant';
+import { RANGE_GAP } from 'constant/bottomFilters';
 import { usePercentage } from 'hooks/usePercentage';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';

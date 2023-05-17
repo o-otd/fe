@@ -1,11 +1,11 @@
 import React from 'react';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import styled from 'styled-components';
-import { bottomSheetTabs } from 'constant';
 import { ReactComponent as SuggestionColorSvg } from '../../../styles/images/icons/suggestion-color.svg';
 import { IFiltersProps } from 'types/Common';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
+import { bottomSheetTabs } from 'constant/bottomFilters';
 
 const SuggestionLnb = styled(Swiper)`
   margin-top: 4px;

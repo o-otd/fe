@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import { ReactComponent as SuggestionLinkSvg } from '../styles/images/icons/suggestion-link-btn.svg';
 import { Link } from 'react-router-dom';
-import { activityData } from 'constant';
 import qs from 'qs';
 import BottomFilter from 'components/Common/Filter/BottomFilter';
 import Filters from 'components/Common/Filter/Filters';
+import { activityData } from 'constant/bottomFilters';
 
 const LookTab = styled.div`
   overflow-x: scroll;
