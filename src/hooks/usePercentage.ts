@@ -1,9 +1,9 @@
-export const usePercentage = (
+export default function usePercentage(
   leftValue: number,
   rightValue: number,
   minValue: number,
   maxValue: number,
-) => {
+) {
   const getPercentage = (value: number, min: number, max: number) =>
     ((value - min) / (max - min)) * 100;
 
@@ -11,4 +11,4 @@ export const usePercentage = (
   const rightPercentage = getPercentage(rightValue, minValue, maxValue);
 
   return [leftPercentage, rightPercentage];
-};
+}

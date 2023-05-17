@@ -1,5 +1,5 @@
 import { RANGE_GAP } from 'constant/bottomFilters';
-import { usePercentage } from 'hooks/usePercentage';
+import usePercentage from 'hooks/usePercentage';
 import useSetCurrentFilters from 'hooks/useSetCurrentFilters';
 import useSyncFilters from 'hooks/useSyncFilters';
 import React, { useEffect, useState } from 'react';
@@ -9,7 +9,8 @@ import { IRangeFilterProps } from 'types/Common';
 function RangeFilter({ filterType, filterIndex }: IRangeFilterProps) {
   useSyncFilters(filterIndex);
 
-  const { currentFilter, setCurrentRangeFilterValues } = useSetCurrentFilters();
+  const { currentFilter, filter, setCurrentRangeFilterValues } =
+    useSetCurrentFilters();
 
   const [leftValue, setLeftValue] = useState<number>(
     filterType === 'height' ? 148 : 38,
@@ -56,8 +57,15 @@ function RangeFilter({ filterType, filterIndex }: IRangeFilterProps) {
     setRightValue(filterType === 'height' ? 190 : 100);
   }, [filterType]);
 
+  useEffect(() => {
+    if (!filter[filterIndex][0] && !filter[filterIndex][1]) {
+      setLeftValue(filterType === 'height' ? 148 : 38);
+      setRightValue(filterType === 'height' ? 190 : 100);
+    }
+  }, [filter[filterIndex]]);
+
   return (
-    <BottomSheetRange>
+    <>
       <RangeInfo>
         <RangeText>{`${
           currentFilter[filterIndex][0]
@@ -105,13 +113,11 @@ function RangeFilter({ filterType, filterIndex }: IRangeFilterProps) {
           </RangeControls>
         </RangeInput>
       </RangeInfo>
-    </BottomSheetRange>
+    </>
   );
 }
 
 export default RangeFilter;
-
-const BottomSheetRange = styled.div``;
 
 const RangeInfo = styled.div`
   position: relative;
