@@ -2,6 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { IGraySubmitButtonProps } from 'types/Common';
 
+function GraySubmitButton({ text }: IGraySubmitButtonProps) {
+  return <Button>{text}</Button>;
+}
+
+export default GraySubmitButton;
+
 const Button = styled.button`
   width: 100%;
   height: 48px;
@@ -15,9 +21,3 @@ const Button = styled.button`
   cursor: pointer;
   background-color: ${({ theme }) => theme.colors.ligthgray};
 `;
-
-function GraySubmitButton({ text }: IGraySubmitButtonProps) {
-  return <Button>{text}</Button>;
-}
-
-export default GraySubmitButton;

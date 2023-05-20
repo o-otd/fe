@@ -15,29 +15,31 @@ function Filters({ setIsFilterOpen }: IFiltersProps) {
   const { filter } = useSelector((state: RootState) => state.filter);
 
   return (
-    <SuggestionLnb spaceBetween={4} slidesPerView={'auto'}>
-      <ul>
-        {bottomSheetTabs.map((tab) =>
-          tab.name === '컬러' ? (
-            <SuggestionSwiper
-              $isFilterChecked={Boolean(filter[tab.id].length)}
-              onClick={onClickFilter}
-              key={tab.id}
-            >
-              <SuggestionColorSvg />
-            </SuggestionSwiper>
-          ) : (
-            <SuggestionSwiper
-              $isFilterChecked={Boolean(filter[tab.id].length)}
-              onClick={onClickFilter}
-              key={tab.id}
-            >
-              {tab.name}
-            </SuggestionSwiper>
-          ),
-        )}
-      </ul>
-    </SuggestionLnb>
+    <>
+      <SuggestionLnb spaceBetween={4} slidesPerView={'auto'}>
+        <ul>
+          {bottomSheetTabs.map((tab) =>
+            tab.name === '컬러' ? (
+              <SuggestionSwiper
+                $isFilterChecked={Boolean(filter[tab.id].length)}
+                onClick={onClickFilter}
+                key={tab.id}
+              >
+                <SuggestionColorSvg />
+              </SuggestionSwiper>
+            ) : (
+              <SuggestionSwiper
+                $isFilterChecked={Boolean(filter[tab.id].length)}
+                onClick={onClickFilter}
+                key={tab.id}
+              >
+                {tab.name}
+              </SuggestionSwiper>
+            ),
+          )}
+        </ul>
+      </SuggestionLnb>
+    </>
   );
 }
 
