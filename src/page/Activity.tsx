@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import { ReactComponent as SuggestionLinkSvg } from '../styles/images/icons/suggestion-link-btn.svg';
@@ -8,35 +8,106 @@ import qs from 'qs';
 import BottomFilter from 'components/Common/Filter/BottomFilter';
 import Filters from 'components/Common/Filter/Filters';
 import { activityData } from 'constant/bottomFilters';
+import LookTabs from 'components/Common/LookTabs';
 
-const LookTab = styled.div`
-  overflow-x: scroll;
-  margin: 14px 0;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
+function Activity() {
+  const location = useLocation();
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+  const { category } = qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+  });
 
-const LookTabLists = styled.ul`
-  display: flex;
-  margin-bottom: 17px;
-  margin: 0 20px;
-`;
+  const [activities, setActivities] = useState<string | undefined>(
+    category as string,
+  );
+  const navigation = useNavigate();
+  const onClickCategory = (type: string) => {
+    if (activities === type) {
+      navigation('/activity');
+      setActivities(undefined);
+    } else {
+      navigation(`/activity?category=${type}`);
+      setActivities(type);
+    }
+  };
 
-const LookTabList = styled(NavLink)`
-  font-size: 14px;
-  font-weight: 700;
-  flex-shrink: 0;
+  return (
+    <>
+      <main>
+        <LookTabs />
 
-  & + a {
-    margin-left: 37px;
-  }
+        <section>
+          <SuggestionCategory
+            slideToClickedSlide={true}
+            spaceBetween={4}
+            slidesPerView={'auto'}
+            speed={700}
+          >
+            <ul>
+              {activityData.map((activity, index) => (
+                <SwiperSlide
+                  key={index}
+                  onClick={() => onClickCategory(activity.type)}
+                >
+                  <Category
+                    selected={category === activity.type ? true : false}
+                  >
+                    {activity.name}
+                  </Category>
+                </SwiperSlide>
+              ))}
+            </ul>
+          </SuggestionCategory>
 
-  &.active {
-    color: ${({ theme }) => theme.colors.main};
-    border-bottom: 1px solid ${({ theme }) => theme.colors.main};
-  }
-`;
+          <Filters setIsFilterOpen={setIsFilterOpen} />
+        </section>
+
+        <Looks>
+          <h2>
+            <strong>LOOK</strong>’S
+          </h2>
+          <LooksLists>
+            <LooksList>
+              <LookListHover>
+                <LooksListText>
+                  2022
+                  <br />
+                  자켓룩
+                  <br />
+                  너무 좋아
+                  <br />
+                  아주 좋아
+                </LooksListText>
+                <LooksListLink to={'/'}>
+                  <SuggestionLinkSvg />
+                </LooksListLink>
+              </LookListHover>
+            </LooksList>
+            <LooksList>
+              <div></div>
+            </LooksList>
+            <LooksList>
+              <div></div>
+            </LooksList>
+            <LooksList>
+              <div></div>
+            </LooksList>
+            <LooksList>
+              <div></div>
+            </LooksList>
+            <LooksList>
+              <div></div>
+            </LooksList>
+          </LooksLists>
+        </Looks>
+      </main>
+
+      {isFilterOpen && <BottomFilter setIsFilterOpen={setIsFilterOpen} />}
+    </>
+  );
+}
+
+export default Activity;
 
 const SuggestionCategory = styled(Swiper)`
   & div {
@@ -128,109 +199,3 @@ const LookListHover = styled.div`
   width: 100%;
   height: 100%;
 `;
-
-function Activity() {
-  const location = useLocation();
-  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
-  const { category } = qs.parse(location.search, {
-    ignoreQueryPrefix: true,
-  });
-
-  const [activities, setActivities] = useState<string | undefined>(
-    category as string,
-  );
-  const navigation = useNavigate();
-  const onClickCategory = (type: string) => {
-    if (activities === type) {
-      navigation('/activity');
-      setActivities(undefined);
-    } else {
-      navigation(`/activity?category=${type}`);
-      setActivities(type);
-    }
-  };
-
-  return (
-    <>
-      <main>
-        <LookTab>
-          <LookTabLists>
-            <LookTabList to={'/'}>베스트룩 👍</LookTabList>
-            <LookTabList to={'/temperatures'}>기온별 추천룩 🌤</LookTabList>
-            <LookTabList to={'/tpo'}>TPO 추천룩 👔</LookTabList>
-            <LookTabList to={'/activity'}>활동성 추천룩 🏄</LookTabList>
-          </LookTabLists>
-        </LookTab>
-
-        <section>
-          <SuggestionCategory
-            slideToClickedSlide={true}
-            spaceBetween={4}
-            slidesPerView={'auto'}
-            speed={700}
-          >
-            <ul>
-              {activityData.map((activity, index) => (
-                <SwiperSlide
-                  key={index}
-                  onClick={() => onClickCategory(activity.type)}
-                >
-                  <Category
-                    selected={category === activity.type ? true : false}
-                  >
-                    {activity.name}
-                  </Category>
-                </SwiperSlide>
-              ))}
-            </ul>
-          </SuggestionCategory>
-
-          <Filters setIsFilterOpen={setIsFilterOpen} />
-        </section>
-
-        <Looks>
-          <h2>
-            <strong>LOOK</strong>’S
-          </h2>
-          <LooksLists>
-            <LooksList>
-              <LookListHover>
-                <LooksListText>
-                  2022
-                  <br />
-                  자켓룩
-                  <br />
-                  너무 좋아
-                  <br />
-                  아주 좋아
-                </LooksListText>
-                <LooksListLink to={'/'}>
-                  <SuggestionLinkSvg />
-                </LooksListLink>
-              </LookListHover>
-            </LooksList>
-            <LooksList>
-              <div></div>
-            </LooksList>
-            <LooksList>
-              <div></div>
-            </LooksList>
-            <LooksList>
-              <div></div>
-            </LooksList>
-            <LooksList>
-              <div></div>
-            </LooksList>
-            <LooksList>
-              <div></div>
-            </LooksList>
-          </LooksLists>
-        </Looks>
-      </main>
-
-      {isFilterOpen && <BottomFilter setIsFilterOpen={setIsFilterOpen} />}
-    </>
-  );
-}
-
-export default Activity;
