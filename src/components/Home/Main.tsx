@@ -1,33 +1,27 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SwiperSlide, Swiper } from 'swiper/react';
-import { ReactComponent as SuggestionLinkSvg } from '../styles/images/icons/suggestion-link-btn.svg';
-import { Link } from 'react-router-dom';
-import qs from 'qs';
-import BottomFilter from 'components/Common/Filter/BottomFilter';
-import Filters from 'components/Common/Filter/Filters';
-import { activityData } from 'constant/bottomFilters';
+import { ReactComponent as SuggestionLinkSvg } from '../../styles/images/icons/suggestion-link-btn.svg';
 import LookTabs from 'components/Common/LookTabs';
+import BottomFilter from 'components/Common/Filter/BottomFilter';
+import { Link } from 'react-router-dom';
+import Filters from 'components/Common/Filter/Filters';
+import { IMainProps } from 'types/Home';
+import useCurrentCategory from 'hooks/useCurrentCategory';
 
-function Activity() {
-  const location = useLocation();
+function Main({ categories, baseUrl }: IMainProps) {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
-  const { category } = qs.parse(location.search, {
-    ignoreQueryPrefix: true,
-  });
-
-  const [activities, setActivities] = useState<string | undefined>(
-    category as string,
-  );
+  const [currentCategory, setCurrentCategory, category] = useCurrentCategory();
   const navigation = useNavigate();
+
   const onClickCategory = (type: string) => {
-    if (activities === type) {
-      navigation('/activity');
-      setActivities(undefined);
+    if (currentCategory === type) {
+      navigation(`/${baseUrl}`);
+      setCurrentCategory(undefined);
     } else {
-      navigation(`/activity?category=${type}`);
-      setActivities(type);
+      navigation(`/${baseUrl}?category=${type}`);
+      setCurrentCategory(type);
     }
   };
 
@@ -44,15 +38,15 @@ function Activity() {
             speed={700}
           >
             <ul>
-              {activityData.map((activity, index) => (
+              {categories.map((categoryItem) => (
                 <SwiperSlide
-                  key={index}
-                  onClick={() => onClickCategory(activity.type)}
+                  key={categoryItem.id}
+                  onClick={() => onClickCategory(categoryItem.type)}
                 >
                   <Category
-                    selected={category === activity.type ? true : false}
+                    selected={category === categoryItem.type ? true : false}
                   >
-                    {activity.name}
+                    {categoryItem.name}
                   </Category>
                 </SwiperSlide>
               ))}
@@ -107,7 +101,7 @@ function Activity() {
   );
 }
 
-export default Activity;
+export default Main;
 
 const SuggestionCategory = styled(Swiper)`
   & div {
@@ -129,7 +123,7 @@ const Category = styled.div<{ selected: boolean }>`
   background-color: ${(props) =>
     props.selected ? props.theme.colors.main : props.theme.colors.gray4};
 
-  font-size: ${({ selected }) => (selected ? '48px' : '14px')};
+  font-size: ${({ selected }) => (selected ? '42px' : '14px')};
   font-weight: ${({ selected }) => (selected ? '400' : '600')};
   padding: 11px 16px;
   display: flex;

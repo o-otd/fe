@@ -1,5 +1,5 @@
 import Layout from 'components/Common/Layout';
-import Activity from 'page/Activity';
+import Activity from 'page/today/Activity';
 import Member from 'page/Member';
 import Profile from 'page/Profile';
 import Register from 'page/Register';
@@ -9,10 +9,10 @@ import ResetPasswordForm from 'page/ResetPasswordForm';
 import Search from 'page/Search';
 import SignIn from 'page/SignIn';
 import SignUp from 'page/SignUp';
-import Temperatures from 'page/Temperatures';
-import Tpo from 'page/Tpo';
+import Temperatures from 'page/today/Temperatures';
+import Tpo from 'page/today/Tpo';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Today from 'page/Today';
+import Today from 'page/today/Today';
 import Weekend from 'page/Weekend';
 import Confirm from 'page/Confirm';
 

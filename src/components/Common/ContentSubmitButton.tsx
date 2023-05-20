@@ -2,6 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { IContentSubmitButtonProps } from 'types/Common';
 
+function ContentSubmitButton({ text }: IContentSubmitButtonProps) {
+  return <Button>{text}</Button>;
+}
+
+export default ContentSubmitButton;
+
 const Button = styled.button`
   width: 100%;
   height: 48px;
@@ -15,9 +21,3 @@ const Button = styled.button`
   cursor: pointer;
   background-color: ${({ theme }) => theme.colors.content};
 `;
-
-function ContentSubmitButton({ text }: IContentSubmitButtonProps) {
-  return <Button>{text}</Button>;
-}
-
-export default ContentSubmitButton;

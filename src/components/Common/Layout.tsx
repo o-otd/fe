@@ -1,76 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import searchSvg from '../../styles/images/icons/search.svg';
 import noticeSvg from '../../styles/images/icons/notice.svg';
 import styled from 'styled-components';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Cookie from 'js-cookie';
 import { Link } from 'react-router-dom';
-
-const Header = styled.header`
-  background-color: ${({ theme }) => theme.colors.gray3};
-  height: 95px;
-  border-radius: ${({ theme }) => theme.borderRadius.headerRadius30};
-`;
-
-const InnerContainer = styled.div`
-  width: ${({ theme }) => theme.innerContainer.width};
-  padding: ${({ theme }) => theme.innerContainer.padding};
-`;
-
-const HeaderTop = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 51px;
-`;
-
-const HeaderLogo = styled.h1`
-  font-size: 16px;
-  font-weight: 700;
-`;
-
-const HeaderUtil = styled.ul`
-  display: flex;
-
-  & li {
-    width: 24px;
-    height: 24px;
-  }
-
-  & li + li {
-    margin-left: 20px;
-  }
-
-  & li * {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-`;
-
-const HeaderNav = styled.nav`
-  font-weight: 600;
-`;
-const HeaderNavLists = styled.ul`
-  display: flex;
-  justify-content: space-between;
-`;
-const HeaderNavList = styled(Link)<{ $isActive: boolean }>`
-  color: ${({ theme }) => theme.colors.gray7};
-
-  color: ${({ theme, $isActive }) =>
-    $isActive ? theme.colors.white : theme.colors.gray7};
-`;
-
-const HeaderLogIn = styled.button`
-  height: 22px;
-  line-height: 22px;
-  padding: 0 10px;
-  font-size: 14px;
-  font-weight: 500;
-  border: 1px solid ${({ theme }) => theme.colors.gray9};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
-`;
 
 function Layout() {
   const navigation = useNavigate();
@@ -145,3 +79,69 @@ function Layout() {
 }
 
 export default Layout;
+
+const Header = styled.header`
+  background-color: ${({ theme }) => theme.colors.gray3};
+  height: 95px;
+  border-radius: ${({ theme }) => theme.borderRadius.headerRadius30};
+`;
+
+const InnerContainer = styled.div`
+  width: ${({ theme }) => theme.innerContainer.width};
+  padding: ${({ theme }) => theme.innerContainer.padding};
+`;
+
+const HeaderTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 51px;
+`;
+
+const HeaderLogo = styled.h1`
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+const HeaderUtil = styled.ul`
+  display: flex;
+
+  & li {
+    width: 24px;
+    height: 24px;
+  }
+
+  & li + li {
+    margin-left: 20px;
+  }
+
+  & li * {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+`;
+
+const HeaderNav = styled.nav`
+  font-weight: 600;
+`;
+const HeaderNavLists = styled.ul`
+  display: flex;
+  justify-content: space-between;
+`;
+const HeaderNavList = styled(Link)<{ $isActive: boolean }>`
+  color: ${({ theme }) => theme.colors.gray7};
+
+  color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.white : theme.colors.gray7};
+`;
+
+const HeaderLogIn = styled.button`
+  height: 22px;
+  line-height: 22px;
+  padding: 0 10px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid ${({ theme }) => theme.colors.gray9};
+  border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
+`;

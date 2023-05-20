@@ -25,8 +25,3 @@ export interface IFiltersProps {
 }
 
 export interface IBottomFilterProps extends IFiltersProps {}
-
-export interface ILookTabItemProps {
-  text: string;
-  href: string;
-}

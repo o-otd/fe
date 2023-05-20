@@ -6,3 +6,19 @@ export interface ITodayCardModalProps extends ITodayCardProps {
 export interface ITodayCardProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface ILookTabItemProps {
+  text: string;
+  href: string;
+}
+
+export interface IMainProps {
+  categories: ILookCategory[];
+  baseUrl: 'tpo' | 'activity';
+}
+
+export interface ILookCategory {
+  name: string;
+  type: string;
+  id: number;
+}
