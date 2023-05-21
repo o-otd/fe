@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import TodayCardModal from 'components/Home/TodayCardModal';
-import TodayCard from 'components/Home/TodayCard';
+import TodayCardModal from 'components/Home/Today/TodayCardModal';
+import TodayCard from 'components/Home/Today/TodayCard';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import LookSlideCard from 'components/Home/LookSlideCard';
+import LookSlideCard from 'components/Home/Today/LookSlideCard';
 import LookTabs from 'components/Common/LookTabs';
 
 function Today() {

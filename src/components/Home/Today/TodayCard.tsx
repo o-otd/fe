@@ -1,11 +1,83 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as BookMarkSvg } from '../../styles/images/icons/bookmark.svg';
-import { ReactComponent as LikesSvg } from '../../styles/images/icons/likes.svg';
-import { ReactComponent as FollowSvg } from '../../styles/images/icons/follow.svg';
+import { ReactComponent as BookMarkSvg } from '../../../styles/images/icons/bookmark.svg';
+import { ReactComponent as LikesSvg } from '../../../styles/images/icons/likes.svg';
+import { ReactComponent as FollowSvg } from '../../../styles/images/icons/follow.svg';
 import { ITodayCardProps } from 'types/Home';
-import { ReactComponent as PlusSVG } from '../../styles/images/icons/plus.svg';
+import { ReactComponent as PlusSVG } from '../../../styles/images/icons/plus.svg';
 import { todayCardCategory } from 'constant';
+import useAuthRedirect from 'hooks/useAuthRedirect';
+
+function TodayCard({ setIsOpen }: ITodayCardProps) {
+  const onClickOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const { checkAuthAndProceed } = useAuthRedirect();
+
+  const onClickLike = () => {
+    checkAuthAndProceed(() => {
+      console.log('like');
+    });
+  };
+
+  const onClickBookMark = () => {
+    checkAuthAndProceed(() => {
+      console.log('bookmark');
+    });
+  };
+
+  const onClickFollow = () => {
+    checkAuthAndProceed(() => {
+      console.log('follow');
+    });
+  };
+
+  return (
+    <div>
+      <CardHeader>
+        <CardHeaderUser>
+          <CardHeaderProfile />
+          <CardHeaderInfo>
+            <strong>Anonymous</strong>
+            <span>11월 3일 옷장</span>
+          </CardHeaderInfo>
+        </CardHeaderUser>
+        <CardHeaderUtil>
+          <li onClick={onClickLike}>
+            <UtilIconLikes>
+              <LikesSvg />
+            </UtilIconLikes>
+          </li>
+          <li onClick={onClickBookMark}>
+            <UtilIconBookMark>
+              <BookMarkSvg />
+            </UtilIconBookMark>
+          </li>
+          <li onClick={onClickFollow}>
+            <UtilIconFollow>
+              <FollowSvg />
+            </UtilIconFollow>
+          </li>
+        </CardHeaderUtil>
+      </CardHeader>
+      <CardItems>
+        {todayCardCategory.map((category) => (
+          <li key={category.id}>
+            <button type="button" onClick={onClickOpenModal}>
+              <span>{category.name}</span>
+              <div>
+                <PlusSVG />
+              </div>
+            </button>
+          </li>
+        ))}
+      </CardItems>
+    </div>
+  );
+}
+
+export default TodayCard;
 
 const CardHeader = styled.div`
   display: flex;
@@ -131,54 +203,3 @@ const UtilIconFollow = styled.button`
     }
   }
 `;
-
-function TodayCard({ setIsOpen }: ITodayCardProps) {
-  const onClickOpenModal = () => {
-    setIsOpen(true);
-  };
-
-  return (
-    <div>
-      <CardHeader>
-        <CardHeaderUser>
-          <CardHeaderProfile></CardHeaderProfile>
-          <CardHeaderInfo>
-            <strong>Anonymous</strong>
-            <span>11월 3일 옷장</span>
-          </CardHeaderInfo>
-        </CardHeaderUser>
-        <CardHeaderUtil>
-          <li>
-            <UtilIconLikes>
-              <LikesSvg />
-            </UtilIconLikes>
-          </li>
-          <li>
-            <UtilIconBookMark>
-              <BookMarkSvg />
-            </UtilIconBookMark>
-          </li>
-          <li>
-            <UtilIconFollow>
-              <FollowSvg />
-            </UtilIconFollow>
-          </li>
-        </CardHeaderUtil>
-      </CardHeader>
-      <CardItems>
-        {todayCardCategory.map((category) => (
-          <li key={category.id}>
-            <button type="button" onClick={onClickOpenModal}>
-              <span>{category.name}</span>
-              <div>
-                <PlusSVG />
-              </div>
-            </button>
-          </li>
-        ))}
-      </CardItems>
-    </div>
-  );
-}
-
-export default TodayCard;
