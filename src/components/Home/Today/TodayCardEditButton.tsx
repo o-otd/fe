@@ -1,6 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+function TodayCardEditButton() {
+  return (
+    <CardHeaderEdit>
+      <button>수정</button>
+    </CardHeaderEdit>
+  );
+}
+
+export default TodayCardEditButton;
+
 const CardHeaderEdit = styled.li`
   background-color: ${({ theme }) => theme.colors.gray7};
   color: ${({ theme }) => theme.colors.gray1};
@@ -16,13 +26,3 @@ const CardHeaderEdit = styled.li`
     padding: 6px 12px;
   }
 `;
-
-function TodayCardEditButton() {
-  return (
-    <CardHeaderEdit>
-      <button>수정</button>
-    </CardHeaderEdit>
-  );
-}
-
-export default TodayCardEditButton;

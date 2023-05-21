@@ -1,9 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as ArrowRightGray9Svg } from '../../styles/images/icons/arrow_right_gray9.svg';
-import { ReactComponent as ModalCloseSvg } from '../../styles/images/icons/modal_close.svg';
-import { ReactComponent as LikesSvg } from '../../styles/images/icons/likes.svg';
+import { ReactComponent as ArrowRightGray9Svg } from '../../../styles/images/icons/arrow_right_gray9.svg';
+import { ReactComponent as ModalCloseSvg } from '../../../styles/images/icons/modal_close.svg';
+import { ReactComponent as LikesSvg } from '../../../styles/images/icons/likes.svg';
 import { ITodayCardModalProps } from 'types/Home';
+
+function TodayCardModal({ isOpen, setIsOpen }: ITodayCardModalProps) {
+  const onClickCloseModal = () => {
+    setIsOpen(false);
+  };
+  return (
+    <Modal isOpen={isOpen}>
+      <ModalWrapper>
+        <ModalBackGround />
+        <ModalContent>
+          <ModalInner>
+            <ModalTop>
+              <h4>Shoes</h4>
+              <ModalLikes>
+                <LikesSvg />
+              </ModalLikes>
+            </ModalTop>
+            <ModalProduct>
+              <span>반스</span>
+              <a href="#">
+                <p>코듀랴 Old School 올드스쿨</p>
+                <ArrowRightGray9Svg />
+              </a>
+              <ModalProductImage>
+                <div>
+                  <div />
+                  <ModalProductForm>
+                    <button>수정</button>
+                    <button>삭제</button>
+                  </ModalProductForm>
+                </div>
+              </ModalProductImage>
+            </ModalProduct>
+          </ModalInner>
+        </ModalContent>
+        <ModalClose onClick={onClickCloseModal}>
+          <ModalCloseSvg />
+        </ModalClose>
+      </ModalWrapper>
+    </Modal>
+  );
+}
+
+export default TodayCardModal;
 
 const Modal = styled.div<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
@@ -151,47 +195,3 @@ const ModalClose = styled.button`
     }
   }
 `;
-
-function TodayCardModal({ isOpen, setIsOpen }: ITodayCardModalProps) {
-  const onClickCloseModal = () => {
-    setIsOpen(false);
-  };
-  return (
-    <Modal isOpen={isOpen}>
-      <ModalWrapper>
-        <ModalBackGround />
-        <ModalContent>
-          <ModalInner>
-            <ModalTop>
-              <h4>Shoes</h4>
-              <ModalLikes>
-                <LikesSvg />
-              </ModalLikes>
-            </ModalTop>
-            <ModalProduct>
-              <span>반스</span>
-              <a href="#">
-                <p>코듀랴 Old School 올드스쿨</p>
-                <ArrowRightGray9Svg />
-              </a>
-              <ModalProductImage>
-                <div>
-                  <div />
-                  <ModalProductForm>
-                    <button>수정</button>
-                    <button>삭제</button>
-                  </ModalProductForm>
-                </div>
-              </ModalProductImage>
-            </ModalProduct>
-          </ModalInner>
-        </ModalContent>
-        <ModalClose onClick={onClickCloseModal}>
-          <ModalCloseSvg />
-        </ModalClose>
-      </ModalWrapper>
-    </Modal>
-  );
-}
-
-export default TodayCardModal;

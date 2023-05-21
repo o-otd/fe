@@ -1,6 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as LikesSvg } from '../../styles/images/icons/likes.svg';
+import { ReactComponent as LikesSvg } from '../../../styles/images/icons/likes.svg';
+
+function LookSlideCard() {
+  return (
+    <LookSlide>
+      <LookListInner>
+        <LookCategory>
+          <LookCategoryMain>top</LookCategoryMain>
+          <LookCategorySub>반소매셔츠</LookCategorySub>
+        </LookCategory>
+
+        <LookLikes>
+          <UtilIconLikes>
+            <LikesSvg />
+          </UtilIconLikes>
+        </LookLikes>
+
+        <LookImageWrap>
+          <LookImage />
+        </LookImageWrap>
+      </LookListInner>
+      <LookListHover>
+        <span>KIIMUIR</span>
+        <span>투턱 버뮤다</span>
+        <span>애드 데님 쇼츠</span>
+      </LookListHover>
+    </LookSlide>
+  );
+}
+export default LookSlideCard;
+
 const LookListHover = styled.div`
   display: none;
   position: absolute;
@@ -102,32 +132,3 @@ const LookImage = styled.div`
   height: 100%;
   background-color: yellow;
 `;
-
-function LookSlideCard() {
-  return (
-    <LookSlide>
-      <LookListInner>
-        <LookCategory>
-          <LookCategoryMain>top</LookCategoryMain>
-          <LookCategorySub>반소매셔츠</LookCategorySub>
-        </LookCategory>
-
-        <LookLikes>
-          <UtilIconLikes>
-            <LikesSvg />
-          </UtilIconLikes>
-        </LookLikes>
-
-        <LookImageWrap>
-          <LookImage />
-        </LookImageWrap>
-      </LookListInner>
-      <LookListHover>
-        <span>KIIMUIR</span>
-        <span>투턱 버뮤다</span>
-        <span>애드 데님 쇼츠</span>
-      </LookListHover>
-    </LookSlide>
-  );
-}
-export default LookSlideCard;
