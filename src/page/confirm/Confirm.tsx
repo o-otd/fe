@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import 'swiper/css/pagination';
-import { Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import confirmImage from '../../styles/images/confirm-img-dummy.png';
+
 import ConfirmCommentLinkSVG from '../../styles/images/icons/confirm-comments-link.svg';
 import ConfirmHeader from 'components/Home/Confirm/ConfirmHeader';
 import ConfirmContentCard from 'components/Home/Confirm/ConfirmContentCard';
 import ConfirmVoteCard from 'components/Home/Confirm/ConfirmVoteCard';
+import ConfirmImageSlide from 'components/Home/Confirm/ConfirmImageSlide';
 
 function Confirm() {
   return (
@@ -22,15 +20,7 @@ function Confirm() {
 
               <ConfirmVoteCard />
 
-              <ConfirmSlider>
-                <CustomSwiper pagination modules={[Pagination]}>
-                  {[1, 2, 3, 4, 5].map((item) => (
-                    <ConfirmSliderItem key={item}>
-                      <CoverImage src={confirmImage} alt="thumbnail" />
-                    </ConfirmSliderItem>
-                  ))}
-                </CustomSwiper>
-              </ConfirmSlider>
+              <ConfirmImageSlide />
 
               <ConfirmComments>
                 <ConfirmCommentsInfo>
@@ -54,40 +44,6 @@ function Confirm() {
 }
 
 export default Confirm;
-
-const CoverImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-`;
-
-const ConfirmSlider = styled.div`
-  margin-top: 4px;
-  position: relative;
-`;
-
-const ConfirmSliderItem = styled(SwiperSlide)`
-  width: 375px;
-  height: 375px;
-  overflow: hidden;
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius30};
-`;
-
-const CustomSwiper = styled(Swiper)`
-  .swiper-pagination {
-    top: auto;
-    bottom: 8px;
-  }
-  .swiper-pagination-bullet {
-    width: 6px;
-    height: 6px;
-  }
-
-  .swiper-pagination-bullet-active {
-    background-color: ${({ theme }) => theme.colors.white};
-  }
-`;
 
 const ConfirmListItem = styled.li`
   & + & {
