@@ -14,7 +14,7 @@ import Tpo from 'page/today/Tpo';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Today from 'page/today/Today';
 import Weekend from 'page/Weekend';
-import Confirm from 'page/Confirm';
+import Confirm from 'page/confirm/Confirm';
 
 function Router() {
   return (
