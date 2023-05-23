@@ -1,22 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import dummyImage from '../../../styles/images/dummy-profile.png';
 
 function ConfirmContentCard() {
+  const [isContentOpen, setIsContentOpen] = useState<boolean>(false);
+
+  const onClickProfile = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    console.log('profile');
+  };
+
+  const onClickContentCard = () => {
+    setIsContentOpen((prev) => !prev);
+  };
+
   return (
-    <ConfirmCard>
+    <ConfirmCard onClick={onClickContentCard}>
       <ConfirmCardInfo>
-        <ConfirmCardProfile>
+        <ConfirmCardProfile onClick={onClickProfile}>
           <CoverImage src={dummyImage} />
         </ConfirmCardProfile>
         <div>
-          <ConfirmCardNickName>CNVXCX</ConfirmCardNickName>
+          <ConfirmCardNickName onClick={onClickProfile}>
+            CNVXCX
+          </ConfirmCardNickName>
           <ConfirmCardDate>
             7일 남음 <span>2022.11.27 ~ 2022.12.04</span>
           </ConfirmCardDate>
         </div>
       </ConfirmCardInfo>
-      <ConfirmCardContent>
+      <ConfirmCardContent $isContentOpen={isContentOpen}>
         이번 주말에 데이트 나가는데 어떤지 봐주세요. 키 178, 몸무게 72kg 평소에
         무난하게 입습니다. 급해요 꼭 투표부탁. 댓글로 다른 스타일 추천도
         받습니다! 부탁!!!!!!!!!!
@@ -31,6 +44,7 @@ const ConfirmCard = styled.div`
   padding: 22px 16px;
   background: ${({ theme }) => theme.colors.gray2};
   border-radius: ${({ theme }) => theme.borderRadius.borderRadius30};
+  cursor: pointer;
 `;
 
 const ConfirmCardInfo = styled.div`
@@ -73,11 +87,13 @@ const ConfirmCardDate = styled.p`
   }
 `;
 
-const ConfirmCardContent = styled.p`
+const ConfirmCardContent = styled.p<{ $isContentOpen: boolean }>`
   padding-top: 12px;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  white-space: ${({ $isContentOpen }) =>
+    $isContentOpen ? 'initial' : 'nowrap'};
+  text-overflow: ${({ $isContentOpen }) =>
+    $isContentOpen ? 'initial' : 'ellipsis'};
   font-size: 14px;
   font-weight: 400;
   color: ${({ theme }) => theme.colors.gray9};
