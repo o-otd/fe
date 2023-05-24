@@ -1,10 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import ConfirmCommentLinkSVG from '../../../styles/images/icons/confirm-comments-link.svg';
+import useDetailNavigation from 'hooks/useDetailNavigation';
 
 function ConfirmComment() {
+  const detailNavigation = useDetailNavigation('comment', 1);
+  const onClickComment = () => {
+    detailNavigation();
+  };
   return (
-    <ConfirmComments>
+    <ConfirmComments onClick={onClickComment}>
       <ConfirmCommentsInfo>
         댓글 <span>72</span>
       </ConfirmCommentsInfo>
@@ -26,6 +31,7 @@ const ConfirmComments = styled.div`
   margin-top: 4px;
   background: ${({ theme }) => theme.colors.gray2};
   border-radius: ${({ theme }) => theme.borderRadius.borderRadius30};
+  cursor: pointer;
 `;
 
 const ConfirmCommentsInfo = styled.h5`

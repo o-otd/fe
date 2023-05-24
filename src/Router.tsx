@@ -15,6 +15,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Today from 'page/today/Today';
 import Weekend from 'page/Weekend';
 import Confirm from 'page/confirm/Confirm';
+import CommentDetail from 'page/confirm/CommentDetail';
 
 function Router() {
   return (
@@ -26,6 +27,7 @@ function Router() {
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/reset/password" element={<ResetPasswordForm />} />
         <Route path="/signin/register" element={<Register />} />
+        <Route path="/comment/:commentId" element={<CommentDetail />} />
 
         <Route element={<Layout />}>
           <Route path="/signin/email" element={<ResetEmailForm />} />
