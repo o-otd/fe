@@ -1,9 +1,9 @@
-import React from 'react'
+import Main from 'components/Home/Main';
+import { temperatureCategory } from 'constant/lookTab';
+import React from 'react';
 
 function Temperatures() {
-  return (
-    <div>Temperatures</div>
-  )
+  return <Main categories={temperatureCategory} baseUrl="temperatures" />;
 }
 
-export default Temperatures
+export default Temperatures;

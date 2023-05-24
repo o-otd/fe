@@ -14,7 +14,7 @@ export interface ILookTabItemProps {
 
 export interface IMainProps {
   categories: ILookCategory[];
-  baseUrl: 'tpo' | 'activity';
+  baseUrl: 'tpo' | 'activity' | 'temperatures';
 }
 
 export interface ILookCategory {
