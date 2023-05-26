@@ -1,14 +1,23 @@
+import useTextCount from 'hooks/useTextCount';
 import React from 'react';
 import styled from 'styled-components';
 
 function CommentDetailInput() {
+  const { inputTextLength, onInputHandler } = useTextCount();
+
   return (
     <CommentForm>
       <form>
-        <CommentTextArea placeholder="댓글을 입력하세요" />
+        <CommentTextArea
+          onChange={onInputHandler}
+          maxLength={600}
+          placeholder="댓글을 입력하세요"
+        />
         <CommentInputUtil>
-          <span>0</span>/600
-          <CommentFormSubmit>댓글 남기기</CommentFormSubmit>
+          <span>{inputTextLength}</span>/600
+          <CommentFormSubmit disabled={inputTextLength === 0}>
+            댓글 남기기
+          </CommentFormSubmit>
         </CommentInputUtil>
       </form>
     </CommentForm>
@@ -66,6 +75,7 @@ const CommentFormSubmit = styled.button`
   padding: 10px 12px;
   color: ${({ theme }) => theme.colors.gray2};
 
-  /* disabled
-  background-color: var(--gray5);  */
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.gray5};
+  }
 `;
