@@ -16,10 +16,12 @@ import Today from 'page/today/Today';
 import Weekend from 'page/Weekend';
 import Confirm from 'page/confirm/Confirm';
 import CommentDetail from 'page/confirm/CommentDetail';
+import ScrollToTop from 'components/Common/ScrollToTop';
 
 function Router() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin/member" element={<Member />} />
