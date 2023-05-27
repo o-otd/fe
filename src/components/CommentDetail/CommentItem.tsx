@@ -4,8 +4,11 @@ import { ReactComponent as ConfirmCommentLikeSVG } from '../../styles/images/ico
 import CommentsItem from './CommentsItem';
 
 function CommentItem() {
+  const onClickComment = () => {
+    // 대댓글 get api 요청
+  };
   return (
-    <Wrapper>
+    <Wrapper onClick={onClickComment}>
       <CommentListProfile />
       <CommentListInfo>
         <CommentListNickName>닉네임</CommentListNickName>
@@ -21,13 +24,13 @@ function CommentItem() {
           </CommentListLikes>
         </CommentListUtil>
 
-        <CommentsList>
+        {/* <CommentsList>
           <ul>
             {[1, 2, 3, 4, 5].map((comments) => (
               <CommentsItem key={comments} />
             ))}
           </ul>
-        </CommentsList>
+        </CommentsList> */}
 
         <CommentListDate>2022.11.27. 14:27</CommentListDate>
       </CommentListInfo>
@@ -41,6 +44,7 @@ const Wrapper = styled.li`
   display: flex;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray5};
   padding-bottom: 20px;
+  cursor: pointer;
 
   & + & {
     margin-top: 16px;
