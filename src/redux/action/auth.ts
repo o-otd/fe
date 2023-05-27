@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import Api from 'api/Api';
+import Api from 'api/core/Api';
 import Cookie from 'js-cookie';
 import {
   IAuthJoinByEmailData,
