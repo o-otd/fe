@@ -6,8 +6,9 @@ import useAuthRedirect from 'hooks/useAuthRedirect';
 function ConfirmHeader() {
   const { redirectTo } = useAuthRedirect();
   const onClickAddConfirm = () => {
-    redirectTo('/');
+    redirectTo('/confirm/write');
   };
+
   return (
     <ConfirmUtil>
       <button>
