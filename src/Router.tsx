@@ -17,6 +17,7 @@ import Weekend from 'page/Weekend';
 import Confirm from 'page/confirm/Confirm';
 import CommentDetail from 'page/confirm/CommentDetail';
 import ScrollToTop from 'components/Common/ScrollToTop';
+import ConfirmWrite from 'page/confirm/ConfirmWrite';
 
 function Router() {
   return (
@@ -30,6 +31,7 @@ function Router() {
         <Route path="/reset/password" element={<ResetPasswordForm />} />
         <Route path="/signin/register" element={<Register />} />
         <Route path="/comment/:commentId" element={<CommentDetail />} />
+        <Route path="/confirm/write" element={<ConfirmWrite />} />
 
         <Route element={<Layout />}>
           <Route path="/signin/email" element={<ResetEmailForm />} />
