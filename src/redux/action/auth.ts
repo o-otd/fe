@@ -37,9 +37,11 @@ export const authLoginByEmail = createAsyncThunk<
   try {
     const { email, password } = data;
 
-    const response = await Api.post(
-      `/api/auth/login?email=${email}&password=${password}`,
-    );
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+
+    const response = await Api.post('/api/auth/login', formData);
 
     if (response.data.ok) {
       Cookie.set('accessToken', response.data.data.token);
