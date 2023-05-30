@@ -15,9 +15,12 @@ export const authJoinByEmail = createAsyncThunk<
   try {
     const { email, password, name } = data;
 
-    const response = await Api.post(
-      `/api/auth/join?email=${email}&name=${name}&password=${password}`,
-    );
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('name', name);
+
+    const response = await Api.post('/api/auth/join', formData);
 
     if (response.data.ok) {
       return response.data;
@@ -37,9 +40,11 @@ export const authLoginByEmail = createAsyncThunk<
   try {
     const { email, password } = data;
 
-    const response = await Api.post(
-      `/api/auth/login?email=${email}&password=${password}`,
-    );
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
+
+    const response = await Api.post('/api/auth/login', formData);
 
     if (response.data.ok) {
       Cookie.set('accessToken', response.data.data.token);
