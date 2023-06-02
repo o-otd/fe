@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ConfirmWriteArrowBottomSVG from '../../../styles/images/icons/confirm-write-arrow-bottom.svg';
 import { ReactComponent as CalendarSVG } from '../../../styles/images/icons/calendar.svg';
+import { IConfirmWriteTextInputProps } from 'types/Home';
 
-function ConfirmWriteTextInput() {
+function ConfirmWriteTextInput({
+  text,
+  onChangeCallBack,
+}: IConfirmWriteTextInputProps) {
   return (
     <WriteForm>
       <WriteFormHeader>
@@ -22,7 +26,12 @@ function ConfirmWriteTextInput() {
           </WriteFormDate>
         </WriteFormInfo>
       </WriteFormHeader>
-      <WriteFormTextArea placeholder="텍스트를 입력하세요"></WriteFormTextArea>
+      <WriteFormTextArea
+        maxLength={1500}
+        value={text}
+        onChange={onChangeCallBack}
+        placeholder="텍스트를 입력하세요"
+      />
     </WriteForm>
   );
 }

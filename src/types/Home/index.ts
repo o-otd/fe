@@ -22,3 +22,8 @@ export interface ILookCategory {
   type: string;
   id: number;
 }
+
+export interface IConfirmWriteTextInputProps {
+  text: string;
+  onChangeCallBack: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
