@@ -1,5 +1,4 @@
 import React from 'react';
-import { ReactComponent as ConfirmWriteCloseSVG } from '../../styles/images/icons/confirm-comments-close.svg';
 import styled from 'styled-components';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper';
@@ -8,17 +7,12 @@ import { ReactComponent as ConfirmWriteSliderSVG } from '../../styles/images/ico
 import { ReactComponent as ConfirmVoteIconSVG } from '../../styles/images/icons/confirm-vote-icon.svg';
 import ConfirmWriteArrowBottomSVG from '../../styles/images/icons/confirm-write-arrow-bottom.svg';
 import { ReactComponent as CalendarSVG } from '../../styles/images/icons/calendar.svg';
+import ConfirmWriteHeader from 'components/Home/Confirm/ConfirmWriteHeader';
 
 function ConfirmWrite() {
   return (
-    <main>
-      <WriteTop>
-        <WriteTopClose>
-          <ConfirmWriteCloseSVG />
-        </WriteTopClose>
-        <WriteTopTitle>컨펌 글쓰기</WriteTopTitle>
-        <WriteTopSubmit>글쓰기 작성 완료</WriteTopSubmit>
-      </WriteTop>
+    <form>
+      <ConfirmWriteHeader />
 
       <WriteForm>
         <WriteFormHeader>
@@ -72,42 +66,11 @@ function ConfirmWrite() {
           ))}
         </CustomSwiper>
       </WriteSlider>
-    </main>
+    </form>
   );
 }
 
 export default ConfirmWrite;
-
-const WriteTop = styled.section`
-  display: flex;
-  align-items: center;
-  background-color: ${({ theme }) => theme.colors.gray3};
-  height: 55px;
-  border-radius: ${({ theme }) => theme.borderRadius.headerRadius30};
-  padding: 0 16px;
-`;
-
-const WriteTopClose = styled.button`
-  height: 24px;
-`;
-
-const WriteTopTitle = styled.div`
-  margin-left: 12px;
-  font-size: 17px;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.gray9};
-`;
-
-const WriteTopSubmit = styled.div`
-  margin-left: auto;
-  color: #17171b;
-  background-color: ${({ theme }) => theme.colors.gray7};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};
-  padding: 6px 12px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-`;
 
 const WriteForm = styled.section`
   padding: 22px 16px 20px 16px;
