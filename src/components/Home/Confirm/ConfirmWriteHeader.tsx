@@ -1,15 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmWriteCloseSVG } from '../../../styles/images/icons/confirm-comments-close.svg';
+import { IConfirmWriteHeaderProps } from 'types/Home';
 
-function ConfirmWriteHeader() {
+function ConfirmWriteHeader({ onSubmit }: IConfirmWriteHeaderProps) {
   return (
     <WriteTop>
       <WriteTopClose>
         <ConfirmWriteCloseSVG />
       </WriteTopClose>
       <WriteTopTitle>컨펌 글쓰기</WriteTopTitle>
-      <WriteTopSubmit>글쓰기 작성 완료</WriteTopSubmit>
+      <WriteTopSubmit onClick={(event) => onSubmit(event)}>
+        글쓰기 작성 완료
+      </WriteTopSubmit>
     </WriteTop>
   );
 }

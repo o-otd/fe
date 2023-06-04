@@ -1,4 +1,5 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
+import { IApiResponse } from 'types/Common';
 
 export interface IResetEmailInputData {
   email: string;
@@ -29,12 +30,6 @@ export interface IAuthJoinByEmailData extends IAuthLogInByEmailData {
 export interface IAuthLogInByEmailData {
   email: string;
   password: string;
-}
-
-export interface IApiResponse {
-  ok: boolean;
-  code: number;
-  error: string | null;
 }
 
 export interface IAuthJoinByEmailResponse extends IApiResponse {

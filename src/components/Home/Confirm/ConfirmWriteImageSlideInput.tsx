@@ -4,7 +4,7 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ReactComponent as ConfirmWriteSliderSVG } from '../../../styles/images/icons/confirm-write__slider.svg';
-import { IConfirmWriteImageSlideInputProps } from 'types/Home';
+import { IConfirmWriteImageSlideInputProps, IImageFile } from 'types/Home';
 
 function ConfirmWriteImageSlideInput({
   setInputImages,
@@ -14,10 +14,15 @@ function ConfirmWriteImageSlideInput({
     if (event.target.files) {
       const file = event.target.files[0];
       const reader = new FileReader();
+
       reader.readAsDataURL(file);
       reader.onloadend = () => {
+        const image = {
+          file: file,
+          imageUrl: reader.result as string,
+        };
         const temp = [...inputImages];
-        temp.push(reader.result as string);
+        temp.push(image as IImageFile);
         setInputImages([...temp]);
       };
     }
@@ -40,7 +45,10 @@ function ConfirmWriteImageSlideInput({
                 <ConfirmWriteSliderSVG />
               </label>
             ) : (
-              <CoverImage src={inputImages[inputItem]} alt="coverImage" />
+              <CoverImage
+                src={inputImages[inputItem].imageUrl}
+                alt="coverImage"
+              />
             )}
           </SwiperSlideItem>
         ))}

@@ -5,6 +5,9 @@ import Cookie from 'js-cookie';
 const AuthApi = axios.create({
   baseURL: API_URL,
   withCredentials: true,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
 });
 
 AuthApi.interceptors.request.use(
@@ -22,7 +25,10 @@ AuthApi.interceptors.request.use(
 
 AuthApi.interceptors.response.use(
   async (response) => {
-    if (response.data && response.data.code === 400) {
+    if (
+      (response.data && response.data.code === 500) ||
+      (response.data && response.data.code === 400)
+    ) {
       const originalRequest = response.config;
       const accessToken = Cookie.get('accessToken');
       if (accessToken) {
@@ -30,6 +36,14 @@ AuthApi.interceptors.response.use(
           const response = await AuthApi.post('/api/auth/refresh');
 
           const newAccessToken = response.data.data.token;
+
+          if (!newAccessToken) {
+            console.log('New access token not received, user should re-login');
+
+            return Promise.reject(
+              new Error('New access token not received, user should re-login'),
+            );
+          }
 
           Cookie.set('accessToken', newAccessToken);
 

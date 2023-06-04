@@ -1,3 +1,9 @@
+export interface IApiResponse {
+  ok: boolean;
+  code: number;
+  error: string | null;
+}
+
 export interface IContentSubmitButtonProps {
   text: string;
 }
