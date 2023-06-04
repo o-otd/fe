@@ -6,18 +6,13 @@ import ConfirmWriteImageSlideInput from 'components/Home/Confirm/ConfirmWriteIma
 
 function ConfirmWrite() {
   const [text, setText] = useState<string>('');
-  const onChangeTextInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
-  };
-
   const [inputImages, setInputImages] = useState<string[]>([]);
 
-  console.log(inputImages);
   return (
     <form>
       <ConfirmWriteHeader />
 
-      <ConfirmWriteTextInput onChangeCallBack={onChangeTextInput} text={text} />
+      <ConfirmWriteTextInput text={text} setText={setText} />
 
       {/* <ConfirmWriteVote /> */}
 

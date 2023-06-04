@@ -25,7 +25,7 @@ export interface ILookCategory {
 
 export interface IConfirmWriteTextInputProps {
   text: string;
-  onChangeCallBack: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface IConfirmWriteImageSlideInputProps {
