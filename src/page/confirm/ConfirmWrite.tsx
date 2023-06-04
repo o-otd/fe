@@ -10,15 +10,21 @@ function ConfirmWrite() {
     setText(event.target.value);
   };
 
+  const [inputImages, setInputImages] = useState<string[]>([]);
+
+  console.log(inputImages);
   return (
     <form>
       <ConfirmWriteHeader />
 
       <ConfirmWriteTextInput onChangeCallBack={onChangeTextInput} text={text} />
 
-      <ConfirmWriteVote />
+      {/* <ConfirmWriteVote /> */}
 
-      <ConfirmWriteImageSlideInput />
+      <ConfirmWriteImageSlideInput
+        inputImages={inputImages}
+        setInputImages={setInputImages}
+      />
     </form>
   );
 }

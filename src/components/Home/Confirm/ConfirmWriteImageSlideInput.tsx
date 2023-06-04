@@ -4,18 +4,44 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { ReactComponent as ConfirmWriteSliderSVG } from '../../../styles/images/icons/confirm-write__slider.svg';
+import { IConfirmWriteImageSlideInputProps } from 'types/Home';
 
-function ConfirmWriteImageSlideInput() {
+function ConfirmWriteImageSlideInput({
+  setInputImages,
+  inputImages,
+}: IConfirmWriteImageSlideInputProps) {
+  const onChangeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        const temp = [...inputImages];
+        temp.push(reader.result as string);
+        setInputImages([...temp]);
+      };
+    }
+  };
+
   return (
     <WriteSlider>
       <CustomSwiper pagination modules={[Pagination]} spaceBetween={10}>
-        {[1, 2, 3, 4, 5].map((inputItem) => (
+        {[0, 1, 2, 3, 4].map((inputItem) => (
           <SwiperSlideItem key={inputItem}>
-            <input type="file" id={String(inputItem)} />
-            <label htmlFor={String(inputItem)}>
-              <div>이미지를 등록하세요.</div>
-              <ConfirmWriteSliderSVG />
-            </label>
+            <input
+              accept="image/*"
+              type="file"
+              onChange={(event) => onChangeImage(event)}
+              id={String(inputItem)}
+            />
+            {!inputImages[inputItem] ? (
+              <label htmlFor={String(inputItem)}>
+                <div>이미지를 등록하세요.</div>
+                <ConfirmWriteSliderSVG />
+              </label>
+            ) : (
+              <CoverImage src={inputImages[inputItem]} alt="coverImage" />
+            )}
           </SwiperSlideItem>
         ))}
       </CustomSwiper>
@@ -76,4 +102,12 @@ const SwiperSlideItem = styled(SwiperSlide)`
       margin-bottom: 18px;
     }
   }
+`;
+
+const CoverImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: ${({ theme }) => theme.borderRadius.borderRadius20};
 `;

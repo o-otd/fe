@@ -27,3 +27,8 @@ export interface IConfirmWriteTextInputProps {
   text: string;
   onChangeCallBack: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
+
+export interface IConfirmWriteImageSlideInputProps {
+  inputImages: string[];
+  setInputImages: React.Dispatch<React.SetStateAction<string[]>>;
+}
