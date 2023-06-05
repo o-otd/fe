@@ -2,16 +2,18 @@ import React from 'react';
 import searchSvg from '../../styles/images/icons/search.svg';
 import noticeSvg from '../../styles/images/icons/notice.svg';
 import styled from 'styled-components';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import Cookie from 'js-cookie';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import useDetailNavigation from 'hooks/useDetailNavigation';
+import useAuth from 'hooks/useAuth';
 
 function Layout() {
-  const navigation = useNavigate();
+  const { pathNavigation } = useDetailNavigation('signin');
   const onClickLogIn = () => {
-    navigation('/signin');
+    pathNavigation();
   };
-  const accessToken = Cookie.get('accessToken');
+
+  const accessToken = useAuth();
   const location = useLocation();
   return (
     <>

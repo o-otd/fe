@@ -47,7 +47,11 @@ export const authLoginByEmail = createAsyncThunk<
     const response = await Api.post('/api/auth/login', formData);
 
     if (response.data.ok) {
-      Cookie.set('accessToken', response.data.data.token);
+      const expiresIn = response.data.data.expiration;
+
+      Cookie.set('accessToken', response.data.data.token, {
+        expires: expiresIn / (60 * 60 * 24),
+      });
       return response.data;
     } else {
       return thunkApi.rejectWithValue(response.data.error);
