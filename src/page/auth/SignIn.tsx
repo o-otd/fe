@@ -4,7 +4,40 @@ import styled from 'styled-components';
 import { ReactComponent as EmailIconSvg } from '../../styles/images/icons/email-icon.svg';
 import { ReactComponent as GoogleIconSvg } from '../../styles/images/icons/google-icon.svg';
 import AuthSelectButton from 'components/Auth/AuthSelectButton';
-import { Link } from 'react-router-dom';
+import AuthBottomInfo from 'components/Auth/AuthBottomInfo';
+import AuthFind from 'components/Auth/AuthFind';
+
+function SignIn() {
+  return (
+    <Auth>
+      <Logo />
+      <h2>오늘의 옷장 로그인</h2>
+      <p>
+        계정이 없으세요?
+        <a href="/signin/register">회원가입</a>
+      </p>
+      <AuthSocialLists>
+        <AuthSelectButton
+          text="구글로 로그인"
+          href="#"
+          icon={<GoogleIconSvg />}
+        />
+
+        <AuthSelectButton
+          text="이메일로 로그인"
+          href="/signin/member"
+          icon={<EmailIconSvg />}
+        />
+      </AuthSocialLists>
+
+      <AuthFind />
+
+      <AuthBottomInfo />
+    </Auth>
+  );
+}
+
+export default SignIn;
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -40,54 +73,3 @@ const AuthSocialLists = styled.ul`
     }
   }
 `;
-
-const AuthFind = styled.div`
-  padding: 18px 0;
-  font-size: 14px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.gray7};
-`;
-
-const AuthInfo = styled.div`
-  margin-top: 9px;
-  font-size: 13px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.gray6};
-`;
-
-function SignIn() {
-  return (
-    <Auth>
-      <Logo />
-      <h2>오늘의 옷장 로그인</h2>
-      <p>
-        계정이 없으세요?
-        <a href="/signin/register">회원가입</a>
-      </p>
-      <AuthSocialLists>
-        <AuthSelectButton
-          text="구글로 로그인"
-          href="#"
-          icon={<GoogleIconSvg />}
-        />
-
-        <AuthSelectButton
-          text="이메일로 로그인"
-          href="/signin/member"
-          icon={<EmailIconSvg />}
-        />
-      </AuthSocialLists>
-      <AuthFind>
-        <Link to={'/reset'}>비밀번호 재설정</Link>
-      </AuthFind>
-
-      <AuthInfo>
-        SNS로 로그인 및 회원가입 시 오늘의옷장의 이용약관과
-        <br />
-        개인정보 수집 및 이용에 동의한 것으로 간주합니다.
-      </AuthInfo>
-    </Auth>
-  );
-}
-
-export default SignIn;

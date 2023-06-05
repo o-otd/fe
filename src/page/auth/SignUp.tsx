@@ -13,65 +13,6 @@ import { useNavigate } from 'react-router-dom';
 import AuthSubmitButton from 'components/Auth/AuthSubmitButton';
 import useValidErrors from 'hooks/useValidErrors';
 
-const Auth = styled.section`
-  margin-top: 24px;
-  padding: 0 30px;
-
-  & > h2 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-top: 25px;
-  }
-
-  & > p {
-    margin-top: 22px;
-    font-size: 14px;
-    font-weight: 400;
-
-    & a {
-      margin-left: 15px;
-      font-weight: 700;
-      color: ${({ theme }) => theme.colors.white};
-    }
-  }
-`;
-
-const AuthForm = styled.form`
-  width: 100%;
-  padding: 22px 0 28px 0;
-`;
-
-const AuthFormLayout = styled.div`
-  & > div:last-child {
-    margin-top: 20px;
-  }
-`;
-
-const ErrorMessage = styled.p`
-  display: flex;
-  align-items: center;
-  font-size: 13px;
-  color: ${({ theme }) => theme.colors.error};
-  font-weight: 400;
-  margin-top: 12px;
-
-  & svg {
-    margin-right: 7px;
-  }
-`;
-
-const AuthUtil = styled.div`
-  margin-top: 28px;
-`;
-
-const PasswordInputContainer = styled.div`
-  margin-top: 20px;
-
-  & > div + div {
-    margin-top: 8px;
-  }
-`;
-
 function SignUp() {
   const {
     register,
@@ -191,3 +132,62 @@ function SignUp() {
 }
 
 export default SignUp;
+
+const Auth = styled.section`
+  margin-top: 24px;
+  padding: 0 30px;
+
+  & > h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 25px;
+  }
+
+  & > p {
+    margin-top: 22px;
+    font-size: 14px;
+    font-weight: 400;
+
+    & a {
+      margin-left: 15px;
+      font-weight: 700;
+      color: ${({ theme }) => theme.colors.white};
+    }
+  }
+`;
+
+const AuthForm = styled.form`
+  width: 100%;
+  padding: 22px 0 28px 0;
+`;
+
+const AuthFormLayout = styled.div`
+  & > div:last-child {
+    margin-top: 20px;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: ${({ theme }) => theme.colors.error};
+  font-weight: 400;
+  margin-top: 12px;
+
+  & svg {
+    margin-right: 7px;
+  }
+`;
+
+const AuthUtil = styled.div`
+  margin-top: 28px;
+`;
+
+const PasswordInputContainer = styled.div`
+  margin-top: 20px;
+
+  & > div + div {
+    margin-top: 8px;
+  }
+`;
