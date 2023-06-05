@@ -16,7 +16,11 @@ const initialState: IAuthState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    resetAuthDone: (state) => {
+      state.authDone = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(authJoinByEmail.pending, (state) => {
@@ -52,4 +56,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { resetAuthDone } = authSlice.actions;
 export default authSlice;
