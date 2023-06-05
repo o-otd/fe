@@ -31,3 +31,9 @@ export interface IFiltersProps {
 }
 
 export interface IBottomFilterProps extends IFiltersProps {}
+
+export interface IDecodeJWT {
+  sub: string;
+  iat: number;
+  exp: number;
+}
