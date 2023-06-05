@@ -4,12 +4,13 @@ import ConfirmWriteTextInput from 'components/Home/Confirm/ConfirmWriteTextInput
 import ConfirmWriteVote from 'components/Home/Confirm/ConfirmWriteVote';
 import ConfirmWriteImageSlideInput from 'components/Home/Confirm/ConfirmWriteImageSlideInput';
 import { registerConfirm } from 'api/confirm';
-import { IImageFile } from 'types/Home';
+import { IImageFile, IRegisterApiResponse } from 'types/Home';
 import { useApi } from 'hooks/useApi';
 import { useNavigate } from 'react-router-dom';
+import useApiNavigation from 'hooks/useApiNavigation';
 
 function ConfirmWrite() {
-  const navigation = useNavigate();
+  const apiNavigation = useApiNavigation<IRegisterApiResponse>();
   const { execute, error } = useApi(registerConfirm);
   const [text, setText] = useState<string>('');
   const [inputImages, setInputImages] = useState<IImageFile[]>([]);
@@ -27,7 +28,7 @@ function ConfirmWrite() {
       });
 
       if (response && response.ok) {
-        navigation('/confirm');
+        apiNavigation('/confirm', response);
       }
     }
   };
