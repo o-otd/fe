@@ -4,7 +4,7 @@ import ConfirmCommentLinkSVG from '../../../styles/images/icons/confirm-comments
 import useDetailNavigation from 'hooks/useDetailNavigation';
 
 function ConfirmComment() {
-  const detailNavigation = useDetailNavigation('comment', 1);
+  const { detailNavigation } = useDetailNavigation('comment', 1);
   const onClickComment = () => {
     detailNavigation();
   };
