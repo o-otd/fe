@@ -1,9 +1,9 @@
 import Logo from 'components/Common/Logo';
 import React, { useEffect } from 'react';
-import { ReactComponent as ValidationErrorSvg } from '../styles/images/icons/validation-error.svg';
+import { ReactComponent as ValidationErrorSvg } from '../../styles/images/icons/validation-error.svg';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { emailRegex } from '../util/index';
+import { emailRegex } from '../../util/index';
 import { IEmailSignInInputData } from 'types/Auth';
 import Input from 'components/Auth/Input';
 import { RootState, useAppDispatch } from 'redux/store';

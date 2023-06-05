@@ -1,11 +1,7 @@
 import Logo from 'components/Common/Logo';
 import React from 'react';
+import { ReactComponent as ValidationErrorSvg } from '../../styles/images/icons/validation-error.svg';
 import styled from 'styled-components';
-import { ReactComponent as ValidationErrorSvg } from '../styles/images/icons/validation-error.svg';
-import Input from 'components/Auth/Input';
-import { useForm } from 'react-hook-form';
-import { IResetEmailInputData } from 'types/Auth';
-import { emailRegex } from '../util/index';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -34,6 +30,14 @@ const AuthFormInput = styled.div`
   overflow: hidden;
   position: relative;
 
+  & label {
+    font-size: 14px;
+    font-weight: 500;
+    color: ${({ theme }) => theme.colors.gray8};
+    margin-bottom: 8px;
+    display: block;
+  }
+
   & div {
     display: flex;
     justify-content: center;
@@ -44,6 +48,13 @@ const AuthFormInput = styled.div`
     color: ${({ theme }) => theme.colors.white};
     font-weight: 500;
     border-radius: ${({ theme }) => theme.borderRadius.borderRadius15};
+
+    & > svg {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
 
     & > input {
       width: 100%;
@@ -65,6 +76,14 @@ const AuthFormInput = styled.div`
   }
 `;
 
+const AuthFormLayout = styled.div`
+  & ${AuthFormInput} {
+    &:last-child {
+      margin-top: 20px;
+    }
+  }
+`;
+
 const ErrorMessage = styled.p`
   display: flex;
   align-items: center;
@@ -76,6 +95,10 @@ const ErrorMessage = styled.p`
   & svg {
     margin-right: 7px;
   }
+`;
+
+const AuthUtil = styled.div`
+  margin-top: 28px;
 `;
 
 const SubmitButton = styled.button`
@@ -93,55 +116,49 @@ const SubmitButton = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius.borderRadius15};
 `;
 
-const AuthUtil = styled.div`
-  margin-top: 28px;
-`;
-
-function ResetPassword() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IResetEmailInputData>();
-
-  const onValid = (emailInput: IResetEmailInputData) => {
-    console.log(emailInput);
-  };
+function ResetPasswordForm() {
   return (
     <Auth>
       <Logo />
       <h2>비밀번호 재설정</h2>
-      <p>
-        가입하신 이메일 주소로 비밀번호 재설정 메일을 <br />
-        보내드립니다.
-      </p>
+      <p>example@naver.com의 비밀번호를 재설정합니다.</p>
 
-      <AuthForm onSubmit={handleSubmit(onValid)}>
-        <div>
-          <Input
-            register={register('email', {
-              required: '이메일 주소를 입력해주세요.',
-              pattern: {
-                value: emailRegex,
-                message: '올바른 이메일 형식이 아닙니다.',
-              },
-            })}
-            type="email"
-            placeHolder="이메일"
-            errors={errors.email?.message}
-          >
-            {errors.email?.message && (
-              <ErrorMessage>
-                <ValidationErrorSvg />
-                {errors.email.message}
-              </ErrorMessage>
-            )}
-          </Input>
-        </div>
+      <AuthForm>
+        <AuthFormLayout>
+          <AuthFormInput>
+            <label>새 비밀번호</label>
+            <div>
+              <input type="password" placeholder="비밀번호" autoFocus />
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.99997 15.586L6.70697 12.293L5.29297 13.707L9.99997 18.414L19.707 8.70697L18.293 7.29297L9.99997 15.586Z"
+                  fill="#D6FF5C"
+                />
+              </svg>
+            </div>
+          </AuthFormInput>
+
+          <AuthFormInput>
+            <label>새 비밀번호 확인</label>
+            <div>
+              <input type="password" placeholder="비밀번호 확인" />
+            </div>
+            <ErrorMessage>
+              <ValidationErrorSvg />
+              비밀번호가 일차히지 않습니다.
+            </ErrorMessage>
+          </AuthFormInput>
+        </AuthFormLayout>
 
         <AuthUtil>
           <AuthFormInput>
-            <SubmitButton>이메일 보내기</SubmitButton>
+            <SubmitButton>확인</SubmitButton>
           </AuthFormInput>
         </AuthUtil>
       </AuthForm>
@@ -149,4 +166,4 @@ function ResetPassword() {
   );
 }
 
-export default ResetPassword;
+export default ResetPasswordForm;

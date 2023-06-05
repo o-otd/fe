@@ -1,10 +1,9 @@
 import Logo from 'components/Common/Logo';
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as EmailIconSvg } from '../styles/images/icons/email-icon.svg';
-import { ReactComponent as GoogleIconSvg } from '../styles/images/icons/google-icon.svg';
+import { ReactComponent as EmailIconSvg } from '../../styles/images/icons/email-icon.svg';
+import { ReactComponent as GoogleIconSvg } from '../../styles/images/icons/google-icon.svg';
 import AuthSelectButton from 'components/Auth/AuthSelectButton';
-import { Link } from 'react-router-dom';
 
 const Auth = styled.section`
   margin-top: 24px;
@@ -55,30 +54,29 @@ const AuthInfo = styled.div`
   color: ${({ theme }) => theme.colors.gray6};
 `;
 
-function SignIn() {
+function Register() {
   return (
     <Auth>
       <Logo />
-      <h2>오늘의 옷장 로그인</h2>
+      <h2>오늘의 옷장 회원가입</h2>
       <p>
-        계정이 없으세요?
-        <a href="/signin/register">회원가입</a>
+        이미 계정이 있으세요? <a href="/signin">로그인</a>
       </p>
       <AuthSocialLists>
         <AuthSelectButton
-          text="구글로 로그인"
+          text="구글로 회원가입"
           href="#"
           icon={<GoogleIconSvg />}
         />
 
         <AuthSelectButton
-          text="이메일로 로그인"
-          href="/signin/member"
+          text="이메일로 회원가입"
+          href="/signup"
           icon={<EmailIconSvg />}
         />
       </AuthSocialLists>
       <AuthFind>
-        <Link to={'/reset'}>비밀번호 재설정</Link>
+        <a href="#">아이디 찾기</a>
       </AuthFind>
 
       <AuthInfo>
@@ -90,4 +88,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Register;
