@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import useDetailNavigation from 'hooks/useDetailNavigation';
-import useAuth from 'hooks/useAuth';
+import useAuthRefresh from 'hooks/useAuthRefresh';
 
 function Layout() {
   const { pathNavigation } = useDetailNavigation('signin');
@@ -13,7 +13,7 @@ function Layout() {
     pathNavigation();
   };
 
-  const accessToken = useAuth();
+  const accessToken = useAuthRefresh();
   const location = useLocation();
   return (
     <>

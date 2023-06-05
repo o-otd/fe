@@ -38,7 +38,7 @@ function SignUp() {
 
   useEffect(() => {
     if (authDone) {
-      navigation('/signin');
+      navigation('/signin', { replace: true });
     }
 
     if (authError) {
