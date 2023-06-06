@@ -36,6 +36,7 @@ AuthApi.interceptors.response.use(
           const response = await AuthApi.post('/api/auth/refresh');
 
           const newAccessToken = response.data.data.token;
+          const expiresIn = response.data.data.expiration;
 
           if (!newAccessToken) {
             console.log('New access token not received, user should re-login');
@@ -45,7 +46,9 @@ AuthApi.interceptors.response.use(
             );
           }
 
-          Cookie.set('accessToken', newAccessToken);
+          Cookie.set('accessToken', newAccessToken, {
+            expires: expiresIn / (60 * 60 * 24),
+          });
 
           originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
           return AuthApi(originalRequest);
