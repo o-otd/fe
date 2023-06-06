@@ -7,6 +7,60 @@ import { useForm } from 'react-hook-form';
 import { IResetEmailInputData } from 'types/Auth';
 import { emailRegex } from '../../util/index';
 
+function ResetPassword() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IResetEmailInputData>();
+
+  const onValid = (emailInput: IResetEmailInputData) => {
+    console.log(emailInput);
+  };
+  return (
+    <Auth>
+      <Logo />
+      <h2>비밀번호 재설정</h2>
+      <p>
+        가입하신 이메일 주소로 비밀번호 재설정 메일을 <br />
+        보내드립니다.
+      </p>
+
+      <AuthForm onSubmit={handleSubmit(onValid)}>
+        <div>
+          <Input
+            register={register('email', {
+              required: '이메일 주소를 입력해주세요.',
+              pattern: {
+                value: emailRegex,
+                message: '올바른 이메일 형식이 아닙니다.',
+              },
+            })}
+            type="email"
+            placeHolder="이메일"
+            errors={errors.email?.message}
+          >
+            {errors.email?.message && (
+              <ErrorMessage>
+                <ValidationErrorSvg />
+                {errors.email.message}
+              </ErrorMessage>
+            )}
+          </Input>
+        </div>
+
+        <AuthUtil>
+          <AuthFormInput>
+            <SubmitButton>이메일 보내기</SubmitButton>
+          </AuthFormInput>
+        </AuthUtil>
+      </AuthForm>
+    </Auth>
+  );
+}
+
+export default ResetPassword;
+
 const Auth = styled.section`
   margin-top: 24px;
   padding: 0 30px;
@@ -96,57 +150,3 @@ const SubmitButton = styled.button`
 const AuthUtil = styled.div`
   margin-top: 28px;
 `;
-
-function ResetPassword() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IResetEmailInputData>();
-
-  const onValid = (emailInput: IResetEmailInputData) => {
-    console.log(emailInput);
-  };
-  return (
-    <Auth>
-      <Logo />
-      <h2>비밀번호 재설정</h2>
-      <p>
-        가입하신 이메일 주소로 비밀번호 재설정 메일을 <br />
-        보내드립니다.
-      </p>
-
-      <AuthForm onSubmit={handleSubmit(onValid)}>
-        <div>
-          <Input
-            register={register('email', {
-              required: '이메일 주소를 입력해주세요.',
-              pattern: {
-                value: emailRegex,
-                message: '올바른 이메일 형식이 아닙니다.',
-              },
-            })}
-            type="email"
-            placeHolder="이메일"
-            errors={errors.email?.message}
-          >
-            {errors.email?.message && (
-              <ErrorMessage>
-                <ValidationErrorSvg />
-                {errors.email.message}
-              </ErrorMessage>
-            )}
-          </Input>
-        </div>
-
-        <AuthUtil>
-          <AuthFormInput>
-            <SubmitButton>이메일 보내기</SubmitButton>
-          </AuthFormInput>
-        </AuthUtil>
-      </AuthForm>
-    </Auth>
-  );
-}
-
-export default ResetPassword;

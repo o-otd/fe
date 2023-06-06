@@ -3,6 +3,24 @@ import HeaderRectangle from 'components/Common/Logo';
 import React from 'react';
 import styled from 'styled-components';
 
+function ResetEmailForm() {
+  return (
+    <Wrapper>
+      <HeaderRectangle />
+      <MainForm>
+        <h1>비밀번호 재설정</h1>
+        <p>가입하신 이메일 주소로 비밀번호 재설정 메일을 보내드립니다.</p>
+        <Input type="email" placeholder="이메일" />
+        <ButtonContainer>
+          <ContentSubmitButton text="이메일 보내기" />
+        </ButtonContainer>
+      </MainForm>
+    </Wrapper>
+  );
+}
+
+export default ResetEmailForm;
+
 const Wrapper = styled.div`
   padding: 0 30px;
   background-color: ${({ theme }) => theme.colors.mainbackground};
@@ -54,21 +72,3 @@ const Input = styled.input`
 const ButtonContainer = styled.div`
   margin-top: 28px;
 `;
-
-function ResetEmailForm() {
-  return (
-    <Wrapper>
-      <HeaderRectangle />
-      <MainForm>
-        <h1>비밀번호 재설정</h1>
-        <p>가입하신 이메일 주소로 비밀번호 재설정 메일을 보내드립니다.</p>
-        <Input type="email" placeholder="이메일" />
-        <ButtonContainer>
-          <ContentSubmitButton text="이메일 보내기" />
-        </ButtonContainer>
-      </MainForm>
-    </Wrapper>
-  );
-}
-
-export default ResetEmailForm;
