@@ -23,7 +23,7 @@ export default function useAuthRefresh() {
       const timeout = expiryTime - Date.now() - 5000;
       const timerId = setTimeout(async () => {
         try {
-          const response = await AuthApi.post('/api/auth/refresh', {});
+          const response = await AuthApi.post('/api/auth/refresh');
           const newToken = response.data.data.token;
           const expiresIn = response.data.data.expiration;
           Cookie.set('accessToken', newToken, {

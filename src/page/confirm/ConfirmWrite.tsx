@@ -6,7 +6,6 @@ import ConfirmWriteImageSlideInput from 'components/Home/Confirm/ConfirmWriteIma
 import { registerConfirm } from 'api/confirm';
 import { IImageFile, IRegisterApiResponse } from 'types/Home';
 import { useApi } from 'hooks/useApi';
-import { useNavigate } from 'react-router-dom';
 import useApiNavigation from 'hooks/useApiNavigation';
 
 function ConfirmWrite() {

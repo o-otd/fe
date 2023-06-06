@@ -2,10 +2,10 @@ import { IRegisterApiRequest, IRegisterApiResponse } from 'types/Home';
 import AuthApi from './core/AuthApi';
 import { AxiosResponse } from 'axios';
 
-const baseUrl = '/api/confirm/register';
+const baseUrl = '/api/confirm';
 
 export const registerConfirm = async (params: IRegisterApiRequest) => {
-  const url = `${baseUrl}`;
+  const url = `${baseUrl}/register`;
   const { content, images, startDate, endDate } = params;
 
   const formData = new FormData();
@@ -25,5 +25,12 @@ export const registerConfirm = async (params: IRegisterApiRequest) => {
     AxiosResponse<IRegisterApiResponse>
   >(url, formData);
 
+  return response.data;
+};
+
+export const getConfirms = async () => {
+  const url = `${baseUrl}/list`;
+
+  const response = await AuthApi.post(url);
   return response.data;
 };
