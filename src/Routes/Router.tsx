@@ -19,6 +19,7 @@ import CommentDetail from 'page/confirm/CommentDetail';
 import ScrollToTop from 'components/Common/ScrollToTop';
 import ConfirmWrite from 'page/confirm/ConfirmWrite';
 import AuthRoute from './AuthRoute';
+import PrivateRoute from './PrivateRoute';
 
 function Router() {
   return (
@@ -86,7 +87,14 @@ function Router() {
 
           <Route path="/weekend" element={<Weekend />} />
           <Route path="/confirm" element={<Confirm />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>
