@@ -18,6 +18,7 @@ import Confirm from 'page/confirm/Confirm';
 import CommentDetail from 'page/confirm/CommentDetail';
 import ScrollToTop from 'components/Common/ScrollToTop';
 import ConfirmWrite from 'page/confirm/ConfirmWrite';
+import AuthRoute from './AuthRoute';
 
 function Router() {
   return (
@@ -25,16 +26,58 @@ function Router() {
       <ScrollToTop />
       <Routes>
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin/member" element={<Member />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/reset" element={<ResetPassword />} />
-        <Route path="/reset/password" element={<ResetPasswordForm />} />
-        <Route path="/signin/register" element={<Register />} />
+        <Route
+          path="/signin/member"
+          element={
+            <AuthRoute>
+              <Member />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <AuthRoute>
+              <SignIn />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/reset"
+          element={
+            <AuthRoute>
+              <ResetPassword />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/reset/password"
+          element={
+            <AuthRoute>
+              <ResetPasswordForm />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/signin/register"
+          element={
+            <AuthRoute>
+              <Register />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/signin/email"
+          element={
+            <AuthRoute>
+              <ResetEmailForm />
+            </AuthRoute>
+          }
+        />
         <Route path="/comment/:commentId" element={<CommentDetail />} />
         <Route path="/confirm/write" element={<ConfirmWrite />} />
 
         <Route element={<Layout />}>
-          <Route path="/signin/email" element={<ResetEmailForm />} />
           <Route path="/search" element={<Search />} />
           <Route path="/" element={<Today />} />
           <Route path="/activity" element={<Activity />} />
