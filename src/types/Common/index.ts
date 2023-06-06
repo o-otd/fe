@@ -37,3 +37,7 @@ export interface IDecodeJWT {
   iat: number;
   exp: number;
 }
+
+export interface IAuthRouteProps {
+  children: React.ReactNode;
+}
