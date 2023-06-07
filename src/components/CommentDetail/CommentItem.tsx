@@ -2,10 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmCommentLikeSVG } from '../../styles/images/icons/likes.svg';
 import CommentsItem from './CommentsItem';
+import { getNestedComments } from 'api/confirm';
+import { useApi } from 'hooks/useApi';
 
-function CommentItem() {
-  const onClickComment = () => {
+interface ICommentItemProps {
+  targetId: number;
+}
+
+function CommentItem({ targetId }: ICommentItemProps) {
+  const { execute, error } = useApi(getNestedComments);
+  const onClickComment = async () => {
     // 대댓글 get api 요청
+    const response = await execute({
+      targetId: 563,
+      page: {
+        size: 10,
+        page: 0,
+      },
+    });
+
+    console.log(response);
   };
   return (
     <Wrapper onClick={onClickComment}>

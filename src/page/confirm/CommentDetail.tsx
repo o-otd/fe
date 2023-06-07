@@ -14,7 +14,7 @@ function CommentDetail() {
       <CommentList>
         <ul>
           {[1, 2, 3, 4, 5].map((comment) => (
-            <CommentItem key={comment} />
+            <CommentItem targetId={comment} key={comment} />
           ))}
         </ul>
       </CommentList>
