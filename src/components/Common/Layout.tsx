@@ -5,11 +5,10 @@ import styled from 'styled-components';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import useDetailNavigation from 'hooks/useDetailNavigation';
-import { useSelector } from 'react-redux';
-import { RootState } from 'redux/store';
+import useGetToken from 'hooks/useGetToken';
 
 function Layout() {
-  const { accessToken } = useSelector((state: RootState) => state.auth);
+  const accessToken = useGetToken();
   const { pathNavigation } = useDetailNavigation('signin');
   const onClickLogIn = () => {
     pathNavigation();
