@@ -5,15 +5,15 @@ import styled from 'styled-components';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import useDetailNavigation from 'hooks/useDetailNavigation';
-import useAuthRefresh from 'hooks/useAuthRefresh';
+import useGetToken from 'hooks/useGetToken';
 
 function Layout() {
+  const accessToken = useGetToken();
   const { pathNavigation } = useDetailNavigation('signin');
   const onClickLogIn = () => {
     pathNavigation();
   };
 
-  const accessToken = useAuthRefresh();
   const location = useLocation();
   return (
     <>

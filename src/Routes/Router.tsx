@@ -20,13 +20,22 @@ import ScrollToTop from 'components/Common/ScrollToTop';
 import ConfirmWrite from 'page/confirm/ConfirmWrite';
 import AuthRoute from './AuthRoute';
 import PrivateRoute from './PrivateRoute';
+import useAuthRefresh from 'hooks/useAuthRefresh';
 
 function Router() {
+  useAuthRefresh();
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="/signup" element={<SignUp />} />
+        <Route
+          path="/signup"
+          element={
+            <AuthRoute>
+              <SignUp />
+            </AuthRoute>
+          }
+        />
         <Route
           path="/signin/member"
           element={
@@ -76,7 +85,14 @@ function Router() {
           }
         />
         <Route path="/comment/:commentId" element={<CommentDetail />} />
-        <Route path="/confirm/write" element={<ConfirmWrite />} />
+        <Route
+          path="/confirm/write"
+          element={
+            <PrivateRoute>
+              <ConfirmWrite />
+            </PrivateRoute>
+          }
+        />
 
         <Route element={<Layout />}>
           <Route path="/search" element={<Search />} />

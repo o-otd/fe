@@ -1,11 +1,12 @@
-import Cookie from 'js-cookie';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { RootState } from 'redux/store';
 
 export default function useAuthRedirect() {
   const navigation = useNavigate();
+  const { accessToken } = useSelector((state: RootState) => state.auth);
 
   const checkAuthAndProceed = (callback: () => void) => {
-    const accessToken = Cookie.get('accessToken');
     if (!accessToken) {
       navigation('/signin');
     } else {
@@ -14,7 +15,6 @@ export default function useAuthRedirect() {
   };
 
   const redirectTo = (path: string) => {
-    const accessToken = Cookie.get('accessToken');
     if (!accessToken) {
       navigation('/signin');
     } else {
