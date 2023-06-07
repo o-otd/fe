@@ -1,10 +1,11 @@
 import React from 'react';
-import Cookie from 'js-cookie';
 import { Navigate } from 'react-router-dom';
 import { IRouteProps } from 'types/Common';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 function AuthRoute({ children }: IRouteProps) {
-  const accessToken = Cookie.get('accessToken');
+  const { accessToken } = useSelector((state: RootState) => state.auth);
   return accessToken ? <Navigate to="/" /> : <>{children}</>;
 }
 
