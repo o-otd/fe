@@ -56,3 +56,11 @@ export interface IRegisterApiRequest {
   startDate: string;
   endDate: string;
 }
+
+export interface IGetNestedCommentsRequest {
+  targetId: number;
+  page: {
+    size: number;
+    page: number;
+  };
+}

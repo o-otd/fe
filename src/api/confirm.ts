@@ -1,4 +1,8 @@
-import { IRegisterApiRequest, IRegisterApiResponse } from 'types/Home';
+import {
+  IGetNestedCommentsRequest,
+  IRegisterApiRequest,
+  IRegisterApiResponse,
+} from 'types/Home';
 import AuthApi from './core/AuthApi';
 import { AxiosResponse } from 'axios';
 
@@ -32,5 +36,27 @@ export const getConfirms = async () => {
   const url = `${baseUrl}/list`;
 
   const response = await AuthApi.post(url);
+  return response.data;
+};
+
+export const getNestedComments = async (params: IGetNestedCommentsRequest) => {
+  const { targetId, page } = params;
+
+  const url = `${baseUrl}/nestedComment/list`;
+
+  // code 수정 필요
+  const data = {
+    targetId: targetId,
+    page: {
+      page: page.page,
+      size: page.size,
+    },
+  };
+
+  const response = await AuthApi.post(url, data, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
   return response.data;
 };

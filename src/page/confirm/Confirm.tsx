@@ -16,7 +16,7 @@ function Confirm() {
       console.log(response);
     };
 
-    fetchConfirms();
+    //fetchConfirms();
   }, [execute]);
   return (
     <>
