@@ -20,8 +20,10 @@ import ScrollToTop from 'components/Common/ScrollToTop';
 import ConfirmWrite from 'page/confirm/ConfirmWrite';
 import AuthRoute from './AuthRoute';
 import PrivateRoute from './PrivateRoute';
+import useAuthRefresh from 'hooks/useAuthRefresh';
 
 function Router() {
+  useAuthRefresh();
   return (
     <BrowserRouter>
       <ScrollToTop />

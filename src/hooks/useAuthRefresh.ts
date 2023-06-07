@@ -1,24 +1,31 @@
 import AuthApi from 'api/core/AuthApi';
 import Cookie from 'js-cookie';
 import jwtDecode from 'jwt-decode';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { resetAuthDone } from 'redux/reducer/auth';
+import { removeToken, resetAuthDone, setToken } from 'redux/reducer/auth';
 import { RootState, useAppDispatch } from 'redux/store';
 import { IDecodeJWT } from 'types/Common';
 
 export default function useAuthRefresh() {
   const dispatch = useAppDispatch();
-  const { authDone } = useSelector((state: RootState) => state.auth);
-  const [token, setToken] = useState(Cookie.get('accessToken'));
+  const { authDone, accessToken } = useSelector(
+    (state: RootState) => state.auth,
+  );
+
+  useEffect(() => {
+    const tokenFromCookie = Cookie.get('accessToken');
+    if (tokenFromCookie && !accessToken) {
+      dispatch(setToken(tokenFromCookie));
+    }
+  }, []);
 
   useEffect(() => {
     if (authDone) {
       dispatch(resetAuthDone());
     }
-
-    if (token) {
-      const decodedToken = jwtDecode<IDecodeJWT>(token);
+    if (accessToken) {
+      const decodedToken = jwtDecode<IDecodeJWT>(accessToken);
       const expiryTime = decodedToken.exp * 1000;
       const timeout = expiryTime - Date.now() - 5000;
       const timerId = setTimeout(async () => {
@@ -29,17 +36,16 @@ export default function useAuthRefresh() {
           Cookie.set('accessToken', newToken, {
             expires: expiresIn / (60 * 60 * 24),
           });
-          setToken(newToken);
+          dispatch(setToken(newToken));
         } catch (error) {
           console.error('Failed to refresh token: ', error);
           Cookie.remove('accessToken');
-          setToken(undefined);
+          dispatch(removeToken());
         }
       }, timeout);
-
       return () => clearTimeout(timerId);
     }
-  }, [token]);
+  }, [accessToken]);
 
-  return token;
+  return accessToken;
 }

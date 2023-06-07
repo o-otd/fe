@@ -5,12 +5,14 @@ export interface IAuthState {
   authDone: boolean;
   authError: string | null;
   authLoading: boolean;
+  accessToken: string | null;
 }
 
 const initialState: IAuthState = {
   authDone: false,
   authError: null,
   authLoading: false,
+  accessToken: null,
 };
 
 const authSlice = createSlice({
@@ -19,6 +21,12 @@ const authSlice = createSlice({
   reducers: {
     resetAuthDone: (state) => {
       state.authDone = false;
+    },
+    setToken: (state, action) => {
+      state.accessToken = action.payload;
+    },
+    removeToken: (state) => {
+      state.accessToken = null;
     },
   },
   extraReducers: (builder) => {
@@ -47,6 +55,7 @@ const authSlice = createSlice({
         state.authLoading = false;
         state.authDone = true;
         state.authError = null;
+        state.accessToken = action.payload.data.token;
       })
       .addCase(authLoginByEmail.rejected, (state, action) => {
         state.authLoading = false;
@@ -56,5 +65,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { resetAuthDone } = authSlice.actions;
+export const { resetAuthDone, setToken, removeToken } = authSlice.actions;
 export default authSlice;
