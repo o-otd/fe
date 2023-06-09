@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import ConfirmWriteHeader from 'components/Home/Confirm/ConfirmWriteHeader';
-import ConfirmWriteTextInput from 'components/Home/Confirm/ConfirmWriteTextInput';
-import ConfirmWriteVote from 'components/Home/Confirm/ConfirmWriteVote';
-import ConfirmWriteImageSlideInput from 'components/Home/Confirm/ConfirmWriteImageSlideInput';
+import ConfirmWriteHeader from 'components/Home/Confirm/ConfirmWrite/ConfirmWriteHeader';
 import { registerConfirm } from 'api/confirm';
 import { IImageFile, IRegisterApiResponse } from 'types/Home';
 import { useApi } from 'hooks/useApi';
 import useApiNavigation from 'hooks/useApiNavigation';
+import ConfirmWriteTextInput from 'components/Home/Confirm/ConfirmWrite/ConfirmWriteTextInput';
+import ConfirmWriteVote from 'components/Home/Confirm/ConfirmWrite/ConfirmWriteVote';
+import ConfirmWriteImageSlideInput from 'components/Home/Confirm/ConfirmWrite/ConfirmWriteImageSlideInput';
 
 function ConfirmWrite() {
   const apiNavigation = useApiNavigation<IRegisterApiResponse>();

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import CommentDetailHeader from 'components/CommentDetail/CommentDetailHeader';
-import CommentDetailInput from 'components/CommentDetail/CommentDetailInput';
-import CommentItem from 'components/CommentDetail/CommentItem';
+import CommentDetailHeader from 'components/Home/Confirm/CommentDetail/CommentDetailHeader';
+import CommentDetailInput from 'components/Home/Confirm/CommentDetail/CommentDetailInput';
+import CommentItem from 'components/Home/Confirm/CommentDetail/CommentItem';
 
 function CommentDetail() {
   return (

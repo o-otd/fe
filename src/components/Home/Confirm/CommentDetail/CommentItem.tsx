@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as ConfirmCommentLikeSVG } from '../../styles/images/icons/likes.svg';
+import { ReactComponent as ConfirmCommentLikeSVG } from '../../../../styles/images/icons/likes.svg';
 import CommentsItem from './CommentsItem';
 import { getNestedComments } from 'api/confirm';
 import { useApi } from 'hooks/useApi';
