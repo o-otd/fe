@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ConfirmWriteArrowBottomSVG from '../../../../styles/images/icons/confirm-write-arrow-bottom.svg';
 import { ReactComponent as CalendarSVG } from '../../../../styles/images/icons/calendar.svg';
-import { IConfirmWriteTextInputProps } from 'types/Home';
+import { IConfirmWriteTextInputProps } from 'types/Home/Confirm';
 
 function ConfirmWriteTextInput({ text, setText }: IConfirmWriteTextInputProps) {
   const onChangeTextInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
