@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { ReactComponent as BookMarkSvg } from '../../../styles/images/icons/bookmark.svg';
 import { ReactComponent as LikesSvg } from '../../../styles/images/icons/likes.svg';
 import { ReactComponent as FollowSvg } from '../../../styles/images/icons/follow.svg';
-import { ITodayCardProps } from 'types/Home';
 import { ReactComponent as PlusSVG } from '../../../styles/images/icons/plus.svg';
 import { todayCardCategory } from 'constant';
 import useAuthRedirect from 'hooks/useAuthRedirect';
+import { ITodayCardProps } from 'types/Home/Today';
 
 function TodayCard({ setIsOpen }: ITodayCardProps) {
   const onClickOpenModal = () => {

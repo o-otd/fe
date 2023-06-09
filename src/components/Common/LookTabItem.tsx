@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { ILookTabItemProps } from 'types/Home';
+import { ILookTabItemProps } from 'types/Home/Today';
 
 function LookTabItem({ text, href }: ILookTabItemProps) {
   return <LookTabList to={href}>{text}</LookTabList>;

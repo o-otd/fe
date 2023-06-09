@@ -1,29 +1,4 @@
-import { IApiResponse } from 'types/Common';
-
-export interface ITodayCardModalProps extends ITodayCardProps {
-  isOpen: boolean;
-  //setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export interface ITodayCardProps {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export interface ILookTabItemProps {
-  text: string;
-  href: string;
-}
-
-export interface IMainProps {
-  categories: ILookCategory[];
-  baseUrl: 'tpo' | 'activity' | 'temperatures';
-}
-
-export interface ILookCategory {
-  name: string;
-  type: string;
-  id: number;
-}
+import { IApiResponse, IImageFile } from 'types/Common';
 
 export interface IConfirmWriteHeaderProps {
   onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -37,11 +12,6 @@ export interface IConfirmWriteTextInputProps {
 export interface IConfirmWriteImageSlideInputProps {
   inputImages: IImageFile[];
   setInputImages: React.Dispatch<React.SetStateAction<IImageFile[]>>;
-}
-
-export interface IImageFile {
-  file: File;
-  imageUrl: string;
 }
 
 export interface IRegisterApiResponse extends IApiResponse {

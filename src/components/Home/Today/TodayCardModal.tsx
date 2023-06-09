@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as ArrowRightGray9Svg } from '../../../styles/images/icons/arrow_right_gray9.svg';
 import { ReactComponent as ModalCloseSvg } from '../../../styles/images/icons/modal_close.svg';
 import { ReactComponent as LikesSvg } from '../../../styles/images/icons/likes.svg';
-import { ITodayCardModalProps } from 'types/Home';
+import { ITodayCardModalProps } from 'types/Home/Today';
 
 function TodayCardModal({ isOpen, setIsOpen }: ITodayCardModalProps) {
   const onClickCloseModal = () => {

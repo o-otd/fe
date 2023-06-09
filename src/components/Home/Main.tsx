@@ -7,8 +7,8 @@ import LookTabs from 'components/Common/LookTabs';
 import BottomFilter from 'components/Common/Filter/BottomFilter';
 import { Link } from 'react-router-dom';
 import Filters from 'components/Common/Filter/Filters';
-import { IMainProps } from 'types/Home';
 import useCurrentCategory from 'hooks/useCurrentCategory';
+import { IMainProps } from 'types/Home/Today';
 
 function Main({ categories, baseUrl }: IMainProps) {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);

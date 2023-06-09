@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { ReactComponent as ConfirmWriteSliderSVG } from '../../../styles/images/icons/confirm-write__slider.svg';
-import { IConfirmWriteImageSlideInputProps, IImageFile } from 'types/Home';
+import { ReactComponent as ConfirmWriteSliderSVG } from '../../../../styles/images/icons/confirm-write__slider.svg';
+import { IConfirmWriteImageSlideInputProps } from 'types/Home/Confirm';
+import { IImageFile } from 'types/Common';
 
 function ConfirmWriteImageSlideInput({
   setInputImages,

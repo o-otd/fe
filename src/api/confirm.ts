@@ -2,7 +2,7 @@ import {
   IGetNestedCommentsRequest,
   IRegisterApiRequest,
   IRegisterApiResponse,
-} from 'types/Home';
+} from 'types/Home/Confirm';
 import AuthApi from './core/AuthApi';
 import { AxiosResponse } from 'axios';
 
