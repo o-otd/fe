@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as ConfirmCommentCloseSVG } from '../../../../styles/images/icons/confirm-comments-close.svg';
+import { ReactComponent as ConfirmCommentCloseSVG } from '@svg/confirm-comments-close.svg';
 import useCloseNavigation from 'hooks/useCloseNavigation';
 
 function CommentDetailHeader() {

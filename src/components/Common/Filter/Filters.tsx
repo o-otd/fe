@@ -1,7 +1,7 @@
 import React from 'react';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import styled from 'styled-components';
-import { ReactComponent as SuggestionColorSvg } from '../../../styles/images/icons/suggestion-color.svg';
+import { ReactComponent as SuggestionColorSvg } from '@svg/suggestion-color.svg';
 import { IFiltersProps } from 'types/Common';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/store';

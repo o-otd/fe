@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as ConfirmWriteCloseSVG } from '../../../../styles/images/icons/confirm-comments-close.svg';
+import { ReactComponent as ConfirmWriteCloseSVG } from '@svg/confirm-comments-close.svg';
 import { IConfirmWriteHeaderProps } from 'types/Home/Confirm';
 
 function ConfirmWriteHeader({ onSubmit }: IConfirmWriteHeaderProps) {

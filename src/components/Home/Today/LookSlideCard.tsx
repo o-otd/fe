@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as LikesSvg } from '../../../styles/images/icons/likes.svg';
+import { ReactComponent as LikesSvg } from '@svg/likes.svg';
 
 function LookSlideCard() {
   return (

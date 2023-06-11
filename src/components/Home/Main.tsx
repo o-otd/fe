@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SwiperSlide, Swiper } from 'swiper/react';
-import { ReactComponent as SuggestionLinkSvg } from '../../styles/images/icons/suggestion-link-btn.svg';
+import { ReactComponent as SuggestionLinkSvg } from '@svg/suggestion-link-btn.svg';
 import LookTabs from 'components/Common/LookTabs';
 import BottomFilter from 'components/Common/Filter/BottomFilter';
 import { Link } from 'react-router-dom';

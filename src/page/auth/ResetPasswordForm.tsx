@@ -1,6 +1,6 @@
 import Logo from 'components/Common/Logo';
 import React from 'react';
-import { ReactComponent as ValidationErrorSvg } from '../../styles/images/icons/validation-error.svg';
+import { ReactComponent as ValidationErrorSvg } from '@svg/validation-error.svg';
 import styled from 'styled-components';
 
 function ResetPasswordForm() {

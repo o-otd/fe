@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@svg/*": ["src/styles/images/icons/*"],
+      "@components/*": ["src/components/*"]
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as MoreSVG } from '../../styles/images/icons/more.svg';
+import { ReactComponent as MoreSVG } from '@svg/more.svg';
 
 function CommentsItem() {
   return (
