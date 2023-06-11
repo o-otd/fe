@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_URL } from 'constant';
 import Cookie from 'js-cookie';
+import { logout } from '../../utils/index';
 
 const AuthApi = axios.create({
   baseURL: API_URL,
@@ -40,7 +41,8 @@ AuthApi.interceptors.response.use(
 
           if (!newAccessToken) {
             console.log('New access token not received, user should re-login');
-            alert('재로그인');
+
+            logout();
             return Promise.reject(
               new Error('New access token not received, user should re-login'),
             );
@@ -53,8 +55,7 @@ AuthApi.interceptors.response.use(
           originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
           return AuthApi(originalRequest);
         } catch (error: any) {
-          alert('재로그인');
-          console.log('logout');
+          logout();
 
           return Promise.reject(error);
         }
