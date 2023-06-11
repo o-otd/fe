@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as RefreshSVG } from '../../../styles/images/icons/refresh.svg';
+import { ReactComponent as RefreshSVG } from '@svg/refresh.svg';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 
 function ConfirmHeader() {

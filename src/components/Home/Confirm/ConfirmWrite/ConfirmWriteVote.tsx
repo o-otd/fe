@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as ConfirmVoteIconSVG } from '../../../../styles/images/icons/confirm-vote-icon.svg';
+import { ReactComponent as ConfirmVoteIconSVG } from '@svg/confirm-vote-icon.svg';
 
 function ConfirmWriteVote() {
   return (

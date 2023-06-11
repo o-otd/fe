@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as BookMarkSvg } from '../../../styles/images/icons/bookmark.svg';
-import { ReactComponent as LikesSvg } from '../../../styles/images/icons/likes.svg';
-import { ReactComponent as FollowSvg } from '../../../styles/images/icons/follow.svg';
-import { ReactComponent as PlusSVG } from '../../../styles/images/icons/plus.svg';
+import { ReactComponent as BookMarkSvg } from '@svg/bookmark.svg';
+import { ReactComponent as LikesSvg } from '@svg/likes.svg';
+import { ReactComponent as FollowSvg } from '@svg/follow.svg';
+import { ReactComponent as PlusSVG } from '@svg/plus.svg';
 import { todayCardCategory } from 'constant';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 import { ITodayCardProps } from 'types/Home/Today';

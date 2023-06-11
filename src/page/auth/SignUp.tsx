@@ -1,7 +1,7 @@
 import Logo from 'components/Common/Logo';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as ValidationErrorSvg } from '../../styles/images/icons/validation-error.svg';
+import { ReactComponent as ValidationErrorSvg } from '@svg/validation-error.svg';
 import { useForm } from 'react-hook-form';
 import { IEmailSignUpInputData } from 'types/Auth';
 import { emailRegex } from '../../util/index';

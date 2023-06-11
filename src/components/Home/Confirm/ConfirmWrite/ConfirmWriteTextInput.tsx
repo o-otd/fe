@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import ConfirmWriteArrowBottomSVG from '../../../../styles/images/icons/confirm-write-arrow-bottom.svg';
-import { ReactComponent as CalendarSVG } from '../../../../styles/images/icons/calendar.svg';
+import ConfirmWriteArrowBottomSVG from '@svg/confirm-write-arrow-bottom.svg';
+import { ReactComponent as CalendarSVG } from '@svg/calendar.svg';
 import { IConfirmWriteTextInputProps } from 'types/Home/Confirm';
 
 function ConfirmWriteTextInput({ text, setText }: IConfirmWriteTextInputProps) {
