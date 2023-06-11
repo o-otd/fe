@@ -1,6 +1,6 @@
 import React from 'react';
-import searchSvg from '../../styles/images/icons/search.svg';
-import noticeSvg from '../../styles/images/icons/notice.svg';
+import searchSvg from '@svg/search.svg';
+import noticeSvg from '@svg/notice.svg';
 import styled from 'styled-components';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -21,6 +21,7 @@ function Layout() {
         <InnerContainer>
           <HeaderTop>
             <HeaderLogo>LOGO</HeaderLogo>
+
             {accessToken ? (
               <HeaderUtil>
                 <li>

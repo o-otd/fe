@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ReactComponent as ValidationErrorSvg } from '@svg/validation-error.svg';
 import { useForm } from 'react-hook-form';
 import { IEmailSignUpInputData } from 'types/Auth';
-import { emailRegex } from '../../util/index';
+import { emailRegex } from '../../utils/index';
 import Input from 'components/Auth/Input';
 import { RootState, useAppDispatch } from 'redux/store';
 import { authJoinByEmail } from 'redux/action/auth';

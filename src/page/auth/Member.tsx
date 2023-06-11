@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { ReactComponent as ValidationErrorSvg } from '@svg/validation-error.svg';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { emailRegex } from '../../util/index';
+import { emailRegex } from '../../utils/index';
 import { IEmailSignInInputData } from 'types/Auth';
 import Input from 'components/Auth/Input';
 import { RootState, useAppDispatch } from 'redux/store';

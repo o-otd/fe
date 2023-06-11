@@ -5,7 +5,7 @@ import { ReactComponent as ValidationErrorSvg } from '@svg/validation-error.svg'
 import Input from 'components/Auth/Input';
 import { useForm } from 'react-hook-form';
 import { IResetEmailInputData } from 'types/Auth';
-import { emailRegex } from '../../util/index';
+import { emailRegex } from '../../utils/index';
 
 function ResetPassword() {
   const {

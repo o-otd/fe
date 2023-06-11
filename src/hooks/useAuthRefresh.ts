@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { removeToken, resetAuthDone, setToken } from 'redux/reducer/auth';
 import { RootState, useAppDispatch } from 'redux/store';
 import { IDecodeJWT } from 'types/Common';
+import { logout } from 'utils';
 
 export default function useAuthRefresh() {
   const dispatch = useAppDispatch();
@@ -36,11 +37,12 @@ export default function useAuthRefresh() {
           Cookie.set('accessToken', newToken, {
             expires: expiresIn / (60 * 60 * 24),
           });
+
           dispatch(setToken(newToken));
         } catch (error) {
           console.error('Failed to refresh token: ', error);
-          Cookie.remove('accessToken');
-          dispatch(removeToken());
+
+          logout();
         }
       }, timeout);
       return () => clearTimeout(timerId);
