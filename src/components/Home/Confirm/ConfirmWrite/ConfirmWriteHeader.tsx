@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmWriteCloseSVG } from '@svg/confirm-comments-close.svg';
 import { IConfirmWriteHeaderProps } from 'types/Home/Confirm';
+import useCloseNavigation from 'hooks/useCloseNavigation';
 
 function ConfirmWriteHeader({ onSubmit }: IConfirmWriteHeaderProps) {
+  const closeNavigation = useCloseNavigation();
   return (
     <WriteTop>
-      <WriteTopClose>
+      <WriteTopClose onClick={closeNavigation}>
         <ConfirmWriteCloseSVG />
       </WriteTopClose>
       <WriteTopTitle>컨펌 글쓰기</WriteTopTitle>
@@ -28,7 +30,7 @@ const WriteTop = styled.section`
   padding: 0 16px;
 `;
 
-const WriteTopClose = styled.button`
+const WriteTopClose = styled.div`
   height: 24px;
 `;
 
