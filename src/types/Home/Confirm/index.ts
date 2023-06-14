@@ -36,6 +36,11 @@ export interface IGetNestedCommentsRequest {
 }
 
 export interface IConfirmVoteList {
-  onClickFunc: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickFunc?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   pickValue: string | undefined;
+}
+
+export interface IConfirmVoteResultList extends IConfirmVoteList {
+  isSubmit: boolean;
+  isShowResult: boolean;
 }
