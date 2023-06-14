@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmVoteSVG } from '@svg/confirm-vote-icon.svg';
 import { ReactComponent as ConfirmCheckSVG } from '@svg/check.svg';
+import ConfirmVoteList from './ConfirmVoteList';
 
 function ConfirmVoteCard() {
   const [isShowResult, setIsShowResult] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
-  const [pickValue, setPickValue] = useState<string | null>();
+  const [pickValue, setPickValue] = useState<string | undefined>();
 
   const onClickPick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const eventTarget = event.target as HTMLInputElement;
@@ -40,7 +41,7 @@ function ConfirmVoteCard() {
             $isActive={pickValue === '0'}
             $isSelected={false}
           >
-            <ConfirmCheckSVG />
+            {(!isShowResult || isSubmit) && <ConfirmCheckSVG />}
             입고 나가요
             <ConfirmVoteListResult>
               12%
@@ -51,7 +52,7 @@ function ConfirmVoteCard() {
             $isActive={pickValue === '1'}
             $isSelected={true}
           >
-            <ConfirmCheckSVG />
+            {(!isShowResult || isSubmit) && <ConfirmCheckSVG />}
             다시 골라요
             <ConfirmVoteListResult>
               88%
@@ -60,26 +61,7 @@ function ConfirmVoteCard() {
           </ConfirmVoteResultItem>
         </>
       ) : (
-        <>
-          <ConfirmVoteList
-            type="button"
-            value={0}
-            onClick={onClickPick}
-            $isActive={pickValue === '0'}
-          >
-            <ConfirmCheckSVG />
-            입고 나가요
-          </ConfirmVoteList>
-          <ConfirmVoteList
-            type="button"
-            value={1}
-            onClick={onClickPick}
-            $isActive={pickValue === '1'}
-          >
-            <ConfirmCheckSVG />
-            다시 골라요
-          </ConfirmVoteList>
-        </>
+        <ConfirmVoteList onClickFunc={onClickPick} pickValue={pickValue} />
       )}
 
       {!isSubmit && (
@@ -135,32 +117,6 @@ const ConfirmVoteData = styled.div`
     font-weight: 400;
     color: ${({ theme }) => theme.colors.gray6};
     margin-left: 4px;
-  }
-`;
-
-const ConfirmVoteList = styled.button<{ $isActive: boolean }>`
-  position: relative;
-  overflow: hidden;
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 44px;
-  padding: 0 16px;
-  font-size: 14px;
-  font-weight: 700;
-  border: 1px solid ${({ theme }) => theme.colors.gray8};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius10};
-  z-index: 3;
-  color: ${({ $isActive, theme }) => ($isActive ? theme.colors.gray2 : '')};
-  background-color: ${({ $isActive, theme }) =>
-    $isActive ? theme.colors.gray8 : ''};
-
-  & svg {
-    display: ${({ $isActive }) => ($isActive ? '' : 'none')};
-    width: ${({ $isActive }) => ($isActive ? '20px' : '')};
-    height: ${({ $isActive }) => ($isActive ? '20px' : '')};
-    margin-right: ${({ $isActive }) => ($isActive ? '10px' : '')};
   }
 `;
 

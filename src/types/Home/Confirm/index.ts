@@ -34,3 +34,8 @@ export interface IGetNestedCommentsRequest {
     page: number;
   };
 }
+
+export interface IConfirmVoteList {
+  onClickFunc: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  pickValue: string | undefined;
+}
