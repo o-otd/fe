@@ -5,6 +5,7 @@ import { ReactComponent as ConfirmCheckSVG } from '@svg/check.svg';
 
 function ConfirmVoteCard() {
   const [isShowResult, setIsShowResult] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
   const [pickValue, setPickValue] = useState<string | null>();
 
   const onClickPick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -16,7 +17,12 @@ function ConfirmVoteCard() {
     setIsShowResult((prev) => !prev);
   };
 
-  console.log(isShowResult);
+  const onClickVoteSubmit = () => {
+    console.log('submit');
+    // vote api 호출
+    setIsShowResult(true);
+    setIsSubmit(true);
+  };
 
   return (
     <ConfirmVote>
@@ -30,14 +36,22 @@ function ConfirmVoteCard() {
       </ConfirmVoteInfo>
       {isShowResult ? (
         <>
-          <ConfirmVoteResultItem $isSelected={false}>
+          <ConfirmVoteResultItem
+            $isActive={pickValue === '0'}
+            $isSelected={false}
+          >
+            <ConfirmCheckSVG />
             입고 나가요
             <ConfirmVoteListResult>
               12%
               <span>1234표</span>
             </ConfirmVoteListResult>
           </ConfirmVoteResultItem>
-          <ConfirmVoteResultItem $isSelected={true}>
+          <ConfirmVoteResultItem
+            $isActive={pickValue === '1'}
+            $isSelected={true}
+          >
+            <ConfirmCheckSVG />
             다시 골라요
             <ConfirmVoteListResult>
               88%
@@ -68,17 +82,20 @@ function ConfirmVoteCard() {
         </>
       )}
 
-      <ConfirmVoteBtns>
-        <ConfirmVoteSubmit
-          type="button"
-          disabled={!Boolean(pickValue) || isShowResult}
-        >
-          투표하기
-        </ConfirmVoteSubmit>
-        <ConfirmVoteResult type="button" onClick={onClickResultToggle}>
-          {isShowResult ? '돌아가기' : '결과확인'}
-        </ConfirmVoteResult>
-      </ConfirmVoteBtns>
+      {!isSubmit && (
+        <ConfirmVoteBtns>
+          <ConfirmVoteSubmit
+            type="button"
+            disabled={!Boolean(pickValue) || isShowResult}
+            onClick={onClickVoteSubmit}
+          >
+            투표하기
+          </ConfirmVoteSubmit>
+          <ConfirmVoteResult type="button" onClick={onClickResultToggle}>
+            {isShowResult ? '돌아가기' : '결과확인'}
+          </ConfirmVoteResult>
+        </ConfirmVoteBtns>
+      )}
     </ConfirmVote>
   );
 }
@@ -185,7 +202,10 @@ const ConfirmVoteListResult = styled.div`
   }
 `;
 
-const ConfirmVoteResultItem = styled.div<{ $isSelected: boolean }>`
+const ConfirmVoteResultItem = styled.div<{
+  $isSelected: boolean;
+  $isActive: boolean;
+}>`
   position: relative;
   overflow: hidden;
   margin-top: 12px;
@@ -209,5 +229,15 @@ const ConfirmVoteResultItem = styled.div<{ $isSelected: boolean }>`
     width: ${({ $isSelected }) => ($isSelected ? '88%' : '12%')};
     background-color: ${({ theme, $isSelected }) =>
       $isSelected ? ' #87B207' : theme.colors.gray5};
+  }
+
+  & svg {
+    & path {
+      fill: ${({ $isActive, theme }) => ($isActive ? theme.colors.gray8 : '')};
+    }
+    display: ${({ $isActive }) => ($isActive ? '' : 'none')};
+    width: ${({ $isActive }) => ($isActive ? '20px' : '')};
+    height: ${({ $isActive }) => ($isActive ? '20px' : '')};
+    margin-right: ${({ $isActive }) => ($isActive ? '10px' : '')};
   }
 `;
