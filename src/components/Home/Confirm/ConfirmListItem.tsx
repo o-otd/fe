@@ -18,7 +18,7 @@ function ConfirmListItem({ confirmData }: IConfirmListItemProps) {
 
       <ConfirmVoteCard />
 
-      <ConfirmImageSlide />
+      <ConfirmImageSlide images={confirmData.images} />
 
       <ConfirmComment />
     </Wrapper>
