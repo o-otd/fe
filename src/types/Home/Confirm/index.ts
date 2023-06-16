@@ -90,6 +90,7 @@ export interface IConfirmContentCardProps {
   content: string;
   startDate: string;
   endDate: string;
+  remains: number;
 }
 
 export interface IConfirmImageSlideProps {

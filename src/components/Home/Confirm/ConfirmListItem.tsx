@@ -14,6 +14,7 @@ function ConfirmListItem({ confirmData }: IConfirmListItemProps) {
         startDate={confirmData.startDate}
         endDate={confirmData.endDate}
         content={confirmData.content}
+        remains={confirmData.remains}
       />
 
       <ConfirmVoteCard />

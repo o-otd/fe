@@ -8,6 +8,7 @@ function ConfirmContentCard({
   content,
   startDate,
   endDate,
+  remains,
 }: IConfirmContentCardProps) {
   const [isContentOpen, setIsContentOpen] = useState<boolean>(false);
 
@@ -31,7 +32,7 @@ function ConfirmContentCard({
             {user.name}
           </ConfirmCardNickName>
           <ConfirmCardDate>
-            7일 남음
+            {remains}일 남음
             <span>
               {startDate} ~ {endDate}
             </span>
