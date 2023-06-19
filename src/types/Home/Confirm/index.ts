@@ -96,3 +96,7 @@ export interface IConfirmContentCardProps {
 export interface IConfirmImageSlideProps {
   images: string[];
 }
+
+export interface IConfirmComment {
+  bestComment: IBestComment;
+}

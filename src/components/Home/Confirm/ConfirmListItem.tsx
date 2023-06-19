@@ -21,7 +21,9 @@ function ConfirmListItem({ confirmData }: IConfirmListItemProps) {
 
       <ConfirmImageSlide images={confirmData.images} />
 
-      <ConfirmComment />
+      {confirmData.bestComment && (
+        <ConfirmComment bestComment={confirmData.bestComment} />
+      )}
     </Wrapper>
   );
 }

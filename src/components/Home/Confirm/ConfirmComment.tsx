@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import ConfirmCommentLinkSVG from '../../../styles/images/icons/confirm-comments-link.svg';
+import ConfirmCommentLinkSVG from '@svg/confirm-comments-link.svg';
 import useDetailNavigation from 'hooks/useDetailNavigation';
+import { IConfirmComment } from 'types/Home/Confirm';
 
-function ConfirmComment() {
+function ConfirmComment({ bestComment }: IConfirmComment) {
   const { detailNavigation } = useDetailNavigation('comment', 1);
   const onClickComment = () => {
     detailNavigation();
   };
+
   return (
     <ConfirmComments onClick={onClickComment}>
       <ConfirmCommentsInfo>
@@ -16,8 +18,10 @@ function ConfirmComment() {
 
       <ConfirmCommentsList>
         <ConfirmCommentsItem>
-          <ConfirmCommentsProfile />
-          <ConfirmCommentsContent>패턴이 너무 튀어요.</ConfirmCommentsContent>
+          <ConfirmCommentsProfile
+            src={bestComment.user.avatar ? bestComment.user.avatar : undefined}
+          />
+          <ConfirmCommentsContent>{bestComment.comment}</ConfirmCommentsContent>
         </ConfirmCommentsItem>
       </ConfirmCommentsList>
     </ConfirmComments>
@@ -56,7 +60,7 @@ const ConfirmCommentsItem = styled.li`
   align-items: center;
 `;
 
-const ConfirmCommentsProfile = styled.div`
+const ConfirmCommentsProfile = styled.img`
   width: 24px;
   height: 24px;
   background-color: ${({ theme }) => theme.colors.main};
