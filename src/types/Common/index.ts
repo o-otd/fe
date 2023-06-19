@@ -46,3 +46,9 @@ export interface IImageFile {
   file: File;
   imageUrl: string;
 }
+
+export interface IUser {
+  id: number;
+  name: string;
+  avatar: string | null;
+}

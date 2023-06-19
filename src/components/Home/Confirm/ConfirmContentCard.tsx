@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import dummyImage from '../../../styles/images/dummy-profile.png';
+import { IConfirmContentCardProps } from 'types/Home/Confirm';
 
-function ConfirmContentCard() {
+function ConfirmContentCard({
+  user,
+  content,
+  startDate,
+  endDate,
+  remains,
+}: IConfirmContentCardProps) {
   const [isContentOpen, setIsContentOpen] = useState<boolean>(false);
 
   const onClickProfile = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -18,21 +25,23 @@ function ConfirmContentCard() {
     <ConfirmCard onClick={onClickContentCard}>
       <ConfirmCardInfo>
         <ConfirmCardProfile onClick={onClickProfile}>
-          <CoverImage src={dummyImage} />
+          <CoverImage src={user.avatar ? user.avatar : dummyImage} />
         </ConfirmCardProfile>
         <div>
           <ConfirmCardNickName onClick={onClickProfile}>
-            CNVXCX
+            {user.name}
           </ConfirmCardNickName>
           <ConfirmCardDate>
-            7일 남음 <span>2022.11.27 ~ 2022.12.04</span>
+            {remains}일 남음
+            <span>
+              {startDate} ~ {endDate}
+            </span>
           </ConfirmCardDate>
         </div>
       </ConfirmCardInfo>
+
       <ConfirmCardContent $isContentOpen={isContentOpen}>
-        이번 주말에 데이트 나가는데 어떤지 봐주세요. 키 178, 몸무게 72kg 평소에
-        무난하게 입습니다. 급해요 꼭 투표부탁. 댓글로 다른 스타일 추천도
-        받습니다! 부탁!!!!!!!!!!
+        {content}
       </ConfirmCardContent>
     </ConfirmCard>
   );

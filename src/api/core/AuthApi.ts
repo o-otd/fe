@@ -27,8 +27,9 @@ AuthApi.interceptors.request.use(
 AuthApi.interceptors.response.use(
   async (response) => {
     if (
-      (response.data && response.data.code === 500) ||
-      (response.data && response.data.code === 400)
+      // (response.data && response.data.code === 500) ||
+      response.data &&
+      response.data.code === 400
     ) {
       const originalRequest = response.config;
       const accessToken = Cookie.get('accessToken');

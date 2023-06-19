@@ -1,4 +1,5 @@
 import {
+  IGetConfirmsApiResponse,
   IGetNestedCommentsRequest,
   IRegisterApiRequest,
   IRegisterApiResponse,
@@ -35,7 +36,10 @@ export const registerConfirm = async (params: IRegisterApiRequest) => {
 export const getConfirms = async () => {
   const url = `${baseUrl}/list`;
 
-  const response = await AuthApi.post(url);
+  const response = await AuthApi.post<
+    void,
+    AxiosResponse<IGetConfirmsApiResponse>
+  >(url);
   return response.data;
 };
 

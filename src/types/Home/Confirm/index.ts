@@ -1,4 +1,4 @@
-import { IApiResponse, IImageFile } from 'types/Common';
+import { IApiResponse, IImageFile, IUser } from 'types/Common';
 
 export interface IConfirmWriteHeaderProps {
   onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -43,4 +43,60 @@ export interface IConfirmVoteList {
 export interface IConfirmVoteResultList extends IConfirmVoteList {
   isSubmit: boolean;
   isShowResult: boolean;
+}
+
+export interface IGetConfirmsApiResponse extends IApiResponse {
+  data: {
+    datas: IGetConfirmsApiDataResponse[];
+    page: IGetConfirmsApiPageResponse;
+  };
+}
+
+export interface IGetConfirmsApiDataResponse {
+  badCnt: number;
+  bestComment: IBestComment;
+  user: IUser;
+  content: string;
+  startDate: string;
+  endDate: string;
+  goodCnt: number;
+  id: number;
+  images: string[];
+  myVoting: any;
+  remains: number;
+}
+
+export interface IGetConfirmsApiPageResponse {
+  size: number;
+  page: number;
+  total: number;
+}
+
+export interface IBestComment {
+  id: number;
+  like: number;
+  myComment: boolean;
+  myLike: boolean;
+  comment: string;
+  user: IUser;
+}
+
+export interface IConfirmListItemProps {
+  confirmData: IGetConfirmsApiDataResponse;
+}
+
+export interface IConfirmContentCardProps {
+  user: IUser;
+  content: string;
+  startDate: string;
+  endDate: string;
+  remains: number;
+}
+
+export interface IConfirmImageSlideProps {
+  images: string[];
+}
+
+export interface IConfirmComment {
+  bestComment: IBestComment;
 }

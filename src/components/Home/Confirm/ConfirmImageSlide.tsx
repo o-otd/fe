@@ -3,15 +3,18 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styled from 'styled-components';
-import confirmImage from '../../../styles/images/confirm-img-dummy.png';
+import { IConfirmImageSlideProps } from 'types/Home/Confirm';
 
-function ConfirmImageSlide() {
+function ConfirmImageSlide({ images }: IConfirmImageSlideProps) {
   return (
     <ConfirmSlider>
       <CustomSwiper pagination modules={[Pagination]}>
-        {[1, 2, 3, 4, 5].map((item) => (
-          <ConfirmSliderItem key={item}>
-            <CoverImage src={confirmImage} alt="thumbnail" />
+        {images.map((image, index) => (
+          <ConfirmSliderItem key={index}>
+            <CoverImage
+              src={`http://localhost/resources${image}`}
+              alt="thumbnail"
+            />
           </ConfirmSliderItem>
         ))}
       </CustomSwiper>
