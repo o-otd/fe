@@ -40,9 +40,11 @@ export interface IConfirmVoteList {
   pickValue: string | undefined;
 }
 
-export interface IConfirmVoteResultList extends IConfirmVoteList {
+export interface IConfirmVoteResultListProps extends IConfirmVoteList {
   isSubmit: boolean;
   isShowResult: boolean;
+  goodCnt: number;
+  badCnt: number;
 }
 
 export interface IGetConfirmsApiResponse extends IApiResponse {
@@ -97,6 +99,14 @@ export interface IConfirmImageSlideProps {
   images: string[];
 }
 
-export interface IConfirmComment {
+export interface IConfirmCommentProps {
   bestComment: IBestComment;
+}
+
+export interface IConfirmVoteCardProps {
+  goodCnt: number;
+  badCnt: number;
+  remains: number;
+  startDate: string;
+  endDate: string;
 }

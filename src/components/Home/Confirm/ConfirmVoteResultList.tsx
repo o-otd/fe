@@ -1,29 +1,43 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmCheckSVG } from '@svg/check.svg';
-import { IConfirmVoteResultList } from 'types/Home/Confirm';
+import { IConfirmVoteResultListProps } from 'types/Home/Confirm';
+import useGetVotePercentage from 'hooks/useGetVotePercentage';
 
 function ConfirmVoteResultList({
   pickValue,
   isSubmit,
   isShowResult,
-}: IConfirmVoteResultList) {
+  goodCnt,
+  badCnt,
+}: IConfirmVoteResultListProps) {
+  const [positiveVotePercentage, negativeVotePercentage] = useGetVotePercentage(
+    goodCnt,
+    badCnt,
+  );
+
   return (
     <>
-      <ConfirmVoteResultItem $isActive={pickValue === '0'} $isSelected={false}>
+      <ConfirmVoteResultItem
+        $isActive={pickValue === '0'}
+        $positive={positiveVotePercentage}
+        $isSelected={positiveVotePercentage > negativeVotePercentage}
+      >
         {(!isShowResult || isSubmit) && <ConfirmCheckSVG />}
         입고 나가요
         <ConfirmVoteListResult>
-          12%
-          <span>1234표</span>
+          {positiveVotePercentage}%<span>{goodCnt}표</span>
         </ConfirmVoteListResult>
       </ConfirmVoteResultItem>
-      <ConfirmVoteResultItem $isActive={pickValue === '1'} $isSelected={true}>
+      <ConfirmVoteResultItem
+        $isActive={pickValue === '1'}
+        $negative={negativeVotePercentage}
+        $isSelected={positiveVotePercentage < negativeVotePercentage}
+      >
         {(!isShowResult || isSubmit) && <ConfirmCheckSVG />}
         다시 골라요
         <ConfirmVoteListResult>
-          88%
-          <span>1234표</span>
+          {negativeVotePercentage}%<span>{badCnt}표</span>
         </ConfirmVoteListResult>
       </ConfirmVoteResultItem>
     </>
@@ -47,6 +61,8 @@ const ConfirmVoteListResult = styled.div`
 const ConfirmVoteResultItem = styled.div<{
   $isSelected: boolean;
   $isActive: boolean;
+  $positive?: number;
+  $negative?: number;
 }>`
   position: relative;
   overflow: hidden;
@@ -68,7 +84,9 @@ const ConfirmVoteResultItem = styled.div<{
     height: 100%;
     left: 0;
     z-index: -1;
-    width: ${({ $isSelected }) => ($isSelected ? '88%' : '12%')};
+
+    width: ${({ $positive, $negative }) =>
+      $positive ? `${$positive}%` : `${$negative}%`};
     background-color: ${({ theme, $isSelected }) =>
       $isSelected ? ' #87B207' : theme.colors.gray5};
   }

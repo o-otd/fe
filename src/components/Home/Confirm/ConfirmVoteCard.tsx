@@ -3,8 +3,15 @@ import styled from 'styled-components';
 import { ReactComponent as ConfirmVoteSVG } from '@svg/confirm-vote-icon.svg';
 import ConfirmVoteList from './ConfirmVoteList';
 import ConfirmVoteResultList from './ConfirmVoteResultList';
+import { IConfirmVoteCardProps } from 'types/Home/Confirm';
 
-function ConfirmVoteCard() {
+function ConfirmVoteCard({
+  goodCnt,
+  badCnt,
+  remains,
+  startDate,
+  endDate,
+}: IConfirmVoteCardProps) {
   const [isShowResult, setIsShowResult] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [pickValue, setPickValue] = useState<string | undefined>();
@@ -31,8 +38,10 @@ function ConfirmVoteCard() {
         <ConfirmVoteSVG />
         <h5>PICK</h5>
         <ConfirmVoteData>
-          7일 남음
-          <span>2022.11.27 ~ 2022.12.04</span>
+          {remains}일 남음
+          <span>
+            {startDate} ~ {endDate}
+          </span>
         </ConfirmVoteData>
       </ConfirmVoteInfo>
 
@@ -41,6 +50,8 @@ function ConfirmVoteCard() {
           pickValue={pickValue}
           isShowResult={isShowResult}
           isSubmit={isSubmit}
+          goodCnt={goodCnt}
+          badCnt={badCnt}
         />
       ) : (
         <ConfirmVoteList onClickFunc={onClickPick} pickValue={pickValue} />

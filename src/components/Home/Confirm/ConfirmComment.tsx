@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import ConfirmCommentLinkSVG from '@svg/confirm-comments-link.svg';
 import useDetailNavigation from 'hooks/useDetailNavigation';
-import { IConfirmComment } from 'types/Home/Confirm';
+import { IConfirmCommentProps } from 'types/Home/Confirm';
 
-function ConfirmComment({ bestComment }: IConfirmComment) {
+function ConfirmComment({ bestComment }: IConfirmCommentProps) {
   const { detailNavigation } = useDetailNavigation('comment', 1);
   const onClickComment = () => {
     detailNavigation();
