@@ -75,7 +75,7 @@ function ConfirmVoteCard({
         <ConfirmVoteList onClickFunc={onClickPick} pickValue={pickValue} />
       )}
 
-      {!isSubmit && (
+      {!isSubmit && !myVoting && (
         <ConfirmVoteBtns>
           <ConfirmVoteSubmit
             type="button"
