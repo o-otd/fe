@@ -20,7 +20,7 @@ export interface IRegisterApiResponse extends IApiResponse {
   };
 }
 
-export interface IRegisterApiRequest {
+export interface IRegisterConfirmRequest {
   content: string;
   images: IImageFile[];
   startDate: string;
@@ -109,4 +109,10 @@ export interface IConfirmVoteCardProps {
   remains: number;
   startDate: string;
   endDate: string;
+  confirmId: number;
+}
+
+export interface IRegisterVoteRequest {
+  confirmId: number;
+  voteType: string;
 }

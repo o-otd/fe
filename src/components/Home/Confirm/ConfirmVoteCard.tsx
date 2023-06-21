@@ -4,6 +4,9 @@ import { ReactComponent as ConfirmVoteSVG } from '@svg/confirm-vote-icon.svg';
 import ConfirmVoteList from './ConfirmVoteList';
 import ConfirmVoteResultList from './ConfirmVoteResultList';
 import { IConfirmVoteCardProps } from 'types/Home/Confirm';
+import useAuthRedirect from 'hooks/useAuthRedirect';
+import { useApi } from 'hooks/useApi';
+import { registerVote } from 'api/confirm';
 
 function ConfirmVoteCard({
   goodCnt,
@@ -11,7 +14,10 @@ function ConfirmVoteCard({
   remains,
   startDate,
   endDate,
+  confirmId,
 }: IConfirmVoteCardProps) {
+  const { execute, error } = useApi(registerVote);
+  const { checkAuthAndProceed } = useAuthRedirect();
   const [isShowResult, setIsShowResult] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [pickValue, setPickValue] = useState<string | undefined>();
@@ -26,10 +32,21 @@ function ConfirmVoteCard({
   };
 
   const onClickVoteSubmit = () => {
-    console.log('submit');
-    // vote api 호출
-    setIsShowResult(true);
-    setIsSubmit(true);
+    checkAuthAndProceed(async () => {
+      if (pickValue) {
+        const response = await execute({
+          confirmId: confirmId,
+          voteType: parseInt(pickValue) === 0 ? 'good' : 'bad',
+        });
+
+        if (!response.ok) {
+          alert(error);
+        } else {
+          setIsShowResult(true);
+          setIsSubmit(true);
+        }
+      }
+    });
   };
 
   return (

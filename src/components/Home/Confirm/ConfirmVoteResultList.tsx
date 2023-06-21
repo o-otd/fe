@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmCheckSVG } from '@svg/check.svg';
 import { IConfirmVoteResultListProps } from 'types/Home/Confirm';
@@ -15,6 +15,13 @@ function ConfirmVoteResultList({
     goodCnt,
     badCnt,
   );
+
+  useEffect(() => {
+    if (isSubmit) {
+      console.log('vote 정보 api get 요청');
+      //  vote 정보 get api 요청 필요
+    }
+  }, [isSubmit]);
 
   return (
     <>
