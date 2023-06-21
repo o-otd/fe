@@ -22,7 +22,6 @@ function ConfirmVoteCard({
   const [isShowResult, setIsShowResult] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [pickValue, setPickValue] = useState<string | undefined>();
-
   const onClickPick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const eventTarget = event.target as HTMLInputElement;
     setPickValue(eventTarget.value);
