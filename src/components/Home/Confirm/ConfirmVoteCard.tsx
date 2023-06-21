@@ -3,8 +3,22 @@ import styled from 'styled-components';
 import { ReactComponent as ConfirmVoteSVG } from '@svg/confirm-vote-icon.svg';
 import ConfirmVoteList from './ConfirmVoteList';
 import ConfirmVoteResultList from './ConfirmVoteResultList';
+import { IConfirmVoteCardProps } from 'types/Home/Confirm';
+import useAuthRedirect from 'hooks/useAuthRedirect';
+import { useApi } from 'hooks/useApi';
+import { registerVote } from 'api/confirm';
 
-function ConfirmVoteCard() {
+function ConfirmVoteCard({
+  goodCnt,
+  badCnt,
+  remains,
+  startDate,
+  endDate,
+  confirmId,
+  myVoting,
+}: IConfirmVoteCardProps) {
+  const { execute, error } = useApi(registerVote);
+  const { checkAuthAndProceed } = useAuthRedirect();
   const [isShowResult, setIsShowResult] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [pickValue, setPickValue] = useState<string | undefined>();
@@ -19,10 +33,21 @@ function ConfirmVoteCard() {
   };
 
   const onClickVoteSubmit = () => {
-    console.log('submit');
-    // vote api 호출
-    setIsShowResult(true);
-    setIsSubmit(true);
+    checkAuthAndProceed(async () => {
+      if (pickValue) {
+        const response = await execute({
+          confirmId: confirmId,
+          voteType: parseInt(pickValue) === 0 ? 'good' : 'bad',
+        });
+
+        if (!response.ok) {
+          alert(error);
+        } else {
+          setIsShowResult(true);
+          setIsSubmit(true);
+        }
+      }
+    });
   };
 
   return (
@@ -31,22 +56,26 @@ function ConfirmVoteCard() {
         <ConfirmVoteSVG />
         <h5>PICK</h5>
         <ConfirmVoteData>
-          7일 남음
-          <span>2022.11.27 ~ 2022.12.04</span>
+          {remains}일 남음
+          <span>
+            {startDate} ~ {endDate}
+          </span>
         </ConfirmVoteData>
       </ConfirmVoteInfo>
 
-      {isShowResult ? (
+      {isShowResult || myVoting ? (
         <ConfirmVoteResultList
           pickValue={pickValue}
-          isShowResult={isShowResult}
           isSubmit={isSubmit}
+          goodCnt={goodCnt}
+          badCnt={badCnt}
+          myVoting={myVoting}
         />
       ) : (
         <ConfirmVoteList onClickFunc={onClickPick} pickValue={pickValue} />
       )}
 
-      {!isSubmit && (
+      {!isSubmit && !myVoting && (
         <ConfirmVoteBtns>
           <ConfirmVoteSubmit
             type="button"

@@ -1,15 +1,16 @@
 import {
   IGetConfirmsApiResponse,
   IGetNestedCommentsRequest,
-  IRegisterApiRequest,
   IRegisterApiResponse,
+  IRegisterConfirmRequest,
+  IRegisterVoteRequest,
 } from 'types/Home/Confirm';
 import AuthApi from './core/AuthApi';
 import { AxiosResponse } from 'axios';
 
 const baseUrl = '/api/confirm';
 
-export const registerConfirm = async (params: IRegisterApiRequest) => {
+export const registerConfirm = async (params: IRegisterConfirmRequest) => {
   const url = `${baseUrl}/register`;
   const { content, images, startDate, endDate } = params;
 
@@ -26,7 +27,7 @@ export const registerConfirm = async (params: IRegisterApiRequest) => {
   formData.append('endDate', endDate);
 
   const response = await AuthApi.post<
-    IRegisterApiRequest,
+    IRegisterConfirmRequest,
     AxiosResponse<IRegisterApiResponse>
   >(url, formData);
 
@@ -62,5 +63,20 @@ export const getNestedComments = async (params: IGetNestedCommentsRequest) => {
       'Content-Type': 'application/json',
     },
   });
+  return response.data;
+};
+
+export const registerVote = async (params: IRegisterVoteRequest) => {
+  const { confirmId, voteType } = params;
+
+  const url = `${baseUrl}/vote`;
+
+  const formData = new FormData();
+
+  formData.append('confirmId', confirmId.toString());
+  formData.append('voteType', voteType);
+
+  const response = await AuthApi.post(url, formData);
+
   return response.data;
 };
