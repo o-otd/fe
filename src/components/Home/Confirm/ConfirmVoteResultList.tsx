@@ -7,9 +7,9 @@ import useGetVotePercentage from 'hooks/useGetVotePercentage';
 function ConfirmVoteResultList({
   pickValue,
   isSubmit,
-  isShowResult,
   goodCnt,
   badCnt,
+  myVoting,
 }: IConfirmVoteResultListProps) {
   const [positiveVotePercentage, negativeVotePercentage] = useGetVotePercentage(
     goodCnt,
@@ -26,22 +26,22 @@ function ConfirmVoteResultList({
   return (
     <>
       <ConfirmVoteResultItem
-        $isActive={pickValue === '0'}
+        $isActive={pickValue === '0' || myVoting === 'good'}
         $positive={positiveVotePercentage}
         $isSelected={positiveVotePercentage > negativeVotePercentage}
       >
-        {(!isShowResult || isSubmit) && <ConfirmCheckSVG />}
+        <ConfirmCheckSVG />
         입고 나가요
         <ConfirmVoteListResult>
           {positiveVotePercentage}%<span>{goodCnt}표</span>
         </ConfirmVoteListResult>
       </ConfirmVoteResultItem>
       <ConfirmVoteResultItem
-        $isActive={pickValue === '1'}
+        $isActive={pickValue === '1' || myVoting === 'bad'}
         $negative={negativeVotePercentage}
         $isSelected={positiveVotePercentage < negativeVotePercentage}
       >
-        {(!isShowResult || isSubmit) && <ConfirmCheckSVG />}
+        <ConfirmCheckSVG />
         다시 골라요
         <ConfirmVoteListResult>
           {negativeVotePercentage}%<span>{badCnt}표</span>

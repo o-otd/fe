@@ -15,6 +15,7 @@ function ConfirmVoteCard({
   startDate,
   endDate,
   confirmId,
+  myVoting,
 }: IConfirmVoteCardProps) {
   const { execute, error } = useApi(registerVote);
   const { checkAuthAndProceed } = useAuthRedirect();
@@ -62,13 +63,13 @@ function ConfirmVoteCard({
         </ConfirmVoteData>
       </ConfirmVoteInfo>
 
-      {isShowResult ? (
+      {isShowResult || myVoting ? (
         <ConfirmVoteResultList
           pickValue={pickValue}
-          isShowResult={isShowResult}
           isSubmit={isSubmit}
           goodCnt={goodCnt}
           badCnt={badCnt}
+          myVoting={myVoting}
         />
       ) : (
         <ConfirmVoteList onClickFunc={onClickPick} pickValue={pickValue} />

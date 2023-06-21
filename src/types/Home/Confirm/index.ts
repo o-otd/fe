@@ -42,9 +42,19 @@ export interface IConfirmVoteList {
 
 export interface IConfirmVoteResultListProps extends IConfirmVoteList {
   isSubmit: boolean;
-  isShowResult: boolean;
   goodCnt: number;
   badCnt: number;
+  myVoting: 'good' | 'bad' | null;
+}
+
+export interface IConfirmVoteCardProps {
+  goodCnt: number;
+  badCnt: number;
+  remains: number;
+  startDate: string;
+  endDate: string;
+  confirmId: number;
+  myVoting: 'good' | 'bad' | null;
 }
 
 export interface IGetConfirmsApiResponse extends IApiResponse {
@@ -101,15 +111,6 @@ export interface IConfirmImageSlideProps {
 
 export interface IConfirmCommentProps {
   bestComment: IBestComment;
-}
-
-export interface IConfirmVoteCardProps {
-  goodCnt: number;
-  badCnt: number;
-  remains: number;
-  startDate: string;
-  endDate: string;
-  confirmId: number;
 }
 
 export interface IRegisterVoteRequest {
