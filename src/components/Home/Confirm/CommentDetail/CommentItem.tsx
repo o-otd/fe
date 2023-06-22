@@ -4,12 +4,13 @@ import { ReactComponent as ConfirmCommentLikeSVG } from '@svg/likes.svg';
 import CommentsItem from './CommentsItem';
 import { getNestedComments } from 'api/confirm';
 import { useApi } from 'hooks/useApi';
+import { IComment } from 'types/Home/Confirm';
 
 interface ICommentItemProps {
-  targetId: number;
+  commentData: IComment;
 }
 
-function CommentItem({ targetId }: ICommentItemProps) {
+function CommentItem({ commentData }: ICommentItemProps) {
   const { execute, error } = useApi(getNestedComments);
   const onClickComment = async () => {
     // 대댓글 get api 요청
@@ -27,8 +28,8 @@ function CommentItem({ targetId }: ICommentItemProps) {
     <Wrapper onClick={onClickComment}>
       <CommentListProfile />
       <CommentListInfo>
-        <CommentListNickName>닉네임</CommentListNickName>
-        <CommentListContent>패턴이 너무 튀어요.</CommentListContent>
+        <CommentListNickName>{commentData.user.name}</CommentListNickName>
+        <CommentListContent>{commentData.comment}</CommentListContent>
 
         <CommentListUtil>
           <CommentListComments>
@@ -36,7 +37,7 @@ function CommentItem({ targetId }: ICommentItemProps) {
           </CommentListComments>
           <CommentListLikes>
             <ConfirmCommentLikeSVG />
-            <span>124</span>
+            <span>{commentData.like}</span>
           </CommentListLikes>
         </CommentListUtil>
 
