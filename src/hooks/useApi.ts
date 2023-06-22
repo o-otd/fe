@@ -10,6 +10,7 @@ export const useApi = <T = void, U = void>(
       setError(null);
       try {
         const response = await apiFunc(params as T);
+
         return response;
       } catch (err) {
         setError(err as Error);

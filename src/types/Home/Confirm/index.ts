@@ -60,13 +60,20 @@ export interface IConfirmVoteCardProps {
 export interface IGetConfirmsApiResponse extends IApiResponse {
   data: {
     datas: IGetConfirmsApiDataResponse[];
-    page: IGetConfirmsApiPageResponse;
+    page: IGetApiPageResponse;
+  };
+}
+
+export interface IGetCommentsApiResponse extends IApiResponse {
+  data: {
+    datas: IComment[];
+    page: IGetApiPageResponse;
   };
 }
 
 export interface IGetConfirmsApiDataResponse {
   badCnt: number;
-  bestComment: IBestComment;
+  bestComment: IComment;
   user: IUser;
   content: string;
   startDate: string;
@@ -78,13 +85,13 @@ export interface IGetConfirmsApiDataResponse {
   remains: number;
 }
 
-export interface IGetConfirmsApiPageResponse {
+export interface IGetApiPageResponse {
   size: number;
   page: number;
   total: number;
 }
 
-export interface IBestComment {
+export interface IComment {
   id: number;
   like: number;
   myComment: boolean;
@@ -110,10 +117,17 @@ export interface IConfirmImageSlideProps {
 }
 
 export interface IConfirmCommentProps {
-  bestComment: IBestComment;
+  bestComment: IComment;
+  confirmId: number;
 }
 
 export interface IRegisterVoteRequest {
   confirmId: number;
   voteType: string;
+}
+
+export interface IGetCommentsRequest {
+  targetId: string;
+  listSize: string;
+  page: string;
 }
