@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmCommentLikeSVG } from '@svg/likes.svg';
 import CommentsItem from './CommentsItem';
 import { getNestedComments } from 'api/confirm';
 import { useApi } from 'hooks/useApi';
 import { ICommentItemProps } from 'types/Home/Confirm';
+import { LIST_SIZE } from 'constant';
 
 function CommentItem({ commentData }: ICommentItemProps) {
   const { execute, error } = useApi(getNestedComments);
+  const [page, setPage] = useState(0);
   const onClickComment = async () => {
     // 대댓글 get api 요청
     const response = await execute({
-      targetId: 563,
-      page: {
-        size: 10,
-        page: 0,
-      },
+      targetId: commentData.id.toString(),
+      listSize: LIST_SIZE,
+      page: page.toString(),
     });
 
     console.log(response);
