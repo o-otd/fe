@@ -27,14 +27,6 @@ export interface IRegisterConfirmRequest {
   endDate: string;
 }
 
-export interface IGetNestedCommentsRequest {
-  targetId: number;
-  page: {
-    size: number;
-    page: number;
-  };
-}
-
 export interface IConfirmVoteList {
   onClickFunc?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   pickValue: string | undefined;
@@ -131,6 +123,8 @@ export interface IGetCommentsRequest {
   listSize: string;
   page: string;
 }
+
+export interface IGetNestedCommentsRequest extends IGetCommentsRequest {}
 
 export interface ICommentItemProps {
   commentData: IComment;

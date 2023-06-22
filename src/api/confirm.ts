@@ -47,24 +47,20 @@ export const getConfirms = async () => {
 };
 
 export const getNestedComments = async (params: IGetNestedCommentsRequest) => {
-  const { targetId, page } = params;
+  const { targetId, page, listSize } = params;
 
   const url = `${baseUrl}/nestedComment/list`;
 
-  // code 수정 필요
-  const data = {
-    targetId: targetId,
-    page: {
-      page: page.page,
-      size: page.size,
-    },
-  };
+  const formData = new FormData();
+  formData.append('targetId', targetId);
+  formData.append('page.page', page);
+  formData.append('page.size', listSize);
 
-  const response = await AuthApi.post(url, data, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const response = await AuthApi.post<IGetNestedCommentsRequest, any>(
+    url,
+    formData,
+  );
+
   return response.data;
 };
 
