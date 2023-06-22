@@ -109,7 +109,7 @@ export interface IConfirmImageSlideProps {
 }
 
 export interface IConfirmCommentProps {
-  bestComment: IComment;
+  bestComment?: IComment;
   confirmId: number;
 }
 

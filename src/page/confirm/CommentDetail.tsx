@@ -41,13 +41,15 @@ function CommentDetail() {
 
       <CommentDetailInput />
 
-      <CommentList>
-        <ul>
-          {comments.map((comment) => (
-            <CommentItem commentData={comment} key={comment.id} />
-          ))}
-        </ul>
-      </CommentList>
+      {comments.length > 0 && (
+        <CommentList>
+          <ul>
+            {comments.map((comment) => (
+              <CommentItem commentData={comment} key={comment.id} />
+            ))}
+          </ul>
+        </CommentList>
+      )}
     </main>
   );
 }
