@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as RefreshSVG } from '@svg/refresh.svg';
 import useAuthRedirect from 'hooks/useAuthRedirect';
+import { IConfirmHeaderProps } from 'types/Home/Confirm';
 
-function ConfirmHeader() {
+function ConfirmHeader({ onClickFunc }: IConfirmHeaderProps) {
   const { redirectTo } = useAuthRedirect();
   const onClickAddConfirm = () => {
     redirectTo('/confirm/write');
@@ -11,7 +12,7 @@ function ConfirmHeader() {
 
   return (
     <ConfirmUtil>
-      <button>
+      <button onClick={onClickFunc}>
         <RefreshSVG />
       </button>
       <div onClick={onClickAddConfirm}>글쓰기</div>

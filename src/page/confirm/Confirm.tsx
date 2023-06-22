@@ -9,23 +9,23 @@ function Confirm() {
   const [confirms, setConfirms] = useState<IGetConfirmsApiDataResponse[]>([]);
   const { execute, error } = useApi(getConfirms);
 
-  useEffect(() => {
-    const fetchConfirms = async () => {
-      const response = await execute();
-      if (response) {
-        setConfirms(response.data.datas);
-      } else {
-        return null;
-      }
-    };
+  const fetchConfirms = async () => {
+    const response = await execute();
+    if (response) {
+      setConfirms(response.data.datas);
+    } else {
+      return;
+    }
+  };
 
+  useEffect(() => {
     fetchConfirms();
   }, [execute]);
 
   return (
     <>
       <main>
-        <ConfirmHeader />
+        <ConfirmHeader onClickFunc={() => fetchConfirms()} />
 
         <section>
           <ul>

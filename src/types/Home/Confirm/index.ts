@@ -129,3 +129,7 @@ export interface IGetNestedCommentsRequest extends IGetCommentsRequest {}
 export interface ICommentItemProps {
   commentData: IComment;
 }
+
+export interface IConfirmHeaderProps {
+  onClickFunc: () => void;
+}

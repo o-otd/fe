@@ -15,23 +15,23 @@ function CommentDetail() {
   const [page, setPage] = useState(0);
   const [comments, setComments] = useState<IComment[]>([]);
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      if (confirmId) {
-        const response = await execute({
-          targetId: confirmId,
-          listSize: LIST_SIZE,
-          page: page.toString(),
-        });
+  const fetchComments = async () => {
+    if (confirmId) {
+      const response = await execute({
+        targetId: confirmId,
+        listSize: LIST_SIZE,
+        page: page.toString(),
+      });
 
-        if (response) {
-          setComments(response.data.datas);
-        } else {
-          return null;
-        }
+      if (response) {
+        setComments(response.data.datas);
+      } else {
+        return null;
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchComments();
   }, []);
 
