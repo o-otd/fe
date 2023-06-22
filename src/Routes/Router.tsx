@@ -84,7 +84,7 @@ function Router() {
             </AuthRoute>
           }
         />
-        <Route path="/comment/:commentId" element={<CommentDetail />} />
+        <Route path="/comment/:confirmId" element={<CommentDetail />} />
         <Route
           path="/confirm/write"
           element={

@@ -1,4 +1,6 @@
 import {
+  IGetCommentsApiResponse,
+  IGetCommentsRequest,
   IGetConfirmsApiResponse,
   IGetNestedCommentsRequest,
   IRegisterApiResponse,
@@ -77,6 +79,23 @@ export const registerVote = async (params: IRegisterVoteRequest) => {
   formData.append('voteType', voteType);
 
   const response = await AuthApi.post(url, formData);
+
+  return response.data;
+};
+
+export const getComments = async (params: IGetCommentsRequest) => {
+  const { targetId, page, listSize } = params;
+  const url = `${baseUrl}/comment/list`;
+
+  const formData = new FormData();
+  formData.append('targetId', targetId);
+  formData.append('page.page', page);
+  formData.append('page.size', listSize);
+
+  const response = await AuthApi.post<
+    IGetCommentsRequest,
+    AxiosResponse<IGetCommentsApiResponse>
+  >(url, formData);
 
   return response.data;
 };

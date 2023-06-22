@@ -4,12 +4,9 @@ import { ReactComponent as ConfirmCommentLikeSVG } from '@svg/likes.svg';
 import CommentsItem from './CommentsItem';
 import { getNestedComments } from 'api/confirm';
 import { useApi } from 'hooks/useApi';
+import { ICommentItemProps } from 'types/Home/Confirm';
 
-interface ICommentItemProps {
-  targetId: number;
-}
-
-function CommentItem({ targetId }: ICommentItemProps) {
+function CommentItem({ commentData }: ICommentItemProps) {
   const { execute, error } = useApi(getNestedComments);
   const onClickComment = async () => {
     // 대댓글 get api 요청
@@ -25,10 +22,12 @@ function CommentItem({ targetId }: ICommentItemProps) {
   };
   return (
     <Wrapper onClick={onClickComment}>
-      <CommentListProfile />
+      <CommentListProfile
+        src={commentData.user.avatar ? commentData.user.avatar : undefined}
+      />
       <CommentListInfo>
-        <CommentListNickName>닉네임</CommentListNickName>
-        <CommentListContent>패턴이 너무 튀어요.</CommentListContent>
+        <CommentListNickName>{commentData.user.name}</CommentListNickName>
+        <CommentListContent>{commentData.comment}</CommentListContent>
 
         <CommentListUtil>
           <CommentListComments>
@@ -36,7 +35,7 @@ function CommentItem({ targetId }: ICommentItemProps) {
           </CommentListComments>
           <CommentListLikes>
             <ConfirmCommentLikeSVG />
-            <span>124</span>
+            <span>{commentData.like}</span>
           </CommentListLikes>
         </CommentListUtil>
 
@@ -67,7 +66,7 @@ const Wrapper = styled.li`
   }
 `;
 
-const CommentListProfile = styled.div`
+const CommentListProfile = styled.img`
   width: 24px;
   height: 24px;
   border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};

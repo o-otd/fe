@@ -4,14 +4,11 @@ import ConfirmCommentLinkSVG from '@svg/confirm-comments-link.svg';
 import useDetailNavigation from 'hooks/useDetailNavigation';
 import { IConfirmCommentProps } from 'types/Home/Confirm';
 
-function ConfirmComment({ bestComment }: IConfirmCommentProps) {
-  const { detailNavigation } = useDetailNavigation('comment', 1);
-  const onClickComment = () => {
-    detailNavigation();
-  };
+function ConfirmComment({ bestComment, confirmId }: IConfirmCommentProps) {
+  const { detailNavigation } = useDetailNavigation('comment', confirmId);
 
   return (
-    <ConfirmComments onClick={onClickComment}>
+    <ConfirmComments onClick={() => detailNavigation()}>
       <ConfirmCommentsInfo>
         댓글 <span>72</span>
       </ConfirmCommentsInfo>

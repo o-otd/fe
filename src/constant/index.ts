@@ -7,3 +7,5 @@ export const todayCardCategory = [
   { name: 'shoes', id: 3 },
   { name: 'bag', id: 4 },
 ];
+
+export const LIST_SIZE = '10';
