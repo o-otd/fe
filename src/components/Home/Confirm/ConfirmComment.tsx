@@ -10,15 +10,18 @@ function ConfirmComment({ bestComment, confirmId }: IConfirmCommentProps) {
   return (
     <ConfirmComments onClick={() => detailNavigation()}>
       <ConfirmCommentsInfo>
-        댓글 <span>72</span>
+        댓글 {bestComment && <span>72</span>}
       </ConfirmCommentsInfo>
 
       <ConfirmCommentsList>
         <ConfirmCommentsItem>
           <ConfirmCommentsProfile
-            src={bestComment.user.avatar ? bestComment.user.avatar : undefined}
+            src={bestComment?.user.avatar ? bestComment.user.avatar : undefined}
           />
-          <ConfirmCommentsContent>{bestComment.comment}</ConfirmCommentsContent>
+
+          <ConfirmCommentsContent $isComment={bestComment !== null}>
+            {bestComment ? bestComment.comment : '첫 댓글을 작성해주세요.'}
+          </ConfirmCommentsContent>
         </ConfirmCommentsItem>
       </ConfirmCommentsList>
     </ConfirmComments>
@@ -65,13 +68,14 @@ const ConfirmCommentsProfile = styled.img`
   overflow: hidden;
 `;
 
-const ConfirmCommentsContent = styled.p`
+const ConfirmCommentsContent = styled.p<{ $isComment: boolean }>`
   width: calc(100% - 40px);
   position: relative;
   margin-left: 16px;
   font-size: 14px;
   font-weight: 400;
-  color: ${({ theme }) => theme.colors.gray8};
+  color: ${({ theme, $isComment }) =>
+    $isComment ? theme.colors.gray8 : theme.colors.gray5};
 
   &::after {
     content: '';
