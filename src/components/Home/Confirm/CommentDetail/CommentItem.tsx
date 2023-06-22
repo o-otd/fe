@@ -4,11 +4,7 @@ import { ReactComponent as ConfirmCommentLikeSVG } from '@svg/likes.svg';
 import CommentsItem from './CommentsItem';
 import { getNestedComments } from 'api/confirm';
 import { useApi } from 'hooks/useApi';
-import { IComment } from 'types/Home/Confirm';
-
-interface ICommentItemProps {
-  commentData: IComment;
-}
+import { ICommentItemProps } from 'types/Home/Confirm';
 
 function CommentItem({ commentData }: ICommentItemProps) {
   const { execute, error } = useApi(getNestedComments);
@@ -26,7 +22,9 @@ function CommentItem({ commentData }: ICommentItemProps) {
   };
   return (
     <Wrapper onClick={onClickComment}>
-      <CommentListProfile />
+      <CommentListProfile
+        src={commentData.user.avatar ? commentData.user.avatar : undefined}
+      />
       <CommentListInfo>
         <CommentListNickName>{commentData.user.name}</CommentListNickName>
         <CommentListContent>{commentData.comment}</CommentListContent>
@@ -68,7 +66,7 @@ const Wrapper = styled.li`
   }
 `;
 
-const CommentListProfile = styled.div`
+const CommentListProfile = styled.img`
   width: 24px;
   height: 24px;
   border-radius: ${({ theme }) => theme.borderRadius.borderRadius50};

@@ -131,3 +131,7 @@ export interface IGetCommentsRequest {
   listSize: string;
   page: string;
 }
+
+export interface ICommentItemProps {
+  commentData: IComment;
+}
