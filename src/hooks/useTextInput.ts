@@ -9,5 +9,14 @@ export default function useTextInput() {
     setCommentContent(event.target.value);
   };
 
-  return { inputTextLength, commentContent, onInputHandler };
+  const clearCommentContent = () => {
+    setCommentContent('');
+  };
+
+  return {
+    inputTextLength,
+    commentContent,
+    onInputHandler,
+    clearCommentContent,
+  };
 }

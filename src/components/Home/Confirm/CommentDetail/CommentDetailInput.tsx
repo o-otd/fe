@@ -1,16 +1,38 @@
+import { registerComment } from 'api/confirm';
+import { useApi } from 'hooks/useApi';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 import useTextInput from 'hooks/useTextInput';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 function CommentDetailInput() {
-  const { inputTextLength, commentContent, onInputHandler } = useTextInput();
+  const {
+    inputTextLength,
+    commentContent,
+    onInputHandler,
+    clearCommentContent,
+  } = useTextInput();
   const { checkAuthAndProceed } = useAuthRedirect();
+  const { execute, error } = useApi(registerComment);
+  const { confirmId } = useParams();
 
   const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    checkAuthAndProceed(() => {
+    checkAuthAndProceed(async () => {
       event.preventDefault();
-      // comment post api
+
+      if (confirmId) {
+        await execute({
+          confirmId: confirmId,
+          content: commentContent,
+        });
+
+        if (!error) {
+          clearCommentContent();
+        } else {
+          alert(error);
+        }
+      }
     });
   };
 
@@ -21,6 +43,7 @@ function CommentDetailInput() {
           onChange={onInputHandler}
           maxLength={600}
           placeholder="댓글을 입력하세요"
+          value={commentContent}
         />
         <CommentInputUtil>
           <span>{inputTextLength}</span>/600

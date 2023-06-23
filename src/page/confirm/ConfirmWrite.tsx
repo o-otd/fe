@@ -6,11 +6,11 @@ import useApiNavigation from 'hooks/useApiNavigation';
 import ConfirmWriteTextInput from 'components/Home/Confirm/ConfirmWrite/ConfirmWriteTextInput';
 import ConfirmWriteVote from 'components/Home/Confirm/ConfirmWrite/ConfirmWriteVote';
 import ConfirmWriteImageSlideInput from 'components/Home/Confirm/ConfirmWrite/ConfirmWriteImageSlideInput';
-import { IRegisterApiResponse } from 'types/Home/Confirm';
+import { IRegisterConfirmApiResponse } from 'types/Home/Confirm';
 import { IImageFile } from 'types/Common';
 
 function ConfirmWrite() {
-  const apiNavigation = useApiNavigation<IRegisterApiResponse>();
+  const apiNavigation = useApiNavigation<IRegisterConfirmApiResponse>();
   const { execute, error } = useApi(registerConfirm);
   const [text, setText] = useState<string>('');
   const [inputImages, setInputImages] = useState<IImageFile[]>([]);

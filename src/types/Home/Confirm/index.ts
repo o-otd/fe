@@ -14,7 +14,7 @@ export interface IConfirmWriteImageSlideInputProps {
   setInputImages: React.Dispatch<React.SetStateAction<IImageFile[]>>;
 }
 
-export interface IRegisterApiResponse extends IApiResponse {
+export interface IRegisterConfirmApiResponse extends IApiResponse {
   data: {
     id: number;
   };
@@ -25,6 +25,17 @@ export interface IRegisterConfirmRequest {
   images: IImageFile[];
   startDate: string;
   endDate: string;
+}
+
+export interface IRegisterCommentRequest {
+  confirmId: string;
+  content: string;
+}
+
+export interface IRegisterCommentApiResponse extends IApiResponse {
+  data: {
+    commentId: number;
+  };
 }
 
 export interface IConfirmVoteList {

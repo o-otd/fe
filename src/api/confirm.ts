@@ -3,7 +3,9 @@ import {
   IGetCommentsRequest,
   IGetConfirmsApiResponse,
   IGetNestedCommentsRequest,
-  IRegisterApiResponse,
+  IRegisterCommentApiResponse,
+  IRegisterCommentRequest,
+  IRegisterConfirmApiResponse,
   IRegisterConfirmRequest,
   IRegisterVoteRequest,
 } from 'types/Home/Confirm';
@@ -30,7 +32,24 @@ export const registerConfirm = async (params: IRegisterConfirmRequest) => {
 
   const response = await AuthApi.post<
     IRegisterConfirmRequest,
-    AxiosResponse<IRegisterApiResponse>
+    AxiosResponse<IRegisterConfirmApiResponse>
+  >(url, formData);
+
+  return response.data;
+};
+
+export const registerComment = async (params: IRegisterCommentRequest) => {
+  const url = `${baseUrl}/comment/register`;
+  const { confirmId, content } = params;
+
+  const formData = new FormData();
+
+  formData.append('confirmId', confirmId);
+  formData.append('content', content);
+
+  const response = await AuthApi.post<
+    IRegisterCommentRequest,
+    AxiosResponse<IRegisterCommentApiResponse>
   >(url, formData);
 
   return response.data;
