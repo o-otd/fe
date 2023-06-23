@@ -1,9 +1,18 @@
-import useTextCount from 'hooks/useTextCount';
+import useAuthRedirect from 'hooks/useAuthRedirect';
+import useTextInput from 'hooks/useTextInput';
 import React from 'react';
 import styled from 'styled-components';
 
 function CommentDetailInput() {
-  const { inputTextLength, onInputHandler } = useTextCount();
+  const { inputTextLength, commentContent, onInputHandler } = useTextInput();
+  const { checkAuthAndProceed } = useAuthRedirect();
+
+  const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    checkAuthAndProceed(() => {
+      event.preventDefault();
+      // comment post api
+    });
+  };
 
   return (
     <CommentForm>
@@ -15,7 +24,10 @@ function CommentDetailInput() {
         />
         <CommentInputUtil>
           <span>{inputTextLength}</span>/600
-          <CommentFormSubmit disabled={inputTextLength === 0}>
+          <CommentFormSubmit
+            onClick={onClickSubmit}
+            disabled={inputTextLength === 0}
+          >
             댓글 남기기
           </CommentFormSubmit>
         </CommentInputUtil>
