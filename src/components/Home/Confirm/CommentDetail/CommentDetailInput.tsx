@@ -1,9 +1,40 @@
-import useTextCount from 'hooks/useTextCount';
+import { registerComment } from 'api/confirm';
+import { useApi } from 'hooks/useApi';
+import useAuthRedirect from 'hooks/useAuthRedirect';
+import useTextInput from 'hooks/useTextInput';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 function CommentDetailInput() {
-  const { inputTextLength, onInputHandler } = useTextCount();
+  const {
+    inputTextLength,
+    commentContent,
+    onInputHandler,
+    clearCommentContent,
+  } = useTextInput();
+  const { checkAuthAndProceed } = useAuthRedirect();
+  const { execute, error } = useApi(registerComment);
+  const { confirmId } = useParams();
+
+  const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    checkAuthAndProceed(async () => {
+      event.preventDefault();
+
+      if (confirmId) {
+        await execute({
+          confirmId: confirmId,
+          content: commentContent,
+        });
+
+        if (!error) {
+          clearCommentContent();
+        } else {
+          alert(error);
+        }
+      }
+    });
+  };
 
   return (
     <CommentForm>
@@ -12,10 +43,14 @@ function CommentDetailInput() {
           onChange={onInputHandler}
           maxLength={600}
           placeholder="댓글을 입력하세요"
+          value={commentContent}
         />
         <CommentInputUtil>
           <span>{inputTextLength}</span>/600
-          <CommentFormSubmit disabled={inputTextLength === 0}>
+          <CommentFormSubmit
+            onClick={onClickSubmit}
+            disabled={inputTextLength === 0}
+          >
             댓글 남기기
           </CommentFormSubmit>
         </CommentInputUtil>
