@@ -11,10 +11,13 @@ import { useApi } from 'hooks/useApi';
 import { ICommentItemProps } from 'types/Home/Confirm';
 import { LIST_SIZE } from 'constant';
 import useAuthRedirect from 'hooks/useAuthRedirect';
+import useLikeMutation from 'hooks/useLikeMutation';
 
 function CommentItem({ commentData }: ICommentItemProps) {
-  const [isLike, setIsLike] = useState(commentData.myLike);
-  const [like, setLike] = useState(commentData.like);
+  const { isLike, like, mutateIsLike, mutateLike } = useLikeMutation(
+    commentData.myLike,
+    commentData.like,
+  );
   const { execute, error } = useApi(getNestedComments);
   const { execute: likeExecute, error: likeError } =
     useApi(registerCommentLike);
@@ -41,8 +44,8 @@ function CommentItem({ commentData }: ICommentItemProps) {
         });
 
         if (!deleteLikeError) {
-          setIsLike(false);
-          setLike((prev) => prev - 1);
+          mutateIsLike();
+          mutateLike(-1);
         } else {
           alert(likeError);
         }
@@ -52,8 +55,8 @@ function CommentItem({ commentData }: ICommentItemProps) {
         });
 
         if (!likeError) {
-          setIsLike(true);
-          setLike((prev) => prev + 1);
+          mutateIsLike();
+          mutateLike(1);
         } else {
           alert(likeError);
         }
