@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmCommentLikeSVG } from '@svg/likes.svg';
 import CommentsItem from './CommentsItem';
-import { getNestedComments, registerCommentLike } from 'api/confirm';
+import {
+  deleteCommentLike,
+  getNestedComments,
+  registerCommentLike,
+} from 'api/confirm';
 import { useApi } from 'hooks/useApi';
 import { ICommentItemProps } from 'types/Home/Confirm';
 import { LIST_SIZE } from 'constant';
@@ -14,6 +18,8 @@ function CommentItem({ commentData }: ICommentItemProps) {
   const { execute, error } = useApi(getNestedComments);
   const { execute: likeExecute, error: likeError } =
     useApi(registerCommentLike);
+  const { execute: deleteLikeExecute, error: deleteLikeError } =
+    useApi(deleteCommentLike);
   const { checkAuthAndProceed } = useAuthRedirect();
   const [page, setPage] = useState(0);
   const onClickComment = async () => {
@@ -30,7 +36,16 @@ function CommentItem({ commentData }: ICommentItemProps) {
   const onClickLike = () => {
     checkAuthAndProceed(async () => {
       if (isLike) {
-        console.log('like 풀림');
+        await deleteLikeExecute({
+          commentId: commentData.id.toString(),
+        });
+
+        if (!deleteLikeError) {
+          setIsLike(false);
+          setLike((prev) => prev - 1);
+        } else {
+          alert(likeError);
+        }
       } else {
         await likeExecute({
           commentId: commentData.id.toString(),
@@ -59,7 +74,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
           <CommentListComments>
             댓글 <span>13</span>
           </CommentListComments>
-          <CommentListLikes $isMyLike={commentData.myLike || isLike}>
+          <CommentListLikes $isMyLike={isLike}>
             <ConfirmCommentLikeSVG onClick={onClickLike} />
             <span>{like}</span>
           </CommentListLikes>

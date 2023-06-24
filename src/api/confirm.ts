@@ -1,4 +1,6 @@
 import {
+  IDeleteCommentLikeApiResponse,
+  IDeleteCommentLikeRequest,
   IGetCommentsApiResponse,
   IGetCommentsRequest,
   IGetConfirmsApiResponse,
@@ -130,6 +132,21 @@ export const registerCommentLike = async (
   const response = await AuthApi.post<
     IRegisterCommentLikeRequest,
     AxiosResponse<IRegisterCommentLikeApiResponse>
+  >(url, formData);
+
+  return response.data;
+};
+
+export const deleteCommentLike = async (params: IDeleteCommentLikeRequest) => {
+  const { commentId } = params;
+  const url = `${baseUrl}/comment/dislike`;
+
+  const formData = new FormData();
+  formData.append('commentId', commentId);
+
+  const response = await AuthApi.post<
+    IDeleteCommentLikeRequest,
+    AxiosResponse<IDeleteCommentLikeApiResponse>
   >(url, formData);
 
   return response.data;

@@ -152,3 +152,10 @@ export interface IRegisterCommentLikeRequest {
 export interface IRegisterCommentLikeApiResponse extends IApiResponse {
   data: null;
 }
+
+export interface IDeleteCommentLikeRequest
+  extends IRegisterCommentLikeRequest {}
+
+export interface IDeleteCommentLikeApiResponse extends IApiResponse {
+  data: null;
+}
