@@ -144,3 +144,11 @@ export interface ICommentItemProps {
 export interface IConfirmHeaderProps {
   onClickFunc: () => void;
 }
+
+export interface IRegisterCommentLikeRequest {
+  commentId: string;
+}
+
+export interface IRegisterCommentLikeApiResponse extends IApiResponse {
+  data: null;
+}
