@@ -2,13 +2,28 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmCommentLikeSVG } from '@svg/likes.svg';
 import CommentsItem from './CommentsItem';
-import { getNestedComments } from 'api/confirm';
+import {
+  deleteCommentLike,
+  getNestedComments,
+  registerCommentLike,
+} from 'api/confirm';
 import { useApi } from 'hooks/useApi';
 import { ICommentItemProps } from 'types/Home/Confirm';
 import { LIST_SIZE } from 'constant';
+import useAuthRedirect from 'hooks/useAuthRedirect';
+import useLikeMutation from 'hooks/useLikeMutation';
 
 function CommentItem({ commentData }: ICommentItemProps) {
+  const { isLike, like, mutateIsLike, mutateLike } = useLikeMutation(
+    commentData.myLike,
+    commentData.like,
+  );
   const { execute, error } = useApi(getNestedComments);
+  const { execute: likeExecute, error: likeError } =
+    useApi(registerCommentLike);
+  const { execute: deleteLikeExecute, error: deleteLikeError } =
+    useApi(deleteCommentLike);
+  const { checkAuthAndProceed } = useAuthRedirect();
   const [page, setPage] = useState(0);
   const onClickComment = async () => {
     // 대댓글 get api 요청
@@ -20,8 +35,37 @@ function CommentItem({ commentData }: ICommentItemProps) {
 
     console.log(response);
   };
+
+  const onClickLike = () => {
+    checkAuthAndProceed(async () => {
+      if (isLike) {
+        await deleteLikeExecute({
+          commentId: commentData.id.toString(),
+        });
+
+        if (!deleteLikeError) {
+          mutateIsLike();
+          mutateLike(-1);
+        } else {
+          alert(likeError);
+        }
+      } else {
+        await likeExecute({
+          commentId: commentData.id.toString(),
+        });
+
+        if (!likeError) {
+          mutateIsLike();
+          mutateLike(1);
+        } else {
+          alert(likeError);
+        }
+      }
+    });
+  };
+
   return (
-    <Wrapper onClick={onClickComment}>
+    <Wrapper>
       <CommentListProfile
         src={commentData.user.avatar ? commentData.user.avatar : undefined}
       />
@@ -33,9 +77,9 @@ function CommentItem({ commentData }: ICommentItemProps) {
           <CommentListComments>
             댓글 <span>13</span>
           </CommentListComments>
-          <CommentListLikes>
-            <ConfirmCommentLikeSVG />
-            <span>{commentData.like}</span>
+          <CommentListLikes $isMyLike={isLike}>
+            <ConfirmCommentLikeSVG onClick={onClickLike} />
+            <span>{like}</span>
           </CommentListLikes>
         </CommentListUtil>
 
@@ -109,13 +153,16 @@ const CommentListComments = styled.div`
   }
 `;
 
-const CommentListLikes = styled.button`
+const CommentListLikes = styled.button<{ $isMyLike: boolean }>`
   display: flex;
   align-items: center;
   margin-left: 16px;
-
+  cursor: pointer;
   & svg {
-    fill: ${({ theme }) => theme.colors.gray5};
+    & path {
+      fill: ${({ theme, $isMyLike }) =>
+        $isMyLike ? theme.colors.red2 : theme.colors.gray5};
+    }
   }
 
   & span {
