@@ -170,3 +170,9 @@ export interface IConfirmWriteVoteProps {
   setFirstVoteText: React.Dispatch<React.SetStateAction<string>>;
   setSecondVoteText: React.Dispatch<React.SetStateAction<string>>;
 }
+
+export interface IWriteVoteInputProps {
+  inputValue: string;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  placeholder: string;
+}
