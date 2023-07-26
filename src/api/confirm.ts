@@ -4,6 +4,7 @@ import {
   IGetCommentsApiResponse,
   IGetCommentsRequest,
   IGetConfirmsApiResponse,
+  IGetListsRequest,
   IGetNestedCommentsRequest,
   IRegisterCommentApiResponse,
   IRegisterCommentLikeApiResponse,
@@ -59,13 +60,18 @@ export const registerComment = async (params: IRegisterCommentRequest) => {
   return response.data;
 };
 
-export const getConfirms = async () => {
+export const getConfirms = async (params: IGetListsRequest) => {
+  const { page, listSize } = params;
   const url = `${baseUrl}/list`;
 
+  const formData = new FormData();
+  formData.append('page.page', page);
+  formData.append('page.size', listSize);
+
   const response = await AuthApi.post<
-    void,
+    IGetListsRequest,
     AxiosResponse<IGetConfirmsApiResponse>
-  >(url);
+  >(url, formData);
   return response.data;
 };
 

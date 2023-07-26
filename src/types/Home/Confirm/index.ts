@@ -129,10 +129,13 @@ export interface IRegisterVoteRequest {
   voteType: string;
 }
 
-export interface IGetCommentsRequest {
-  targetId: string;
-  listSize: string;
+export interface IGetListsRequest {
   page: string;
+  listSize: string;
+}
+
+export interface IGetCommentsRequest extends IGetListsRequest {
+  targetId: string;
 }
 
 export interface IGetNestedCommentsRequest extends IGetCommentsRequest {}
