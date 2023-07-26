@@ -25,6 +25,7 @@ export interface IRegisterConfirmRequest {
   images: IImageFile[];
   startDate: string;
   endDate: string;
+  voteTypeReqs: { wording: string; order: string }[];
 }
 
 export interface IRegisterCommentRequest {
@@ -161,4 +162,11 @@ export interface IDeleteCommentLikeRequest
 
 export interface IDeleteCommentLikeApiResponse extends IApiResponse {
   data: null;
+}
+
+export interface IConfirmWriteVoteProps {
+  firstVoteText: string;
+  secondVoteText: string;
+  setFirstVoteText: React.Dispatch<React.SetStateAction<string>>;
+  setSecondVoteText: React.Dispatch<React.SetStateAction<string>>;
 }

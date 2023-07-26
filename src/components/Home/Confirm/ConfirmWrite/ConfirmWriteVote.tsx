@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmVoteIconSVG } from '@svg/confirm-vote-icon.svg';
+import { IConfirmWriteVoteProps } from 'types/Home/Confirm';
 
-function ConfirmWriteVote() {
+function ConfirmWriteVote({
+  firstVoteText,
+  secondVoteText,
+  setFirstVoteText,
+  setSecondVoteText,
+}: IConfirmWriteVoteProps) {
   return (
     <WriteVote>
       <WriteVoteHeader>
@@ -17,10 +23,20 @@ function ConfirmWriteVote() {
       </WriteVoteHeader>
       <div>
         <WriteVoteInput>
-          <input type="text" placeholder="선택 1" />
+          <input
+            value={firstVoteText}
+            onChange={(event) => setFirstVoteText(event.target.value)}
+            type="text"
+            placeholder="선택 1"
+          />
         </WriteVoteInput>
         <WriteVoteInput>
-          <input type="text" placeholder="선택 2" />
+          <input
+            value={secondVoteText}
+            onChange={(event) => setSecondVoteText(event.target.value)}
+            type="text"
+            placeholder="선택 2"
+          />
         </WriteVoteInput>
       </div>
     </WriteVote>

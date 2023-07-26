@@ -21,7 +21,7 @@ const baseUrl = '/api/confirm';
 
 export const registerConfirm = async (params: IRegisterConfirmRequest) => {
   const url = `${baseUrl}/register`;
-  const { content, images, startDate, endDate } = params;
+  const { content, images, startDate, endDate, voteTypeReqs } = params;
 
   const formData = new FormData();
 
@@ -34,6 +34,15 @@ export const registerConfirm = async (params: IRegisterConfirmRequest) => {
   //임시 date
   formData.append('startDate', startDate);
   formData.append('endDate', endDate);
+
+  for (let i = 0; i < voteTypeReqs.length; i++) {
+    for (let key in voteTypeReqs[i]) {
+      formData.append(
+        `voteTypeReqs[${i}].${key}`,
+        voteTypeReqs[i][key as 'wording' | 'order'],
+      );
+    }
+  }
 
   const response = await AuthApi.post<
     IRegisterConfirmRequest,
