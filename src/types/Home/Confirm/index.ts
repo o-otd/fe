@@ -25,6 +25,7 @@ export interface IRegisterConfirmRequest {
   images: IImageFile[];
   startDate: string;
   endDate: string;
+  voteTypeReqs: { wording: string; order: string }[];
 }
 
 export interface IRegisterCommentRequest {
@@ -129,10 +130,13 @@ export interface IRegisterVoteRequest {
   voteType: string;
 }
 
-export interface IGetCommentsRequest {
-  targetId: string;
-  listSize: string;
+export interface IGetListsRequest {
   page: string;
+  listSize: string;
+}
+
+export interface IGetCommentsRequest extends IGetListsRequest {
+  targetId: string;
 }
 
 export interface IGetNestedCommentsRequest extends IGetCommentsRequest {}
@@ -158,4 +162,17 @@ export interface IDeleteCommentLikeRequest
 
 export interface IDeleteCommentLikeApiResponse extends IApiResponse {
   data: null;
+}
+
+export interface IConfirmWriteVoteProps {
+  firstVoteText: string;
+  secondVoteText: string;
+  setFirstVoteText: React.Dispatch<React.SetStateAction<string>>;
+  setSecondVoteText: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface IWriteVoteInputProps {
+  inputValue: string;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  placeholder: string;
 }

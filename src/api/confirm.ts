@@ -4,6 +4,7 @@ import {
   IGetCommentsApiResponse,
   IGetCommentsRequest,
   IGetConfirmsApiResponse,
+  IGetListsRequest,
   IGetNestedCommentsRequest,
   IRegisterCommentApiResponse,
   IRegisterCommentLikeApiResponse,
@@ -20,7 +21,7 @@ const baseUrl = '/api/confirm';
 
 export const registerConfirm = async (params: IRegisterConfirmRequest) => {
   const url = `${baseUrl}/register`;
-  const { content, images, startDate, endDate } = params;
+  const { content, images, startDate, endDate, voteTypeReqs } = params;
 
   const formData = new FormData();
 
@@ -33,6 +34,15 @@ export const registerConfirm = async (params: IRegisterConfirmRequest) => {
   //임시 date
   formData.append('startDate', startDate);
   formData.append('endDate', endDate);
+
+  for (let i = 0; i < voteTypeReqs.length; i++) {
+    for (let key in voteTypeReqs[i]) {
+      formData.append(
+        `voteTypeReqs[${i}].${key}`,
+        voteTypeReqs[i][key as 'wording' | 'order'],
+      );
+    }
+  }
 
   const response = await AuthApi.post<
     IRegisterConfirmRequest,
@@ -59,13 +69,18 @@ export const registerComment = async (params: IRegisterCommentRequest) => {
   return response.data;
 };
 
-export const getConfirms = async () => {
+export const getConfirms = async (params: IGetListsRequest) => {
+  const { page, listSize } = params;
   const url = `${baseUrl}/list`;
 
+  const formData = new FormData();
+  formData.append('page.page', page);
+  formData.append('page.size', listSize);
+
   const response = await AuthApi.post<
-    void,
+    IGetListsRequest,
     AxiosResponse<IGetConfirmsApiResponse>
-  >(url);
+  >(url, formData);
   return response.data;
 };
 

@@ -1,8 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmVoteIconSVG } from '@svg/confirm-vote-icon.svg';
+import { IConfirmWriteVoteProps } from 'types/Home/Confirm';
+import WriteVoteInput from './WriteVoteInput';
 
-function ConfirmWriteVote() {
+function ConfirmWriteVote({
+  firstVoteText,
+  secondVoteText,
+  setFirstVoteText,
+  setSecondVoteText,
+}: IConfirmWriteVoteProps) {
   return (
     <WriteVote>
       <WriteVoteHeader>
@@ -16,12 +23,16 @@ function ConfirmWriteVote() {
         </WriteVoteDate>
       </WriteVoteHeader>
       <div>
-        <WriteVoteInput>
-          <input type="text" placeholder="선택 1" />
-        </WriteVoteInput>
-        <WriteVoteInput>
-          <input type="text" placeholder="선택 2" />
-        </WriteVoteInput>
+        <WriteVoteInput
+          placeholder="선택 1"
+          inputValue={firstVoteText}
+          setInputValue={setFirstVoteText}
+        />
+        <WriteVoteInput
+          placeholder="선택 2"
+          inputValue={secondVoteText}
+          setInputValue={setSecondVoteText}
+        />
       </div>
     </WriteVote>
   );
@@ -70,31 +81,4 @@ const WriteVoteDatePeriod = styled.div`
   font-size: 12px;
   font-weight: 400;
   color: ${({ theme }) => theme.colors.gray6};
-`;
-
-const WriteVoteInput = styled.div`
-  width: 100%;
-  height: 44px;
-  background-color: ${({ theme }) => theme.colors.gray3};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius10};
-  margin-top: 12px;
-
-  & input {
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    padding: 13px 16px;
-    border-radius: ${({ theme }) => theme.borderRadius.borderRadius10};
-    font-size: 14px;
-    font-weight: 700;
-
-    &:focus {
-      border: 1px solid ${({ theme }) => theme.colors.main};
-      outline: none;
-    }
-  }
-
-  & + & {
-    margin-top: 4px;
-  }
 `;
