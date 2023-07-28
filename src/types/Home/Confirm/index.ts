@@ -87,6 +87,14 @@ export interface IGetConfirmsApiDataResponse {
   images: string[];
   myVoting: any;
   remains: number;
+  votes: IVote[];
+}
+
+export interface IVote {
+  voteTypeId: number;
+  wording: string;
+  order: number;
+  count: number;
 }
 
 export interface IGetApiPageResponse {
