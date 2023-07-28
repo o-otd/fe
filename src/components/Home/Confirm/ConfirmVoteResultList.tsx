@@ -7,13 +7,12 @@ import useGetVotePercentage from 'hooks/useGetVotePercentage';
 function ConfirmVoteResultList({
   pickValue,
   isSubmit,
-  goodCnt,
-  badCnt,
   myVoting,
+  votes,
 }: IConfirmVoteResultListProps) {
   const [positiveVotePercentage, negativeVotePercentage] = useGetVotePercentage(
-    goodCnt,
-    badCnt,
+    votes[0].count,
+    votes[1].count,
   );
 
   useEffect(() => {
@@ -25,28 +24,20 @@ function ConfirmVoteResultList({
 
   return (
     <>
-      <ConfirmVoteResultItem
-        $isActive={pickValue === '0' || myVoting === 'good'}
-        $positive={positiveVotePercentage}
-        $isSelected={positiveVotePercentage > negativeVotePercentage}
-      >
-        <ConfirmCheckSVG />
-        입고 나가요
-        <ConfirmVoteListResult>
-          {positiveVotePercentage}%<span>{goodCnt}표</span>
-        </ConfirmVoteListResult>
-      </ConfirmVoteResultItem>
-      <ConfirmVoteResultItem
-        $isActive={pickValue === '1' || myVoting === 'bad'}
-        $negative={negativeVotePercentage}
-        $isSelected={positiveVotePercentage < negativeVotePercentage}
-      >
-        <ConfirmCheckSVG />
-        다시 골라요
-        <ConfirmVoteListResult>
-          {negativeVotePercentage}%<span>{badCnt}표</span>
-        </ConfirmVoteListResult>
-      </ConfirmVoteResultItem>
+      {votes.map((vote) => (
+        <ConfirmVoteResultItem
+          key={vote.voteTypeId}
+          $isActive={pickValue === vote.order + '' || myVoting === vote.wording}
+          $positive={positiveVotePercentage}
+          $isSelected={positiveVotePercentage > negativeVotePercentage}
+        >
+          <ConfirmCheckSVG />
+          {vote.wording}
+          <ConfirmVoteListResult>
+            {positiveVotePercentage}%<span>{vote.count}표</span>
+          </ConfirmVoteListResult>
+        </ConfirmVoteResultItem>
+      ))}
     </>
   );
 }

@@ -47,14 +47,11 @@ export interface IConfirmVoteList {
 
 export interface IConfirmVoteResultListProps extends IConfirmVoteList {
   isSubmit: boolean;
-  goodCnt: number;
-  badCnt: number;
+
   myVoting: 'good' | 'bad' | null;
 }
 
 export interface IConfirmVoteCardProps {
-  goodCnt: number;
-  badCnt: number;
   remains: number;
   startDate: string;
   endDate: string;
@@ -78,13 +75,11 @@ export interface IGetCommentsApiResponse extends IApiResponse {
 }
 
 export interface IGetConfirmsApiDataResponse {
-  badCnt: number;
   bestComment: IComment;
   user: IUser;
   content: string;
   startDate: string;
   endDate: string;
-  goodCnt: number;
   id: number;
   images: string[];
   myVoting: any;

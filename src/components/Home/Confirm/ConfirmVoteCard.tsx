@@ -9,8 +9,6 @@ import { useApi } from 'hooks/useApi';
 import { registerVote } from 'api/confirm';
 
 function ConfirmVoteCard({
-  goodCnt,
-  badCnt,
   remains,
   startDate,
   endDate,
@@ -25,7 +23,7 @@ function ConfirmVoteCard({
   const [pickValue, setPickValue] = useState<string | undefined>();
   const onClickPick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const eventTarget = event.target as HTMLInputElement;
-    console.log(eventTarget.value);
+
     setPickValue(eventTarget.value);
   };
 
@@ -68,8 +66,6 @@ function ConfirmVoteCard({
         <ConfirmVoteResultList
           pickValue={pickValue}
           isSubmit={isSubmit}
-          goodCnt={goodCnt}
-          badCnt={badCnt}
           myVoting={myVoting}
           votes={votes}
         />
