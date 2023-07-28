@@ -30,6 +30,7 @@ function ConfirmListItem({ confirmData }: IConfirmListItemProps) {
         endDate={endDate}
         remains={confirmData.remains}
         myVoting={confirmData.myVoting}
+        votes={confirmData.votes}
       />
 
       <ConfirmImageSlide images={confirmData.images} />

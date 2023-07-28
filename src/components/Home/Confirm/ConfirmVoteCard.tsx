@@ -16,6 +16,7 @@ function ConfirmVoteCard({
   endDate,
   confirmId,
   myVoting,
+  votes,
 }: IConfirmVoteCardProps) {
   const { execute, error } = useApi(registerVote);
   const { checkAuthAndProceed } = useAuthRedirect();
@@ -24,6 +25,7 @@ function ConfirmVoteCard({
   const [pickValue, setPickValue] = useState<string | undefined>();
   const onClickPick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const eventTarget = event.target as HTMLInputElement;
+    console.log(eventTarget.value);
     setPickValue(eventTarget.value);
   };
 
@@ -69,9 +71,14 @@ function ConfirmVoteCard({
           goodCnt={goodCnt}
           badCnt={badCnt}
           myVoting={myVoting}
+          votes={votes}
         />
       ) : (
-        <ConfirmVoteList onClickFunc={onClickPick} pickValue={pickValue} />
+        <ConfirmVoteList
+          votes={votes}
+          onClickFunc={onClickPick}
+          pickValue={pickValue}
+        />
       )}
 
       {!isSubmit && !myVoting && (

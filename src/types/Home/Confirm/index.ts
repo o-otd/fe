@@ -42,6 +42,7 @@ export interface IRegisterCommentApiResponse extends IApiResponse {
 export interface IConfirmVoteList {
   onClickFunc?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   pickValue: string | undefined;
+  votes: IVote[];
 }
 
 export interface IConfirmVoteResultListProps extends IConfirmVoteList {
@@ -59,6 +60,7 @@ export interface IConfirmVoteCardProps {
   endDate: string;
   confirmId: number;
   myVoting: 'good' | 'bad' | null;
+  votes: IVote[];
 }
 
 export interface IGetConfirmsApiResponse extends IApiResponse {

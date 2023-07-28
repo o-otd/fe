@@ -3,27 +3,21 @@ import styled from 'styled-components';
 import { ReactComponent as ConfirmCheckSVG } from '@svg/check.svg';
 import { IConfirmVoteList } from 'types/Home/Confirm';
 
-function ConfirmVoteList({ onClickFunc, pickValue }: IConfirmVoteList) {
+function ConfirmVoteList({ onClickFunc, pickValue, votes }: IConfirmVoteList) {
   return (
     <>
-      <ConfirmVoteListItem
-        type="button"
-        value={0}
-        onClick={onClickFunc}
-        $isActive={pickValue === '0'}
-      >
-        <ConfirmCheckSVG />
-        입고 나가요
-      </ConfirmVoteListItem>
-      <ConfirmVoteListItem
-        type="button"
-        value={1}
-        onClick={onClickFunc}
-        $isActive={pickValue === '1'}
-      >
-        <ConfirmCheckSVG />
-        다시 골라요
-      </ConfirmVoteListItem>
+      {votes.map((vote) => (
+        <ConfirmVoteListItem
+          key={vote.voteTypeId}
+          type="button"
+          value={vote.order}
+          onClick={onClickFunc}
+          $isActive={pickValue === vote.order + ''}
+        >
+          <ConfirmCheckSVG />
+          {vote.wording}
+        </ConfirmVoteListItem>
+      ))}
     </>
   );
 }
