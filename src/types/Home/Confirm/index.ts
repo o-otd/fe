@@ -42,23 +42,21 @@ export interface IRegisterCommentApiResponse extends IApiResponse {
 export interface IConfirmVoteList {
   onClickFunc?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   pickValue: string | undefined;
+  votes: IVote[];
 }
 
 export interface IConfirmVoteResultListProps extends IConfirmVoteList {
   isSubmit: boolean;
-  goodCnt: number;
-  badCnt: number;
-  myVoting: 'good' | 'bad' | null;
+  myVoting: number | null;
 }
 
 export interface IConfirmVoteCardProps {
-  goodCnt: number;
-  badCnt: number;
   remains: number;
   startDate: string;
   endDate: string;
   confirmId: number;
-  myVoting: 'good' | 'bad' | null;
+  myVoting: number | null;
+  votes: IVote[];
 }
 
 export interface IGetConfirmsApiResponse extends IApiResponse {
@@ -76,17 +74,23 @@ export interface IGetCommentsApiResponse extends IApiResponse {
 }
 
 export interface IGetConfirmsApiDataResponse {
-  badCnt: number;
   bestComment: IComment;
   user: IUser;
   content: string;
   startDate: string;
   endDate: string;
-  goodCnt: number;
   id: number;
   images: string[];
-  myVoting: any;
+  myVoting: number | null;
   remains: number;
+  votes: IVote[];
+}
+
+export interface IVote {
+  voteTypeId: number;
+  wording: string;
+  order: number;
+  count: number;
 }
 
 export interface IGetApiPageResponse {
@@ -127,7 +131,7 @@ export interface IConfirmCommentProps {
 
 export interface IRegisterVoteRequest {
   confirmId: number;
-  voteType: string;
+  voteTypeId: string;
 }
 
 export interface IGetListsRequest {

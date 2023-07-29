@@ -7,21 +7,23 @@ import { IConfirmVoteCardProps } from 'types/Home/Confirm';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 import { useApi } from 'hooks/useApi';
 import { registerVote } from 'api/confirm';
+import { useAppDispatch } from 'redux/store';
+import { setVoteDone } from 'redux/reducer/vote';
 
 function ConfirmVoteCard({
-  goodCnt,
-  badCnt,
   remains,
   startDate,
   endDate,
   confirmId,
   myVoting,
+  votes,
 }: IConfirmVoteCardProps) {
   const { execute, error } = useApi(registerVote);
   const { checkAuthAndProceed } = useAuthRedirect();
   const [isShowResult, setIsShowResult] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [pickValue, setPickValue] = useState<string | undefined>();
+  const dispatch = useAppDispatch();
   const onClickPick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const eventTarget = event.target as HTMLInputElement;
     setPickValue(eventTarget.value);
@@ -36,14 +38,14 @@ function ConfirmVoteCard({
       if (pickValue) {
         const response = await execute({
           confirmId: confirmId,
-          voteType: parseInt(pickValue) === 0 ? 'good' : 'bad',
+          voteTypeId: pickValue,
         });
-
         if (!response.ok) {
           alert(error);
         } else {
           setIsShowResult(true);
           setIsSubmit(true);
+          dispatch(setVoteDone());
         }
       }
     });
@@ -66,12 +68,15 @@ function ConfirmVoteCard({
         <ConfirmVoteResultList
           pickValue={pickValue}
           isSubmit={isSubmit}
-          goodCnt={goodCnt}
-          badCnt={badCnt}
           myVoting={myVoting}
+          votes={votes}
         />
       ) : (
-        <ConfirmVoteList onClickFunc={onClickPick} pickValue={pickValue} />
+        <ConfirmVoteList
+          votes={votes}
+          onClickFunc={onClickPick}
+          pickValue={pickValue}
+        />
       )}
 
       {!isSubmit && !myVoting && (

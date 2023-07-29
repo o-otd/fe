@@ -7,14 +7,10 @@ import useGetVotePercentage from 'hooks/useGetVotePercentage';
 function ConfirmVoteResultList({
   pickValue,
   isSubmit,
-  goodCnt,
-  badCnt,
   myVoting,
+  votes,
 }: IConfirmVoteResultListProps) {
-  const [positiveVotePercentage, negativeVotePercentage] = useGetVotePercentage(
-    goodCnt,
-    badCnt,
-  );
+  const percentageResult = useGetVotePercentage(votes[0].count, votes[1].count);
 
   useEffect(() => {
     if (isSubmit) {
@@ -25,28 +21,23 @@ function ConfirmVoteResultList({
 
   return (
     <>
-      <ConfirmVoteResultItem
-        $isActive={pickValue === '0' || myVoting === 'good'}
-        $positive={positiveVotePercentage}
-        $isSelected={positiveVotePercentage > negativeVotePercentage}
-      >
-        <ConfirmCheckSVG />
-        입고 나가요
-        <ConfirmVoteListResult>
-          {positiveVotePercentage}%<span>{goodCnt}표</span>
-        </ConfirmVoteListResult>
-      </ConfirmVoteResultItem>
-      <ConfirmVoteResultItem
-        $isActive={pickValue === '1' || myVoting === 'bad'}
-        $negative={negativeVotePercentage}
-        $isSelected={positiveVotePercentage < negativeVotePercentage}
-      >
-        <ConfirmCheckSVG />
-        다시 골라요
-        <ConfirmVoteListResult>
-          {negativeVotePercentage}%<span>{badCnt}표</span>
-        </ConfirmVoteListResult>
-      </ConfirmVoteResultItem>
+      {votes.map((vote) => (
+        <ConfirmVoteResultItem
+          key={vote.voteTypeId}
+          $isActive={
+            pickValue === vote.voteTypeId + '' || myVoting === vote.voteTypeId
+          }
+          $percentage={percentageResult[vote.order].percentage}
+          $isSelected={percentageResult[vote.order].percentage > 50}
+        >
+          <ConfirmCheckSVG />
+          {vote.wording}
+          <ConfirmVoteListResult>
+            {percentageResult[vote.order].percentage}%
+            <span>{vote.count}표</span>
+          </ConfirmVoteListResult>
+        </ConfirmVoteResultItem>
+      ))}
     </>
   );
 }
@@ -68,8 +59,7 @@ const ConfirmVoteListResult = styled.div`
 const ConfirmVoteResultItem = styled.div<{
   $isSelected: boolean;
   $isActive: boolean;
-  $positive?: number;
-  $negative?: number;
+  $percentage: number;
 }>`
   position: relative;
   overflow: hidden;
@@ -92,8 +82,7 @@ const ConfirmVoteResultItem = styled.div<{
     left: 0;
     z-index: -1;
 
-    width: ${({ $positive, $negative }) =>
-      $positive ? `${$positive}%` : `${$negative}%`};
+    width: ${({ $percentage }) => `${$percentage}%`};
     background-color: ${({ theme, $isSelected }) =>
       $isSelected ? ' #87B207' : theme.colors.gray5};
   }

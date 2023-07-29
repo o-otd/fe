@@ -24,12 +24,11 @@ function ConfirmListItem({ confirmData }: IConfirmListItemProps) {
 
       <ConfirmVoteCard
         confirmId={confirmData.id}
-        goodCnt={confirmData.goodCnt}
-        badCnt={confirmData.badCnt}
         startDate={startDate}
         endDate={endDate}
         remains={confirmData.remains}
         myVoting={confirmData.myVoting}
+        votes={confirmData.votes}
       />
 
       <ConfirmImageSlide images={confirmData.images} />
