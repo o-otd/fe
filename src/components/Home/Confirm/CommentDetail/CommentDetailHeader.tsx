@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmCommentCloseSVG } from '@svg/confirm-comments-close.svg';
 import useCloseNavigation from 'hooks/useCloseNavigation';
+import { ICommentDetailHeaderProps } from 'types/Home/Confirm';
 
-function CommentDetailHeader() {
+function CommentDetailHeader({ totalComments }: ICommentDetailHeaderProps) {
   const closeNavigation = useCloseNavigation();
   const onClickClose = () => {
     closeNavigation();
@@ -14,7 +15,7 @@ function CommentDetailHeader() {
         <ConfirmCommentCloseSVG />
       </CommentTopClose>
       <CommentTopTitle>
-        댓글 <span>72</span>
+        댓글 <span>{totalComments}</span>
       </CommentTopTitle>
     </CommentTop>
   );

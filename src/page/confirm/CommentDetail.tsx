@@ -45,7 +45,7 @@ function CommentDetail() {
 
   return (
     <main>
-      <CommentDetailHeader />
+      <CommentDetailHeader totalComments={comments.length} />
 
       <CommentDetailInput />
 
