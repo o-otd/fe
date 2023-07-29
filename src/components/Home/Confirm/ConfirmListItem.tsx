@@ -36,6 +36,7 @@ function ConfirmListItem({ confirmData }: IConfirmListItemProps) {
       <ConfirmComment
         bestComment={confirmData.bestComment}
         confirmId={confirmData.id}
+        totalComments={confirmData.totalComments}
       />
     </Wrapper>
   );

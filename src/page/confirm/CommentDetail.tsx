@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import CommentDetailHeader from 'components/Home/Confirm/CommentDetail/CommentDetailHeader';
-import CommentDetailInput from 'components/Home/Confirm/CommentDetail/CommentDetailInput';
-import CommentItem from 'components/Home/Confirm/CommentDetail/CommentItem';
 import { useApi } from 'hooks/useApi';
 import { getComments } from 'api/confirm';
 import { useParams } from 'react-router-dom';
 import { LIST_SIZE } from 'constant';
 import { IComment } from 'types/Home/Confirm';
+import {
+  CommentDetailHeader,
+  CommentDetailInput,
+  CommentItem,
+} from 'components/Home/Confirm/CommentDetail';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from 'redux/store';
+import { resetCommentDone } from 'redux/reducer/confirm';
 
 function CommentDetail() {
   const { execute, error } = useApi(getComments);
   const { confirmId } = useParams();
   const [page, setPage] = useState(0);
   const [comments, setComments] = useState<IComment[]>([]);
+  const dispatch = useAppDispatch();
+  const { commentDone } = useSelector((state: RootState) => state.confirm);
 
   const fetchComments = async () => {
+    if (commentDone) dispatch(resetCommentDone());
     if (confirmId) {
       const response = await execute({
         targetId: confirmId,
@@ -33,11 +41,11 @@ function CommentDetail() {
 
   useEffect(() => {
     fetchComments();
-  }, []);
+  }, [commentDone]);
 
   return (
     <main>
-      <CommentDetailHeader />
+      <CommentDetailHeader totalComments={comments.length} />
 
       <CommentDetailInput />
 

@@ -6,18 +6,10 @@ import useGetVotePercentage from 'hooks/useGetVotePercentage';
 
 function ConfirmVoteResultList({
   pickValue,
-  isSubmit,
   myVoting,
   votes,
 }: IConfirmVoteResultListProps) {
   const percentageResult = useGetVotePercentage(votes[0].count, votes[1].count);
-
-  useEffect(() => {
-    if (isSubmit) {
-      console.log('vote 정보 api get 요청');
-      //  vote 정보 get api 요청 필요
-    }
-  }, [isSubmit]);
 
   return (
     <>

@@ -46,7 +46,6 @@ export interface IConfirmVoteList {
 }
 
 export interface IConfirmVoteResultListProps extends IConfirmVoteList {
-  isSubmit: boolean;
   myVoting: number | null;
 }
 
@@ -84,6 +83,7 @@ export interface IGetConfirmsApiDataResponse {
   myVoting: number | null;
   remains: number;
   votes: IVote[];
+  totalComments: number;
 }
 
 export interface IVote {
@@ -102,7 +102,9 @@ export interface IGetApiPageResponse {
 export interface IComment {
   id: number;
   like: number;
+  nested: number;
   myComment: boolean;
+  registered: string;
   myLike: boolean;
   comment: string;
   user: IUser;
@@ -127,6 +129,7 @@ export interface IConfirmImageSlideProps {
 export interface IConfirmCommentProps {
   bestComment?: IComment;
   confirmId: number;
+  totalComments: number;
 }
 
 export interface IRegisterVoteRequest {
@@ -179,4 +182,8 @@ export interface IWriteVoteInputProps {
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   placeholder: string;
+}
+
+export interface ICommentDetailHeaderProps {
+  totalComments: number;
 }

@@ -4,6 +4,8 @@ import useAuthRedirect from 'hooks/useAuthRedirect';
 import useTextInput from 'hooks/useTextInput';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { setCommentDone } from 'redux/reducer/confirm';
+import { useAppDispatch } from 'redux/store';
 import styled from 'styled-components';
 
 function CommentDetailInput() {
@@ -16,6 +18,7 @@ function CommentDetailInput() {
   const { checkAuthAndProceed } = useAuthRedirect();
   const { execute, error } = useApi(registerComment);
   const { confirmId } = useParams();
+  const dispatch = useAppDispatch();
 
   const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     checkAuthAndProceed(async () => {
@@ -29,6 +32,7 @@ function CommentDetailInput() {
 
         if (!error) {
           clearCommentContent();
+          dispatch(setCommentDone());
         } else {
           alert(error);
         }
