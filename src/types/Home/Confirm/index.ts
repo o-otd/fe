@@ -47,8 +47,7 @@ export interface IConfirmVoteList {
 
 export interface IConfirmVoteResultListProps extends IConfirmVoteList {
   isSubmit: boolean;
-
-  myVoting: 'good' | 'bad' | null;
+  myVoting: number | null;
 }
 
 export interface IConfirmVoteCardProps {
@@ -56,7 +55,7 @@ export interface IConfirmVoteCardProps {
   startDate: string;
   endDate: string;
   confirmId: number;
-  myVoting: 'good' | 'bad' | null;
+  myVoting: number | null;
   votes: IVote[];
 }
 
@@ -82,7 +81,7 @@ export interface IGetConfirmsApiDataResponse {
   endDate: string;
   id: number;
   images: string[];
-  myVoting: any;
+  myVoting: number | null;
   remains: number;
   votes: IVote[];
 }
@@ -132,7 +131,7 @@ export interface IConfirmCommentProps {
 
 export interface IRegisterVoteRequest {
   confirmId: number;
-  voteType: string;
+  voteTypeId: string;
 }
 
 export interface IGetListsRequest {

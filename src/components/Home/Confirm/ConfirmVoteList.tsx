@@ -10,9 +10,9 @@ function ConfirmVoteList({ onClickFunc, pickValue, votes }: IConfirmVoteList) {
         <ConfirmVoteListItem
           key={vote.voteTypeId}
           type="button"
-          value={vote.order}
+          value={vote.voteTypeId}
           onClick={onClickFunc}
-          $isActive={pickValue === vote.order + ''}
+          $isActive={pickValue === vote.voteTypeId + ''}
         >
           <ConfirmCheckSVG />
           {vote.wording}

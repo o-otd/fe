@@ -103,14 +103,14 @@ export const getNestedComments = async (params: IGetNestedCommentsRequest) => {
 };
 
 export const registerVote = async (params: IRegisterVoteRequest) => {
-  const { confirmId, voteType } = params;
+  const { confirmId, voteTypeId } = params;
 
   const url = `${baseUrl}/vote`;
 
   const formData = new FormData();
 
   formData.append('confirmId', confirmId.toString());
-  formData.append('voteType', voteType);
+  formData.append('voteTypeId', voteTypeId);
 
   const response = await AuthApi.post(url, formData);
 

@@ -36,9 +36,8 @@ function ConfirmVoteCard({
       if (pickValue) {
         const response = await execute({
           confirmId: confirmId,
-          voteType: parseInt(pickValue) === 0 ? 'good' : 'bad',
+          voteTypeId: pickValue,
         });
-
         if (!response.ok) {
           alert(error);
         } else {
