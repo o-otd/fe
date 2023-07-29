@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmVoteSVG } from '@svg/confirm-vote-icon.svg';
-import ConfirmVoteList from './ConfirmVoteList';
-import ConfirmVoteResultList from './ConfirmVoteResultList';
 import { IConfirmVoteCardProps } from 'types/Home/Confirm';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 import { useApi } from 'hooks/useApi';
 import { registerVote } from 'api/confirm';
 import { useAppDispatch } from 'redux/store';
 import { setVoteDone } from 'redux/reducer/vote';
+import ConfirmVoteResultList from './ConfirmVoteResultList';
+import ConfirmVoteList from './ConfirmVoteList';
 
 function ConfirmVoteCard({
   remains,
@@ -67,7 +67,6 @@ function ConfirmVoteCard({
       {isShowResult || myVoting ? (
         <ConfirmVoteResultList
           pickValue={pickValue}
-          isSubmit={isSubmit}
           myVoting={myVoting}
           votes={votes}
         />

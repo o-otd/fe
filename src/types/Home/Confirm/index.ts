@@ -46,7 +46,6 @@ export interface IConfirmVoteList {
 }
 
 export interface IConfirmVoteResultListProps extends IConfirmVoteList {
-  isSubmit: boolean;
   myVoting: number | null;
 }
 
