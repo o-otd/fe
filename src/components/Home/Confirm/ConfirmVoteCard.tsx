@@ -7,6 +7,8 @@ import { IConfirmVoteCardProps } from 'types/Home/Confirm';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 import { useApi } from 'hooks/useApi';
 import { registerVote } from 'api/confirm';
+import { useAppDispatch } from 'redux/store';
+import { setVoteDone } from 'redux/reducer/vote';
 
 function ConfirmVoteCard({
   remains,
@@ -21,9 +23,9 @@ function ConfirmVoteCard({
   const [isShowResult, setIsShowResult] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [pickValue, setPickValue] = useState<string | undefined>();
+  const dispatch = useAppDispatch();
   const onClickPick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const eventTarget = event.target as HTMLInputElement;
-
     setPickValue(eventTarget.value);
   };
 
@@ -43,6 +45,7 @@ function ConfirmVoteCard({
         } else {
           setIsShowResult(true);
           setIsSubmit(true);
+          dispatch(setVoteDone());
         }
       }
     });
