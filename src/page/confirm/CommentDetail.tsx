@@ -10,14 +10,20 @@ import {
   CommentDetailInput,
   CommentItem,
 } from 'components/Home/Confirm/CommentDetail';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from 'redux/store';
+import { resetCommentDone } from 'redux/reducer/confirm';
 
 function CommentDetail() {
   const { execute, error } = useApi(getComments);
   const { confirmId } = useParams();
   const [page, setPage] = useState(0);
   const [comments, setComments] = useState<IComment[]>([]);
+  const dispatch = useAppDispatch();
+  const { commentDone } = useSelector((state: RootState) => state.confirm);
 
   const fetchComments = async () => {
+    if (commentDone) dispatch(resetCommentDone());
     if (confirmId) {
       const response = await execute({
         targetId: confirmId,
@@ -35,7 +41,7 @@ function CommentDetail() {
 
   useEffect(() => {
     fetchComments();
-  }, []);
+  }, [commentDone]);
 
   return (
     <main>

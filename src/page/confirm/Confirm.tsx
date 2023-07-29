@@ -5,13 +5,13 @@ import { IGetConfirmsApiDataResponse } from 'types/Home/Confirm';
 import { LIST_SIZE } from 'constant';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from 'redux/store';
-import { resetVoteDone } from 'redux/reducer/vote';
+import { resetVoteDone } from 'redux/reducer/confirm';
 import { ConfirmHeader, ConfirmListItem } from 'components/Home/Confirm';
 
 function Confirm() {
   const [confirms, setConfirms] = useState<IGetConfirmsApiDataResponse[]>([]);
   const { execute, error } = useApi(getConfirms);
-  const { voteDone } = useSelector((state: RootState) => state.vote);
+  const { voteDone } = useSelector((state: RootState) => state.confirm);
   const dispatch = useAppDispatch();
 
   const [confirmListPage, setConfirmListPage] = useState(0);

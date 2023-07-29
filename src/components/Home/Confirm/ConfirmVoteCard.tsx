@@ -6,7 +6,7 @@ import useAuthRedirect from 'hooks/useAuthRedirect';
 import { useApi } from 'hooks/useApi';
 import { registerVote } from 'api/confirm';
 import { useAppDispatch } from 'redux/store';
-import { setVoteDone } from 'redux/reducer/vote';
+import { setVoteDone } from 'redux/reducer/confirm';
 import ConfirmVoteResultList from './ConfirmVoteResultList';
 import ConfirmVoteList from './ConfirmVoteList';
 

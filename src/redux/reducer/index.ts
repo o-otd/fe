@@ -1,12 +1,12 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import authSlice from './auth';
 import filterSlice from './filter';
-import voteSlice from './vote';
+import confirmSlice from './confirm';
 
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
   filter: filterSlice.reducer,
-  vote: voteSlice.reducer,
+  confirm: confirmSlice.reducer,
 });
 
 export default rootReducer;
