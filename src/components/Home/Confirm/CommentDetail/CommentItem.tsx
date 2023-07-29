@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmCommentLikeSVG } from '@svg/likes.svg';
-import CommentsItem from './CommentsItem';
 import {
   deleteCommentLike,
   getNestedComments,
@@ -75,7 +74,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
 
         <CommentListUtil>
           <CommentListComments>
-            댓글 <span>13</span>
+            댓글 <span>{commentData.nested - 1}</span>
           </CommentListComments>
           <CommentListLikes $isMyLike={isLike}>
             <ConfirmCommentLikeSVG onClick={onClickLike} />
@@ -91,7 +90,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
           </ul>
         </CommentsList> */}
 
-        <CommentListDate>2022.11.27. 14:27</CommentListDate>
+        <CommentListDate>{commentData.registered}</CommentListDate>
       </CommentListInfo>
     </Wrapper>
   );

@@ -101,7 +101,9 @@ export interface IGetApiPageResponse {
 export interface IComment {
   id: number;
   like: number;
+  nested: number;
   myComment: boolean;
+  registered: string;
   myLike: boolean;
   comment: string;
   user: IUser;
