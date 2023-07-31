@@ -1,18 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import CommentsItem from './CommentsItem';
-import { IComment } from 'types/Home/Confirm';
+import { INestedCommentsProps } from 'types/Home/Confirm';
 
-interface INestedCommentsProps {
-  nestedComments: IComment[];
-}
-
-function NestedComments({ nestedComments }: INestedCommentsProps) {
+function NestedComments({
+  nestedComments,
+  onInputHandler,
+  inputTextLength,
+  onClickSubmit,
+  commentContent,
+}: INestedCommentsProps) {
   const onClickCommentInput = (
     event: React.MouseEvent<HTMLTextAreaElement>,
   ) => {
     event.stopPropagation();
   };
+
   return (
     <>
       <CommentsList>
@@ -27,9 +30,17 @@ function NestedComments({ nestedComments }: INestedCommentsProps) {
             onClick={(event) => {
               event.stopPropagation();
             }}
+            onChange={onInputHandler}
+            maxLength={600}
             placeholder="댓글을 입력하세요"
+            value={commentContent}
           ></CommentsFormTextArea>
-          <CommentsFormSubmit disabled>댓글 남기기</CommentsFormSubmit>
+          <CommentsFormSubmit
+            onClick={(event) => onClickSubmit(event)}
+            disabled={inputTextLength === 0}
+          >
+            댓글 남기기
+          </CommentsFormSubmit>
         </div>
       </CommentsForm>
     </>
@@ -83,4 +94,7 @@ const CommentsFormSubmit = styled.button`
   font-size: 13px;
   padding: 8px 10px;
   color: ${({ theme }) => theme.colors.gray2};
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.gray5};
+  }
 `;

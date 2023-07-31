@@ -187,3 +187,11 @@ export interface IWriteVoteInputProps {
 export interface ICommentDetailHeaderProps {
   totalComments: number;
 }
+
+export interface INestedCommentsProps {
+  nestedComments: IComment[];
+  onInputHandler: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  inputTextLength: number;
+  onClickSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  commentContent: string;
+}

@@ -12,9 +12,17 @@ import { LIST_SIZE } from 'constant';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 import useLikeMutation from 'hooks/useLikeMutation';
 import NestedComments from './NestedComments';
+import useTextInput from 'hooks/useTextInput';
 
 function CommentItem({ commentData }: ICommentItemProps) {
   const [isOpenNestedComment, setIsOpenNestedComment] = useState(false);
+  const {
+    inputTextLength,
+    commentContent,
+    onInputHandler,
+    clearCommentContent,
+  } = useTextInput();
+
   const { isLike, like, mutateIsLike, mutateLike } = useLikeMutation(
     commentData.myLike,
     commentData.like,
@@ -70,6 +78,12 @@ function CommentItem({ commentData }: ICommentItemProps) {
     });
   };
 
+  const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    //clearCommentContent();
+  };
+
   return (
     <Wrapper onClick={onClickComment}>
       <CommentListProfile
@@ -90,7 +104,13 @@ function CommentItem({ commentData }: ICommentItemProps) {
         </CommentListUtil>
 
         {isOpenNestedComment && (
-          <NestedComments nestedComments={nestedComments} />
+          <NestedComments
+            nestedComments={nestedComments}
+            onInputHandler={onInputHandler}
+            inputTextLength={inputTextLength}
+            onClickSubmit={onClickSubmit}
+            commentContent={commentContent}
+          />
         )}
 
         <CommentListDate>{commentData.registered}</CommentListDate>
