@@ -7,11 +7,11 @@ import {
   registerCommentLike,
 } from 'api/confirm';
 import { useApi } from 'hooks/useApi';
-import { ICommentItemProps } from 'types/Home/Confirm';
+import { IComment, ICommentItemProps } from 'types/Home/Confirm';
 import { LIST_SIZE } from 'constant';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 import useLikeMutation from 'hooks/useLikeMutation';
-import CommentsItem from './CommentsItem';
+import NestedComments from './NestedComments';
 
 function CommentItem({ commentData }: ICommentItemProps) {
   const [isOpenNestedComment, setIsOpenNestedComment] = useState(false);
@@ -26,14 +26,19 @@ function CommentItem({ commentData }: ICommentItemProps) {
     useApi(deleteCommentLike);
   const { checkAuthAndProceed } = useAuthRedirect();
   const [page, setPage] = useState(0);
+
+  const [nestedComments, setNestedCommens] = useState<IComment[]>([]);
   const onClickComment = async () => {
     setIsOpenNestedComment((prev) => !prev);
     // 대댓글 get api 요청
-    // const response = await execute({
-    //   targetId: commentData.id.toString(),
-    //   listSize: LIST_SIZE,
-    //   page: page.toString(),
-    // });
+    const response = await execute({
+      targetId: commentData.id.toString(),
+      listSize: LIST_SIZE,
+      page: page.toString(),
+    });
+    if (response && response.ok) {
+      setNestedCommens(response.data.datas);
+    }
   };
 
   const onClickLike = (event: React.MouseEvent<SVGSVGElement>) => {
@@ -65,12 +70,6 @@ function CommentItem({ commentData }: ICommentItemProps) {
     });
   };
 
-  const onClickCommentInput = (
-    event: React.MouseEvent<HTMLTextAreaElement>,
-  ) => {
-    event.stopPropagation();
-  };
-
   return (
     <Wrapper onClick={onClickComment}>
       <CommentListProfile
@@ -91,24 +90,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
         </CommentListUtil>
 
         {isOpenNestedComment && (
-          <>
-            {/* <CommentsList>
-            <ul>
-              {[1, 2, 3, 4, 5].map((comments) => (
-                <CommentsItem key={comments} />
-              ))}
-            </ul>
-          </CommentsList> */}
-            <CommentsForm>
-              <div>
-                <CommentsFormTextArea
-                  onClick={(event) => onClickCommentInput(event)}
-                  placeholder="댓글을 입력하세요"
-                ></CommentsFormTextArea>
-                <CommentsFormSubmit disabled>댓글 남기기</CommentsFormSubmit>
-              </div>
-            </CommentsForm>
-          </>
+          <NestedComments nestedComments={nestedComments} />
         )}
 
         <CommentListDate>{commentData.registered}</CommentListDate>
@@ -195,51 +177,4 @@ const CommentListDate = styled.div`
   font-size: 12px;
   font-weight: 400;
   margin-top: 8px;
-`;
-
-const CommentsList = styled.div`
-  padding-top: 8px;
-  border-top: 1px solid ${({ theme }) => theme.colors.gray5};
-`;
-
-const CommentsForm = styled.form`
-  margin-top: 16px;
-
-  & > div {
-    display: flex;
-  }
-`;
-
-const CommentsFormTextArea = styled.textarea`
-  width: calc(100% - 86px);
-  padding: 8px 16px;
-  background-color: ${({ theme }) => theme.colors.gray5};
-  border: 1px solid ${({ theme }) => theme.colors.gray5};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius10};
-  resize: none;
-  font-size: 14px;
-  height: 34px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.colors.gray8};
-  font-size: 14px;
-  overflow-y: hidden;
-
-  &::placeholder {
-    font-weight: 400;
-    color: ${({ theme }) => theme.colors.gray5};
-  }
-
-  &:focus {
-    outline-color: ${({ theme }) => theme.colors.main};
-  }
-`;
-
-const CommentsFormSubmit = styled.button`
-  margin-left: 8px;
-  background-color: ${({ theme }) => theme.colors.gray8};
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius10};
-  font-weight: 600;
-  font-size: 13px;
-  padding: 8px 10px;
-  color: ${({ theme }) => theme.colors.gray2};
 `;

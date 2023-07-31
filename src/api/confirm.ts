@@ -94,10 +94,10 @@ export const getNestedComments = async (params: IGetNestedCommentsRequest) => {
   formData.append('page.page', page);
   formData.append('page.size', listSize);
 
-  const response = await AuthApi.post<IGetNestedCommentsRequest, any>(
-    url,
-    formData,
-  );
+  const response = await AuthApi.post<
+    IGetNestedCommentsRequest,
+    AxiosResponse<IGetCommentsApiResponse>
+  >(url, formData);
 
   return response.data;
 };
