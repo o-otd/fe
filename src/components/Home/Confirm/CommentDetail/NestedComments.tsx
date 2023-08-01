@@ -10,18 +10,14 @@ function NestedComments({
   onClickSubmit,
   commentContent,
 }: INestedCommentsProps) {
-  const onClickCommentInput = (
-    event: React.MouseEvent<HTMLTextAreaElement>,
-  ) => {
-    event.stopPropagation();
-  };
-
   return (
     <>
       <CommentsList>
         <ul>
           {nestedComments &&
-            nestedComments.map((comment) => <CommentsItem key={comment.id} />)}
+            nestedComments.map((comment) => (
+              <CommentsItem key={comment.id} commentData={comment} />
+            ))}
         </ul>
       </CommentsList>
       <CommentsForm>

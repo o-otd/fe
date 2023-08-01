@@ -1,18 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as MoreSVG } from '@svg/more.svg';
+import { ICommentsItemProps } from 'types/Home/Confirm';
 
-function CommentsItem() {
+function CommentsItem({ commentData }: ICommentsItemProps) {
   return (
     <Wrapper>
       <CommentsItemWidth>
         <CommentsListInfo>
-          <CommentsListTitle>XCVXVV</CommentsListTitle>
-          <CommentsListDate>2022.11.27. 14:27</CommentsListDate>
+          <CommentsListTitle>{commentData.user.name}</CommentsListTitle>
+          <CommentsListDate>{commentData.registered}</CommentsListDate>
         </CommentsListInfo>
-        <CommentsListContents>
-          공감합니다...공감합니다...공감합니다...공감합니다...공감합니다...공감합니다...
-        </CommentsListContents>
+        <CommentsListContents>{commentData.comment}</CommentsListContents>
       </CommentsItemWidth>
 
       <CommentsListMore>

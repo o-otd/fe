@@ -109,6 +109,7 @@ export interface IComment {
   myLike: boolean;
   comment: string;
   user: IUser;
+  parentComment?: IComment;
 }
 
 export interface IConfirmListItemProps {
@@ -195,4 +196,8 @@ export interface INestedCommentsProps {
   inputTextLength: number;
   onClickSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
   commentContent: string;
+}
+
+export interface ICommentsItemProps {
+  commentData: IComment;
 }
