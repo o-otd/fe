@@ -4,6 +4,7 @@ import { ReactComponent as ConfirmCommentLikeSVG } from '@svg/likes.svg';
 import {
   deleteCommentLike,
   getNestedComments,
+  registerComment,
   registerCommentLike,
 } from 'api/confirm';
 import { useApi } from 'hooks/useApi';
@@ -13,8 +14,10 @@ import useAuthRedirect from 'hooks/useAuthRedirect';
 import useLikeMutation from 'hooks/useLikeMutation';
 import NestedComments from './NestedComments';
 import useTextInput from 'hooks/useTextInput';
+import { useParams } from 'react-router-dom';
 
 function CommentItem({ commentData }: ICommentItemProps) {
+  const { confirmId } = useParams();
   const [isOpenNestedComment, setIsOpenNestedComment] = useState(false);
   const {
     inputTextLength,
@@ -28,6 +31,8 @@ function CommentItem({ commentData }: ICommentItemProps) {
     commentData.like,
   );
   const { execute, error } = useApi(getNestedComments);
+  const { execute: nestedCommentExecute, error: nestedCommentError } =
+    useApi(registerComment);
   const { execute: likeExecute, error: likeError } =
     useApi(registerCommentLike);
   const { execute: deleteLikeExecute, error: deleteLikeError } =
@@ -81,7 +86,20 @@ function CommentItem({ commentData }: ICommentItemProps) {
   const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     event.preventDefault();
-    //clearCommentContent();
+
+    checkAuthAndProceed(async () => {
+      if (confirmId) {
+        const response = await nestedCommentExecute({
+          confirmId: confirmId,
+          content: commentContent,
+          parentCommentId: commentData.id + '',
+        });
+
+        if (response && response.ok) {
+          clearCommentContent();
+        }
+      }
+    });
   };
 
   return (

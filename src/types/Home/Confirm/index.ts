@@ -31,11 +31,12 @@ export interface IRegisterConfirmRequest {
 export interface IRegisterCommentRequest {
   confirmId: string;
   content: string;
+  parentCommentId?: string;
 }
 
 export interface IRegisterCommentApiResponse extends IApiResponse {
   data: {
-    commentId: number;
+    comment: IComment;
   };
 }
 
