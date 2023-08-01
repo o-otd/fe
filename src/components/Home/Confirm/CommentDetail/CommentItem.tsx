@@ -4,38 +4,58 @@ import { ReactComponent as ConfirmCommentLikeSVG } from '@svg/likes.svg';
 import {
   deleteCommentLike,
   getNestedComments,
+  registerComment,
   registerCommentLike,
 } from 'api/confirm';
 import { useApi } from 'hooks/useApi';
-import { ICommentItemProps } from 'types/Home/Confirm';
+import { IComment, ICommentItemProps } from 'types/Home/Confirm';
 import { LIST_SIZE } from 'constant';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 import useLikeMutation from 'hooks/useLikeMutation';
+import NestedComments from './NestedComments';
+import useTextInput from 'hooks/useTextInput';
+import { useParams } from 'react-router-dom';
 
 function CommentItem({ commentData }: ICommentItemProps) {
+  const { confirmId } = useParams();
+  const [isOpenNestedComment, setIsOpenNestedComment] = useState(false);
+  const {
+    inputTextLength,
+    commentContent,
+    onInputHandler,
+    clearCommentContent,
+  } = useTextInput();
+
   const { isLike, like, mutateIsLike, mutateLike } = useLikeMutation(
     commentData.myLike,
     commentData.like,
   );
   const { execute, error } = useApi(getNestedComments);
+  const { execute: nestedCommentExecute, error: nestedCommentError } =
+    useApi(registerComment);
   const { execute: likeExecute, error: likeError } =
     useApi(registerCommentLike);
   const { execute: deleteLikeExecute, error: deleteLikeError } =
     useApi(deleteCommentLike);
   const { checkAuthAndProceed } = useAuthRedirect();
   const [page, setPage] = useState(0);
+
+  const [nestedComments, setNestedCommens] = useState<IComment[]>([]);
   const onClickComment = async () => {
+    setIsOpenNestedComment((prev) => !prev);
     // 대댓글 get api 요청
     const response = await execute({
       targetId: commentData.id.toString(),
       listSize: LIST_SIZE,
       page: page.toString(),
     });
-
-    console.log(response);
+    if (response && response.ok) {
+      setNestedCommens(response.data.datas);
+    }
   };
 
-  const onClickLike = () => {
+  const onClickLike = (event: React.MouseEvent<SVGSVGElement>) => {
+    event.stopPropagation();
     checkAuthAndProceed(async () => {
       if (isLike) {
         await deleteLikeExecute({
@@ -63,8 +83,27 @@ function CommentItem({ commentData }: ICommentItemProps) {
     });
   };
 
+  const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+
+    checkAuthAndProceed(async () => {
+      if (confirmId) {
+        const response = await nestedCommentExecute({
+          confirmId: confirmId,
+          content: commentContent,
+          parentCommentId: commentData.id + '',
+        });
+
+        if (response && response.ok) {
+          clearCommentContent();
+        }
+      }
+    });
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onClick={onClickComment}>
       <CommentListProfile
         src={commentData.user.avatar ? commentData.user.avatar : undefined}
       />
@@ -77,18 +116,20 @@ function CommentItem({ commentData }: ICommentItemProps) {
             댓글 <span>{commentData.nested - 1}</span>
           </CommentListComments>
           <CommentListLikes $isMyLike={isLike}>
-            <ConfirmCommentLikeSVG onClick={onClickLike} />
+            <ConfirmCommentLikeSVG onClick={(event) => onClickLike(event)} />
             <span>{like}</span>
           </CommentListLikes>
         </CommentListUtil>
 
-        {/* <CommentsList>
-          <ul>
-            {[1, 2, 3, 4, 5].map((comments) => (
-              <CommentsItem key={comments} />
-            ))}
-          </ul>
-        </CommentsList> */}
+        {isOpenNestedComment && (
+          <NestedComments
+            nestedComments={nestedComments}
+            onInputHandler={onInputHandler}
+            inputTextLength={inputTextLength}
+            onClickSubmit={onClickSubmit}
+            commentContent={commentContent}
+          />
+        )}
 
         <CommentListDate>{commentData.registered}</CommentListDate>
       </CommentListInfo>
@@ -174,9 +215,4 @@ const CommentListDate = styled.div`
   font-size: 12px;
   font-weight: 400;
   margin-top: 8px;
-`;
-
-const CommentsList = styled.div`
-  padding-top: 8px;
-  border-top: 1px solid ${({ theme }) => theme.colors.gray5};
 `;

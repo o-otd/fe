@@ -54,12 +54,16 @@ export const registerConfirm = async (params: IRegisterConfirmRequest) => {
 
 export const registerComment = async (params: IRegisterCommentRequest) => {
   const url = `${baseUrl}/comment/register`;
-  const { confirmId, content } = params;
+  const { confirmId, content, parentCommentId } = params;
 
   const formData = new FormData();
 
   formData.append('confirmId', confirmId);
   formData.append('content', content);
+
+  if (parentCommentId) {
+    formData.append('parentCommentId', parentCommentId);
+  }
 
   const response = await AuthApi.post<
     IRegisterCommentRequest,
@@ -94,10 +98,10 @@ export const getNestedComments = async (params: IGetNestedCommentsRequest) => {
   formData.append('page.page', page);
   formData.append('page.size', listSize);
 
-  const response = await AuthApi.post<IGetNestedCommentsRequest, any>(
-    url,
-    formData,
-  );
+  const response = await AuthApi.post<
+    IGetNestedCommentsRequest,
+    AxiosResponse<IGetCommentsApiResponse>
+  >(url, formData);
 
   return response.data;
 };

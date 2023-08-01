@@ -31,11 +31,12 @@ export interface IRegisterConfirmRequest {
 export interface IRegisterCommentRequest {
   confirmId: string;
   content: string;
+  parentCommentId?: string;
 }
 
 export interface IRegisterCommentApiResponse extends IApiResponse {
   data: {
-    commentId: number;
+    comment: IComment;
   };
 }
 
@@ -108,6 +109,7 @@ export interface IComment {
   myLike: boolean;
   comment: string;
   user: IUser;
+  parentComment?: IComment;
 }
 
 export interface IConfirmListItemProps {
@@ -186,4 +188,16 @@ export interface IWriteVoteInputProps {
 
 export interface ICommentDetailHeaderProps {
   totalComments: number;
+}
+
+export interface INestedCommentsProps {
+  nestedComments: IComment[];
+  onInputHandler: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  inputTextLength: number;
+  onClickSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  commentContent: string;
+}
+
+export interface ICommentsItemProps {
+  commentData: IComment;
 }

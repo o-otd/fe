@@ -11,6 +11,7 @@ export default function useTextInput() {
 
   const clearCommentContent = () => {
     setCommentContent('');
+    setInputTextLength(0);
   };
 
   return {
