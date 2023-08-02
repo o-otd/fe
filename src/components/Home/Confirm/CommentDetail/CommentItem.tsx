@@ -8,16 +8,18 @@ import {
   registerCommentLike,
 } from 'api/confirm';
 import { useApi } from 'hooks/useApi';
-import { IComment, ICommentItemProps } from 'types/Home/Confirm';
+import { ICommentItemProps } from 'types/Home/Confirm';
 import { LIST_SIZE } from 'constant';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 import useLikeMutation from 'hooks/useLikeMutation';
 import NestedComments from './NestedComments';
 import useTextInput from 'hooks/useTextInput';
 import { useParams } from 'react-router-dom';
+import useCommentMutation from 'hooks/useCommentMutation';
 
 function CommentItem({ commentData }: ICommentItemProps) {
   const { confirmId } = useParams();
+
   const [isOpenNestedComment, setIsOpenNestedComment] = useState(false);
   const {
     inputTextLength,
@@ -30,6 +32,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
     commentData.myLike,
     commentData.like,
   );
+  const { commentList, mutateComments, setCommentList } = useCommentMutation();
   const { execute, error } = useApi(getNestedComments);
   const { execute: nestedCommentExecute, error: nestedCommentError } =
     useApi(registerComment);
@@ -40,17 +43,16 @@ function CommentItem({ commentData }: ICommentItemProps) {
   const { checkAuthAndProceed } = useAuthRedirect();
   const [page, setPage] = useState(0);
 
-  const [nestedComments, setNestedCommens] = useState<IComment[]>([]);
   const onClickComment = async () => {
     setIsOpenNestedComment((prev) => !prev);
-    // 대댓글 get api 요청
+
     const response = await execute({
       targetId: commentData.id.toString(),
       listSize: LIST_SIZE,
       page: page.toString(),
     });
-    if (response && response.ok) {
-      setNestedCommens(response.data.datas);
+    if (!error && response) {
+      setCommentList(response.data.datas);
     }
   };
 
@@ -95,8 +97,9 @@ function CommentItem({ commentData }: ICommentItemProps) {
           parentCommentId: commentData.id + '',
         });
 
-        if (response && response.ok) {
+        if (response && !nestedCommentError) {
           clearCommentContent();
+          mutateComments(response.data.comment);
         }
       }
     });
@@ -123,7 +126,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
 
         {isOpenNestedComment && (
           <NestedComments
-            nestedComments={nestedComments}
+            nestedComments={commentList}
             onInputHandler={onInputHandler}
             inputTextLength={inputTextLength}
             onClickSubmit={onClickSubmit}
