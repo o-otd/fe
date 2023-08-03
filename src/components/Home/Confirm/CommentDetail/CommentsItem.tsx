@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as MoreSVG } from '@svg/more.svg';
 import { ICommentsItemProps } from 'types/Home/Confirm';
+import CommentDropBox from './CommentDropBox';
+import useOutsideClick from 'hooks/useOutsideClick';
 
-function CommentsItem({ commentData }: ICommentsItemProps) {
+function CommentsItem({
+  commentData,
+  onClickMore,
+  isActive,
+  setActiveCommentId,
+}: ICommentsItemProps) {
+  const ref = useRef<HTMLButtonElement | null>(null);
+
+  useOutsideClick(ref, () => {
+    if (isActive) setActiveCommentId(undefined);
+  });
+
   return (
     <Wrapper>
       <CommentsItemWidth>
@@ -14,9 +27,14 @@ function CommentsItem({ commentData }: ICommentsItemProps) {
         <CommentsListContents>{commentData.comment}</CommentsListContents>
       </CommentsItemWidth>
 
-      <CommentsListMore>
+      <CommentsListMore
+        ref={ref}
+        onClick={(event) => onClickMore(event, commentData.id)}
+      >
         <MoreSVG />
       </CommentsListMore>
+
+      {isActive && <CommentDropBox />}
     </Wrapper>
   );
 }

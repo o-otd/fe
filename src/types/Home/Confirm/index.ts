@@ -200,4 +200,10 @@ export interface INestedCommentsProps {
 
 export interface ICommentsItemProps {
   commentData: IComment;
+  onClickMore: (
+    event: React.MouseEvent<HTMLButtonElement>,
+    commentId: number,
+  ) => void;
+  setActiveCommentId: React.Dispatch<React.SetStateAction<number | undefined>>;
+  isActive: boolean;
 }

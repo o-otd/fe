@@ -19,6 +19,7 @@ const CommentsMoreList = styled.ul`
   top: 20px;
   right: 0;
   width: 81px;
+  z-index: 30;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: ${({ theme }) => theme.borderRadius.borderRadius5};
 `;
