@@ -34,7 +34,7 @@ function CommentsItem({
         <MoreSVG />
       </CommentsListMore>
 
-      {isActive && <CommentDropBox />}
+      {isActive && <CommentDropBox myComment={commentData.myComment} />}
     </Wrapper>
   );
 }

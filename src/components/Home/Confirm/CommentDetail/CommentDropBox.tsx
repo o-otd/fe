@@ -1,12 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ICommentDropBoxProps } from 'types/Home/Confirm';
 
-function CommentDropBox() {
+function CommentDropBox({ myComment }: ICommentDropBoxProps) {
   return (
     <CommentsMoreList>
-      {/* <CommentsMoreItem>답댓글</CommentsMoreItem> */}
-      <CommentsMoreItem>수정</CommentsMoreItem>
-      <CommentsMoreItemDelete>삭제</CommentsMoreItemDelete>
+      {myComment ? (
+        <>
+          <CommentsMoreItem>수정</CommentsMoreItem>
+          <CommentsMoreItemDelete>삭제</CommentsMoreItemDelete>
+        </>
+      ) : (
+        <CommentsMoreItem>답댓글</CommentsMoreItem>
+      )}
     </CommentsMoreList>
   );
 }

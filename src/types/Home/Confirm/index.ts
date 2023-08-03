@@ -207,3 +207,7 @@ export interface ICommentsItemProps {
   setActiveCommentId: React.Dispatch<React.SetStateAction<number | undefined>>;
   isActive: boolean;
 }
+
+export interface ICommentDropBoxProps {
+  myComment: boolean;
+}
