@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import CommentsItem from './CommentsItem';
 import { INestedCommentsProps } from 'types/Home/Confirm';
@@ -10,13 +10,28 @@ function NestedComments({
   onClickSubmit,
   commentContent,
 }: INestedCommentsProps) {
+  const [activeCommentId, setActiveCommentId] = useState<number>();
+
+  const onClickMore = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    commentId: number,
+  ) => {
+    event.stopPropagation();
+    setActiveCommentId(commentId);
+  };
   return (
     <>
       <CommentsList>
         <ul>
           {nestedComments &&
             nestedComments.map((comment) => (
-              <CommentsItem key={comment.id} commentData={comment} />
+              <CommentsItem
+                key={comment.id}
+                commentData={comment}
+                onClickMore={onClickMore}
+                setActiveCommentId={setActiveCommentId}
+                isActive={comment.id === activeCommentId}
+              />
             ))}
         </ul>
       </CommentsList>
