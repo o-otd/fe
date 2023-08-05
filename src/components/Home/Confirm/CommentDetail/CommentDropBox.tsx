@@ -2,10 +2,13 @@ import { deleteComment } from 'api/confirm';
 import { useApi } from 'hooks/useApi';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 import React from 'react';
+import { setDeleteComment } from 'redux/reducer/confirm';
+import { useAppDispatch } from 'redux/store';
 import styled from 'styled-components';
 import { ICommentDropBoxProps } from 'types/Home/Confirm';
 
 function CommentDropBox({ myComment, commentId }: ICommentDropBoxProps) {
+  const dispatch = useAppDispatch();
   const { execute, error } = useApi(deleteComment);
   const { checkAuthAndProceed } = useAuthRedirect();
 
@@ -19,7 +22,7 @@ function CommentDropBox({ myComment, commentId }: ICommentDropBoxProps) {
         });
         if (response) {
           if (response.ok) {
-            console.log(response.data);
+            dispatch(setDeleteComment(commentId));
           } else {
             alert(response.error);
           }

@@ -8,5 +8,12 @@ export default function useCommentMutation() {
     setCommentList((prev) => [newComments, ...prev]);
   };
 
-  return { commentList, mutateComments, setCommentList };
+  const mutateDeleteComments = (deleteCommentId: number) => {
+    const newCommentList = commentList.filter(
+      (comment) => comment.id !== deleteCommentId,
+    );
+    setCommentList(newCommentList);
+  };
+
+  return { commentList, mutateComments, setCommentList, mutateDeleteComments };
 }

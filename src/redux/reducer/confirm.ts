@@ -3,15 +3,17 @@ import { createSlice } from '@reduxjs/toolkit';
 export interface IConfirmState {
   voteDone: boolean;
   commentDone: boolean;
+  deleteCommentId: number | null;
 }
 
 const initialState: IConfirmState = {
   voteDone: false,
   commentDone: false,
+  deleteCommentId: null,
 };
 
 const confirmSlice = createSlice({
-  name: 'vote',
+  name: 'confirm',
   initialState,
   reducers: {
     setVoteDone: (state) => {
@@ -29,9 +31,17 @@ const confirmSlice = createSlice({
     resetCommentDone: (state) => {
       state.commentDone = false;
     },
+    setDeleteComment: (state, actions) => {
+      state.deleteCommentId = actions.payload;
+    },
   },
 });
 
-export const { setVoteDone, resetVoteDone, setCommentDone, resetCommentDone } =
-  confirmSlice.actions;
+export const {
+  setVoteDone,
+  resetVoteDone,
+  setCommentDone,
+  resetCommentDone,
+  setDeleteComment,
+} = confirmSlice.actions;
 export default confirmSlice;
