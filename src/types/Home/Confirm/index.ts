@@ -220,3 +220,10 @@ export interface ICommentDropBoxProps {
   myComment: boolean;
   commentId: number;
 }
+
+export interface ICommentDetailInputProps {
+  inputTextLength: number;
+  commentContent: string;
+  onInputHandler: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onClickSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}

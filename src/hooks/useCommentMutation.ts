@@ -5,7 +5,7 @@ export default function useCommentMutation() {
   const [commentList, setCommentList] = useState<IComment[]>([]);
 
   const mutateComments = (newComments: IComment) => {
-    setCommentList((prev) => [newComments, ...prev]);
+    setCommentList((prev) => [...prev, newComments]);
   };
 
   const mutateDeleteComments = (deleteCommentId: number) => {
