@@ -1,4 +1,5 @@
 import {
+  IDeleteCommentApiResponse,
   IDeleteCommentLikeApiResponse,
   IDeleteCommentLikeRequest,
   IDeleteCommentRequest,
@@ -84,7 +85,7 @@ export const deleteComment = async (params: IDeleteCommentRequest) => {
 
   const response = await AuthApi.post<
     IDeleteCommentRequest,
-    AxiosResponse<IDeleteCommentLikeApiResponse>
+    AxiosResponse<IDeleteCommentApiResponse>
   >(url, formData);
 
   return response.data;

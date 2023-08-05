@@ -45,7 +45,7 @@ export interface IRegisterCommentApiResponse extends IApiResponse {
 }
 
 export interface IDeleteCommentApiResponse extends IApiResponse {
-  data: {};
+  data: null;
 }
 
 export interface IConfirmVoteList {

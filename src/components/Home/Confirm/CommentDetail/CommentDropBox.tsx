@@ -1,11 +1,33 @@
+import { deleteComment } from 'api/confirm';
+import { useApi } from 'hooks/useApi';
+import useAuthRedirect from 'hooks/useAuthRedirect';
 import React from 'react';
 import styled from 'styled-components';
 import { ICommentDropBoxProps } from 'types/Home/Confirm';
 
 function CommentDropBox({ myComment, commentId }: ICommentDropBoxProps) {
+  const { execute, error } = useApi(deleteComment);
+  const { checkAuthAndProceed } = useAuthRedirect();
+
   const onClickDeleteComment = (event: React.MouseEvent<HTMLLIElement>) => {
     event.stopPropagation();
-    console.log(commentId);
+
+    checkAuthAndProceed(async () => {
+      if (commentId) {
+        const response = await execute({
+          commentId: commentId,
+        });
+        if (response) {
+          if (response.ok) {
+            console.log(response.data);
+          } else {
+            alert(response.error);
+          }
+        } else {
+          alert(error);
+        }
+      }
+    });
   };
   return (
     <CommentsMoreList>
