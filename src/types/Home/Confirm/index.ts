@@ -34,10 +34,18 @@ export interface IRegisterCommentRequest {
   parentCommentId?: string;
 }
 
+export interface IDeleteCommentRequest {
+  commentId: number;
+}
+
 export interface IRegisterCommentApiResponse extends IApiResponse {
   data: {
     comment: IComment;
   };
+}
+
+export interface IDeleteCommentApiResponse extends IApiResponse {
+  data: {};
 }
 
 export interface IConfirmVoteList {
@@ -210,4 +218,5 @@ export interface ICommentsItemProps {
 
 export interface ICommentDropBoxProps {
   myComment: boolean;
+  commentId: number;
 }

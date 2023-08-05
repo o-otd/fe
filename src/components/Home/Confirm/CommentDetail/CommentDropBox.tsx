@@ -2,13 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { ICommentDropBoxProps } from 'types/Home/Confirm';
 
-function CommentDropBox({ myComment }: ICommentDropBoxProps) {
+function CommentDropBox({ myComment, commentId }: ICommentDropBoxProps) {
+  const onClickDeleteComment = (event: React.MouseEvent<HTMLLIElement>) => {
+    event.stopPropagation();
+    console.log(commentId);
+  };
   return (
     <CommentsMoreList>
       {myComment ? (
         <>
           <CommentsMoreItem>수정</CommentsMoreItem>
-          <CommentsMoreItemDelete>삭제</CommentsMoreItemDelete>
+          <CommentsMoreItemDelete
+            onClick={(event) => onClickDeleteComment(event)}
+          >
+            삭제
+          </CommentsMoreItemDelete>
         </>
       ) : (
         <CommentsMoreItem>답댓글</CommentsMoreItem>

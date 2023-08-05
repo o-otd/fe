@@ -32,9 +32,13 @@ function CommentsItem({
         onClick={(event) => onClickMore(event, commentData.id)}
       >
         <MoreSVG />
+        {isActive && (
+          <CommentDropBox
+            myComment={commentData.myComment}
+            commentId={commentData.id}
+          />
+        )}
       </CommentsListMore>
-
-      {isActive && <CommentDropBox myComment={commentData.myComment} />}
     </Wrapper>
   );
 }
