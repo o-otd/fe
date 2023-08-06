@@ -5,6 +5,9 @@ import { ICommentsItemProps } from 'types/Home/Confirm';
 import CommentDropBox from './CommentDropBox';
 import useOutsideClick from 'hooks/useOutsideClick';
 import useTextInput from 'hooks/useTextInput';
+import useAuthRedirect from 'hooks/useAuthRedirect';
+import { useApi } from 'hooks/useApi';
+import { modifyComment } from 'api/confirm';
 
 function CommentsItem({
   commentData,
@@ -23,6 +26,9 @@ function CommentsItem({
     setInputTextLength,
   } = useTextInput();
 
+  const { checkAuthAndProceed } = useAuthRedirect();
+  const { execute, error } = useApi(modifyComment);
+
   const ref = useRef<HTMLButtonElement | null>(null);
 
   useOutsideClick(ref, () => {
@@ -35,6 +41,23 @@ function CommentsItem({
     setActiveModifyId(commentData.id);
     setCommentContent(commentData.comment);
     setInputTextLength(commentData.comment.length);
+  };
+
+  const onClickModify = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    checkAuthAndProceed(async () => {
+      const response = await execute({
+        commentId: commentData.id,
+        content: commentContent,
+      });
+
+      if (!error && response) {
+        setActiveModifyId(undefined);
+      } else {
+        alert(error);
+      }
+    });
   };
 
   return (
@@ -78,7 +101,7 @@ function CommentsItem({
               value={commentContent}
             ></CommentsFormTextArea>
             <CommentsFormSubmit
-              //onClick={(event) => onClickSubmit(event)}
+              onClick={(event) => onClickModify(event)}
               disabled={inputTextLength === 0}
             >
               수정 하기

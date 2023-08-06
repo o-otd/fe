@@ -91,7 +91,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
   };
 
   const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
+    // event.stopPropagation();
     event.preventDefault();
 
     checkAuthAndProceed(async () => {
