@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useApi } from 'hooks/useApi';
-import { getComments } from 'api/confirm';
+import { getComments, registerComment } from 'api/confirm';
 import { useParams } from 'react-router-dom';
 import { LIST_SIZE } from 'constant';
-import { IComment } from 'types/Home/Confirm';
 import {
   CommentDetailHeader,
   CommentDetailInput,
   CommentItem,
 } from 'components/Home/Confirm/CommentDetail';
-import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from 'redux/store';
-import { resetCommentDone } from 'redux/reducer/confirm';
+import useTextInput from 'hooks/useTextInput';
+import useAuthRedirect from 'hooks/useAuthRedirect';
+import useCommentMutation from 'hooks/useCommentMutation';
 
 function CommentDetail() {
   const { execute, error } = useApi(getComments);
   const { confirmId } = useParams();
   const [page, setPage] = useState(0);
-  const [comments, setComments] = useState<IComment[]>([]);
-  const dispatch = useAppDispatch();
-  const { commentDone } = useSelector((state: RootState) => state.confirm);
+  const { checkAuthAndProceed } = useAuthRedirect();
+  const { execute: commnetExecute, error: commentError } =
+    useApi(registerComment);
+
+  const {
+    inputTextLength,
+    commentContent,
+    onInputHandler,
+    clearCommentContent,
+  } = useTextInput();
+  const { commentList, mutateComments, setCommentList } = useCommentMutation();
 
   const fetchComments = async () => {
-    if (commentDone) dispatch(resetCommentDone());
     if (confirmId) {
       const response = await execute({
         targetId: confirmId,
@@ -32,7 +38,7 @@ function CommentDetail() {
       });
 
       if (response) {
-        setComments(response.data.datas);
+        setCommentList(response.data.datas);
       } else {
         return null;
       }
@@ -41,18 +47,43 @@ function CommentDetail() {
 
   useEffect(() => {
     fetchComments();
-  }, [commentDone]);
+  }, [page]);
+
+  const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    checkAuthAndProceed(async () => {
+      event.preventDefault();
+
+      if (confirmId) {
+        const response = await commnetExecute({
+          confirmId: confirmId,
+          content: commentContent,
+        });
+
+        if (!commentError && response) {
+          clearCommentContent();
+          mutateComments(response.data.comment);
+        } else {
+          alert(error);
+        }
+      }
+    });
+  };
 
   return (
     <main>
-      <CommentDetailHeader totalComments={comments.length} />
+      <CommentDetailHeader totalComments={commentList.length} />
 
-      <CommentDetailInput />
+      <CommentDetailInput
+        onClickSubmit={onClickSubmit}
+        onInputHandler={onInputHandler}
+        inputTextLength={inputTextLength}
+        commentContent={commentContent}
+      />
 
-      {comments.length > 0 && (
+      {commentList.length > 0 && (
         <CommentList>
           <ul>
-            {comments.map((comment) => (
+            {commentList.map((comment) => (
               <CommentItem commentData={comment} key={comment.id} />
             ))}
           </ul>

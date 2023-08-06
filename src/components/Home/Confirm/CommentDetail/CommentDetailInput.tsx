@@ -1,45 +1,13 @@
-import { registerComment } from 'api/confirm';
-import { useApi } from 'hooks/useApi';
-import useAuthRedirect from 'hooks/useAuthRedirect';
-import useTextInput from 'hooks/useTextInput';
 import React from 'react';
-import { useParams } from 'react-router-dom';
-import { setCommentDone } from 'redux/reducer/confirm';
-import { useAppDispatch } from 'redux/store';
 import styled from 'styled-components';
+import { ICommentDetailInputProps } from 'types/Home/Confirm';
 
-function CommentDetailInput() {
-  const {
-    inputTextLength,
-    commentContent,
-    onInputHandler,
-    clearCommentContent,
-  } = useTextInput();
-  const { checkAuthAndProceed } = useAuthRedirect();
-  const { execute, error } = useApi(registerComment);
-  const { confirmId } = useParams();
-  const dispatch = useAppDispatch();
-
-  const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    checkAuthAndProceed(async () => {
-      event.preventDefault();
-
-      if (confirmId) {
-        await execute({
-          confirmId: confirmId,
-          content: commentContent,
-        });
-
-        if (!error) {
-          clearCommentContent();
-          dispatch(setCommentDone());
-        } else {
-          alert(error);
-        }
-      }
-    });
-  };
-
+function CommentDetailInput({
+  inputTextLength,
+  commentContent,
+  onInputHandler,
+  onClickSubmit,
+}: ICommentDetailInputProps) {
   return (
     <CommentForm>
       <form>

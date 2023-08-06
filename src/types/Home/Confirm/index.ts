@@ -34,10 +34,27 @@ export interface IRegisterCommentRequest {
   parentCommentId?: string;
 }
 
+export interface IDeleteCommentRequest {
+  commentId: number;
+}
+
+export interface IModifyCommentRequest {
+  commentId: number;
+  content: string;
+}
+
 export interface IRegisterCommentApiResponse extends IApiResponse {
   data: {
     comment: IComment;
   };
+}
+
+export interface IDeleteCommentApiResponse extends IApiResponse {
+  data: null;
+}
+
+export interface IModifyCommentApiResponse extends IApiResponse {
+  data: null;
 }
 
 export interface IConfirmVoteList {
@@ -200,14 +217,26 @@ export interface INestedCommentsProps {
 
 export interface ICommentsItemProps {
   commentData: IComment;
+
   onClickMore: (
     event: React.MouseEvent<HTMLButtonElement>,
     commentId: number,
   ) => void;
   setActiveCommentId: React.Dispatch<React.SetStateAction<number | undefined>>;
   isActive: boolean;
+  isActiveModify: boolean;
+  setActiveModifyId: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
 export interface ICommentDropBoxProps {
   myComment: boolean;
+  commentId: number;
+  onClickModifyComment: (event: React.MouseEvent) => void;
+}
+
+export interface ICommentDetailInputProps {
+  inputTextLength: number;
+  commentContent: string;
+  onInputHandler: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onClickSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }

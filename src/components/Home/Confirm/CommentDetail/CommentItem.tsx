@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ConfirmCommentLikeSVG } from '@svg/likes.svg';
 import {
@@ -16,6 +16,8 @@ import NestedComments from './NestedComments';
 import useTextInput from 'hooks/useTextInput';
 import { useParams } from 'react-router-dom';
 import useCommentMutation from 'hooks/useCommentMutation';
+import { useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 
 function CommentItem({ commentData }: ICommentItemProps) {
   const { confirmId } = useParams();
@@ -32,7 +34,8 @@ function CommentItem({ commentData }: ICommentItemProps) {
     commentData.myLike,
     commentData.like,
   );
-  const { commentList, mutateComments, setCommentList } = useCommentMutation();
+  const { commentList, mutateComments, setCommentList, mutateDeleteComments } =
+    useCommentMutation();
   const { execute, error } = useApi(getNestedComments);
   const { execute: nestedCommentExecute, error: nestedCommentError } =
     useApi(registerComment);
@@ -41,6 +44,8 @@ function CommentItem({ commentData }: ICommentItemProps) {
   const { execute: deleteLikeExecute, error: deleteLikeError } =
     useApi(deleteCommentLike);
   const { checkAuthAndProceed } = useAuthRedirect();
+
+  const { deleteCommentId } = useSelector((state: RootState) => state.confirm);
   const [page, setPage] = useState(0);
 
   const onClickComment = async () => {
@@ -86,7 +91,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
   };
 
   const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
+    // event.stopPropagation();
     event.preventDefault();
 
     checkAuthAndProceed(async () => {
@@ -104,6 +109,12 @@ function CommentItem({ commentData }: ICommentItemProps) {
       }
     });
   };
+
+  useEffect(() => {
+    if (deleteCommentId) {
+      mutateDeleteComments(deleteCommentId);
+    }
+  }, [deleteCommentId]);
 
   return (
     <Wrapper onClick={onClickComment}>
