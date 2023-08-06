@@ -11,6 +11,7 @@ function NestedComments({
   commentContent,
 }: INestedCommentsProps) {
   const [activeCommentId, setActiveCommentId] = useState<number>();
+  const [activeModifyId, setActiveModifyId] = useState<number>();
 
   const onClickMore = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -19,8 +20,9 @@ function NestedComments({
     event.stopPropagation();
     setActiveCommentId(commentId);
   };
+
   return (
-    <>
+    <div onClick={(e) => e.stopPropagation()}>
       <CommentsList>
         <ul>
           {nestedComments &&
@@ -30,7 +32,9 @@ function NestedComments({
                 commentData={comment}
                 onClickMore={onClickMore}
                 setActiveCommentId={setActiveCommentId}
+                setActiveModifyId={setActiveModifyId}
                 isActive={comment.id === activeCommentId}
+                isActiveModify={comment.id === activeModifyId}
               />
             ))}
         </ul>
@@ -54,7 +58,7 @@ function NestedComments({
           </CommentsFormSubmit>
         </div>
       </CommentsForm>
-    </>
+    </div>
   );
 }
 

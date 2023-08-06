@@ -19,5 +19,7 @@ export default function useTextInput() {
     commentContent,
     onInputHandler,
     clearCommentContent,
+    setCommentContent,
+    setInputTextLength,
   };
 }

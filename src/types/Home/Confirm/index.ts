@@ -208,17 +208,21 @@ export interface INestedCommentsProps {
 
 export interface ICommentsItemProps {
   commentData: IComment;
+
   onClickMore: (
     event: React.MouseEvent<HTMLButtonElement>,
     commentId: number,
   ) => void;
   setActiveCommentId: React.Dispatch<React.SetStateAction<number | undefined>>;
   isActive: boolean;
+  isActiveModify: boolean;
+  setActiveModifyId: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
 export interface ICommentDropBoxProps {
   myComment: boolean;
   commentId: number;
+  onClickModifyComment: (event: React.MouseEvent) => void;
 }
 
 export interface ICommentDetailInputProps {

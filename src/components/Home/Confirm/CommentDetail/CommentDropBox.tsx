@@ -7,14 +7,16 @@ import { useAppDispatch } from 'redux/store';
 import styled from 'styled-components';
 import { ICommentDropBoxProps } from 'types/Home/Confirm';
 
-function CommentDropBox({ myComment, commentId }: ICommentDropBoxProps) {
+function CommentDropBox({
+  myComment,
+  commentId,
+  onClickModifyComment,
+}: ICommentDropBoxProps) {
   const dispatch = useAppDispatch();
   const { execute, error } = useApi(deleteComment);
   const { checkAuthAndProceed } = useAuthRedirect();
 
-  const onClickDeleteComment = (event: React.MouseEvent<HTMLLIElement>) => {
-    event.stopPropagation();
-
+  const onClickDeleteComment = () => {
     checkAuthAndProceed(async () => {
       if (commentId) {
         const response = await execute({
@@ -32,14 +34,15 @@ function CommentDropBox({ myComment, commentId }: ICommentDropBoxProps) {
       }
     });
   };
+
   return (
     <CommentsMoreList>
       {myComment ? (
         <>
-          <CommentsMoreItem>수정</CommentsMoreItem>
-          <CommentsMoreItemDelete
-            onClick={(event) => onClickDeleteComment(event)}
-          >
+          <CommentsMoreItem onClick={(event) => onClickModifyComment(event)}>
+            수정
+          </CommentsMoreItem>
+          <CommentsMoreItemDelete onClick={onClickDeleteComment}>
             삭제
           </CommentsMoreItemDelete>
         </>
