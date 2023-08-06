@@ -8,6 +8,8 @@ import {
   IGetConfirmsApiResponse,
   IGetListsRequest,
   IGetNestedCommentsRequest,
+  IModifyCommentApiResponse,
+  IModifyCommentRequest,
   IRegisterCommentApiResponse,
   IRegisterCommentLikeApiResponse,
   IRegisterCommentLikeRequest,
@@ -86,6 +88,23 @@ export const deleteComment = async (params: IDeleteCommentRequest) => {
   const response = await AuthApi.post<
     IDeleteCommentRequest,
     AxiosResponse<IDeleteCommentApiResponse>
+  >(url, formData);
+
+  return response.data;
+};
+
+export const modifyComment = async (params: IModifyCommentRequest) => {
+  const url = `${baseUrl}/comment/modify`;
+  const { commentId, content } = params;
+
+  const formData = new FormData();
+
+  formData.append('commentId', String(commentId));
+  formData.append('content', content);
+
+  const response = await AuthApi.post<
+    IModifyCommentRequest,
+    AxiosResponse<IModifyCommentApiResponse>
   >(url, formData);
 
   return response.data;

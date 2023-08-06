@@ -38,6 +38,11 @@ export interface IDeleteCommentRequest {
   commentId: number;
 }
 
+export interface IModifyCommentRequest {
+  commentId: number;
+  content: string;
+}
+
 export interface IRegisterCommentApiResponse extends IApiResponse {
   data: {
     comment: IComment;
@@ -45,6 +50,10 @@ export interface IRegisterCommentApiResponse extends IApiResponse {
 }
 
 export interface IDeleteCommentApiResponse extends IApiResponse {
+  data: null;
+}
+
+export interface IModifyCommentApiResponse extends IApiResponse {
   data: null;
 }
 
