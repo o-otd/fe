@@ -213,11 +213,11 @@ export interface INestedCommentsProps {
   inputTextLength: number;
   onClickSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
   commentContent: string;
+  mutateModifyComments: (commentId: number, newComment: string) => void;
 }
 
 export interface ICommentsItemProps {
   commentData: IComment;
-
   onClickMore: (
     event: React.MouseEvent<HTMLButtonElement>,
     commentId: number,
@@ -226,6 +226,7 @@ export interface ICommentsItemProps {
   isActive: boolean;
   isActiveModify: boolean;
   setActiveModifyId: React.Dispatch<React.SetStateAction<number | undefined>>;
+  mutateModifyComments: (commentId: number, newComment: string) => void;
 }
 
 export interface ICommentDropBoxProps {

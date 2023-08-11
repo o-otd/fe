@@ -34,8 +34,13 @@ function CommentItem({ commentData }: ICommentItemProps) {
     commentData.myLike,
     commentData.like,
   );
-  const { commentList, mutateComments, setCommentList, mutateDeleteComments } =
-    useCommentMutation();
+  const {
+    commentList,
+    mutateComments,
+    setCommentList,
+    mutateDeleteComments,
+    mutateModifyComments,
+  } = useCommentMutation();
   const { execute, error } = useApi(getNestedComments);
   const { execute: nestedCommentExecute, error: nestedCommentError } =
     useApi(registerComment);
@@ -91,7 +96,6 @@ function CommentItem({ commentData }: ICommentItemProps) {
   };
 
   const onClickSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // event.stopPropagation();
     event.preventDefault();
 
     checkAuthAndProceed(async () => {
@@ -127,7 +131,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
 
         <CommentListUtil>
           <CommentListComments>
-            댓글 <span>{commentData.nested - 1}</span>
+            댓글 <span>{commentData.nested}</span>
           </CommentListComments>
           <CommentListLikes $isMyLike={isLike}>
             <ConfirmCommentLikeSVG onClick={(event) => onClickLike(event)} />
@@ -142,6 +146,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
             inputTextLength={inputTextLength}
             onClickSubmit={onClickSubmit}
             commentContent={commentContent}
+            mutateModifyComments={mutateModifyComments}
           />
         )}
 
