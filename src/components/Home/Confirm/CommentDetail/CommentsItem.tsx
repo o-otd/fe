@@ -16,6 +16,7 @@ function CommentsItem({
   setActiveCommentId,
   setActiveModifyId,
   isActiveModify,
+  mutateModifyComments,
 }: ICommentsItemProps) {
   const {
     inputTextLength,
@@ -53,6 +54,8 @@ function CommentsItem({
       });
 
       if (!error && response) {
+        console.log(commentData.id, commentContent);
+        mutateModifyComments(commentData.id, commentContent);
         setActiveModifyId(undefined);
       } else {
         alert(error);

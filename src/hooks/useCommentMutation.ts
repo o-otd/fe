@@ -15,5 +15,21 @@ export default function useCommentMutation() {
     setCommentList(newCommentList);
   };
 
-  return { commentList, mutateComments, setCommentList, mutateDeleteComments };
+  const mutateModifyComments = (commentId: number, newContent: string) => {
+    setCommentList((prevComments) =>
+      prevComments.map((comment) =>
+        comment.id === commentId
+          ? { ...comment, comment: newContent }
+          : comment,
+      ),
+    );
+  };
+
+  return {
+    commentList,
+    mutateComments,
+    setCommentList,
+    mutateDeleteComments,
+    mutateModifyComments,
+  };
 }

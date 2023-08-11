@@ -34,8 +34,13 @@ function CommentItem({ commentData }: ICommentItemProps) {
     commentData.myLike,
     commentData.like,
   );
-  const { commentList, mutateComments, setCommentList, mutateDeleteComments } =
-    useCommentMutation();
+  const {
+    commentList,
+    mutateComments,
+    setCommentList,
+    mutateDeleteComments,
+    mutateModifyComments,
+  } = useCommentMutation();
   const { execute, error } = useApi(getNestedComments);
   const { execute: nestedCommentExecute, error: nestedCommentError } =
     useApi(registerComment);
@@ -141,6 +146,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
             inputTextLength={inputTextLength}
             onClickSubmit={onClickSubmit}
             commentContent={commentContent}
+            mutateModifyComments={mutateModifyComments}
           />
         )}
 
