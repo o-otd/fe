@@ -13,6 +13,7 @@ function NestedComments({
 }: INestedCommentsProps) {
   const [activeCommentId, setActiveCommentId] = useState<number>();
   const [activeModifyId, setActiveModifyId] = useState<number>();
+  const [activeReplyId, setActiveReplyId] = useState<number>();
 
   const onClickMore = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -34,8 +35,10 @@ function NestedComments({
                 onClickMore={onClickMore}
                 setActiveCommentId={setActiveCommentId}
                 setActiveModifyId={setActiveModifyId}
+                setActiveReplyId={setActiveReplyId}
                 isActive={comment.id === activeCommentId}
                 isActiveModify={comment.id === activeModifyId}
+                isActiveReply={comment.id === activeReplyId}
                 mutateModifyComments={mutateModifyComments}
               />
             ))}

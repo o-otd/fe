@@ -15,16 +15,25 @@ function CommentsItem({
   isActive,
   setActiveCommentId,
   setActiveModifyId,
+  setActiveReplyId,
   isActiveModify,
+  isActiveReply,
   mutateModifyComments,
 }: ICommentsItemProps) {
   const {
     inputTextLength,
     commentContent,
     onInputHandler,
-    clearCommentContent,
     setCommentContent,
     setInputTextLength,
+  } = useTextInput();
+
+  const {
+    inputTextLength: replyInputTextLength,
+    commentContent: repleyCommentContent,
+    onInputHandler: repleyOnInputHandler,
+    setCommentContent: setReplyCommentContent,
+    setInputTextLength: setRepleyInputTextLength,
   } = useTextInput();
 
   const { checkAuthAndProceed } = useAuthRedirect();
@@ -39,9 +48,18 @@ function CommentsItem({
   const onClickModifyComment = (event: React.MouseEvent) => {
     event.stopPropagation();
     setActiveCommentId(undefined);
+    setActiveReplyId(undefined);
     setActiveModifyId(commentData.id);
     setCommentContent(commentData.comment);
+
     setInputTextLength(commentData.comment.length);
+  };
+
+  const onClickReplyComment = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setActiveReplyId(commentData.id);
+    setActiveCommentId(undefined);
+    setActiveModifyId(undefined);
   };
 
   const onClickModify = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,7 +72,6 @@ function CommentsItem({
       });
 
       if (!error && response) {
-        console.log(commentData.id, commentContent);
         mutateModifyComments(commentData.id, commentContent);
         setActiveModifyId(undefined);
       } else {
@@ -83,6 +100,7 @@ function CommentsItem({
             myComment={commentData.myComment}
             commentId={commentData.id}
             onClickModifyComment={onClickModifyComment}
+            onClickReplyComment={onClickReplyComment}
           />
         )}
       </CommentsListMore>
@@ -108,6 +126,32 @@ function CommentsItem({
               disabled={inputTextLength === 0}
             >
               수정 하기
+            </CommentsFormSubmit>
+          </div>
+        </CommentsForm>
+      )}
+
+      {isActiveReply && (
+        <CommentsForm
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        >
+          <div>
+            <CommentsFormTextArea
+              onClick={(event) => {
+                event.stopPropagation();
+              }}
+              onChange={repleyOnInputHandler}
+              maxLength={600}
+              placeholder="댓글을 입력하세요"
+              value={repleyCommentContent}
+            ></CommentsFormTextArea>
+            <CommentsFormSubmit
+              //onClick={(event) => onClickModify(event)}
+              disabled={replyInputTextLength === 0}
+            >
+              댓글 남기기
             </CommentsFormSubmit>
           </div>
         </CommentsForm>
