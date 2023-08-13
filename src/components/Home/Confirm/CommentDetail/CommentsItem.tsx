@@ -56,10 +56,14 @@ function CommentsItem({
   };
 
   const onClickReplyComment = (event: React.MouseEvent) => {
+    const initialContent = `@${commentData.user.name}  `;
     event.stopPropagation();
     setActiveReplyId(commentData.id);
     setActiveCommentId(undefined);
     setActiveModifyId(undefined);
+
+    setReplyCommentContent(initialContent);
+    setRepleyInputTextLength(initialContent.length - initialContent.length);
   };
 
   const onClickModify = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -78,6 +82,19 @@ function CommentsItem({
         alert(error);
       }
     });
+  };
+
+  const handleTextareaChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    const initialContent = `@${commentData.user.name}  `;
+
+    if (event.target.value.startsWith(initialContent)) {
+      repleyOnInputHandler(event);
+      setRepleyInputTextLength(
+        event.target.value.length - initialContent.length,
+      );
+    }
   };
 
   return (
@@ -142,7 +159,7 @@ function CommentsItem({
               onClick={(event) => {
                 event.stopPropagation();
               }}
-              onChange={repleyOnInputHandler}
+              onChange={handleTextareaChange}
               maxLength={600}
               placeholder="댓글을 입력하세요"
               value={repleyCommentContent}
