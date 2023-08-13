@@ -7,7 +7,8 @@ import useOutsideClick from 'hooks/useOutsideClick';
 import useTextInput from 'hooks/useTextInput';
 import useAuthRedirect from 'hooks/useAuthRedirect';
 import { useApi } from 'hooks/useApi';
-import { modifyComment } from 'api/confirm';
+import { modifyComment, registerComment } from 'api/confirm';
+import { useParams } from 'react-router-dom';
 
 function CommentsItem({
   commentData,
@@ -20,6 +21,7 @@ function CommentsItem({
   isActiveReply,
   mutateModifyComments,
 }: ICommentsItemProps) {
+  const { confirmId } = useParams();
   const {
     inputTextLength,
     commentContent,
@@ -38,6 +40,8 @@ function CommentsItem({
 
   const { checkAuthAndProceed } = useAuthRedirect();
   const { execute, error } = useApi(modifyComment);
+  const { execute: registerExecute, error: registerError } =
+    useApi(registerComment);
 
   const ref = useRef<HTMLButtonElement | null>(null);
 
@@ -82,6 +86,26 @@ function CommentsItem({
         alert(error);
       }
     });
+  };
+
+  const onClickReply = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    if (confirmId) {
+      checkAuthAndProceed(async () => {
+        const response = await registerExecute({
+          confirmId: confirmId,
+          content: repleyCommentContent,
+          parentCommentId: commentData.id + '',
+        });
+
+        if (!registerError && response) {
+          setActiveReplyId(undefined);
+        } else {
+          alert(registerError);
+        }
+      });
+    }
   };
 
   const handleTextareaChange = (
@@ -165,7 +189,7 @@ function CommentsItem({
               value={repleyCommentContent}
             ></CommentsFormTextArea>
             <CommentsFormSubmit
-              //onClick={(event) => onClickModify(event)}
+              onClick={(event) => onClickReply(event)}
               disabled={replyInputTextLength === 0}
             >
               댓글 남기기
