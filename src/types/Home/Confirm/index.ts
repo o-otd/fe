@@ -225,7 +225,9 @@ export interface ICommentsItemProps {
   setActiveCommentId: React.Dispatch<React.SetStateAction<number | undefined>>;
   isActive: boolean;
   isActiveModify: boolean;
+  isActiveReply: boolean;
   setActiveModifyId: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setActiveReplyId: React.Dispatch<React.SetStateAction<number | undefined>>;
   mutateModifyComments: (commentId: number, newComment: string) => void;
 }
 
@@ -233,6 +235,7 @@ export interface ICommentDropBoxProps {
   myComment: boolean;
   commentId: number;
   onClickModifyComment: (event: React.MouseEvent) => void;
+  onClickReplyComment: (event: React.MouseEvent) => void;
 }
 
 export interface ICommentDetailInputProps {
@@ -240,4 +243,13 @@ export interface ICommentDetailInputProps {
   commentContent: string;
   onInputHandler: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onClickSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+export interface ICommentLineInputProps {
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  textLength: number;
+  value: string;
+  buttonText: string;
+  placeholder: string;
 }

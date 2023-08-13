@@ -11,6 +11,7 @@ function CommentDropBox({
   myComment,
   commentId,
   onClickModifyComment,
+  onClickReplyComment,
 }: ICommentDropBoxProps) {
   const dispatch = useAppDispatch();
   const { execute, error } = useApi(deleteComment);
@@ -47,7 +48,9 @@ function CommentDropBox({
           </CommentsMoreItemDelete>
         </>
       ) : (
-        <CommentsMoreItem>답댓글</CommentsMoreItem>
+        <CommentsMoreItem onClick={onClickReplyComment}>
+          답댓글
+        </CommentsMoreItem>
       )}
     </CommentsMoreList>
   );
