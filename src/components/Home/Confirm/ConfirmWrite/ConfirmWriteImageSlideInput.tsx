@@ -61,6 +61,7 @@ function ConfirmWriteImageSlideInput({
 export default ConfirmWriteImageSlideInput;
 
 const WriteSlider = styled.section`
+  z-index: 0;
   margin-top: 4px;
   position: relative;
   background-color: ${({ theme }) => theme.colors.gray2};

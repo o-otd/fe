@@ -5,11 +5,13 @@ import useApiNavigation from 'hooks/useApiNavigation';
 import { IRegisterConfirmApiResponse } from 'types/Home/Confirm';
 import { IImageFile } from 'types/Common';
 import {
+  ConfirmCalender,
   ConfirmWriteHeader,
   ConfirmWriteImageSlideInput,
   ConfirmWriteTextInput,
   ConfirmWriteVote,
 } from 'components/Home/Confirm/ConfirmWrite';
+import styled from 'styled-components';
 
 function ConfirmWrite() {
   const apiNavigation = useApiNavigation<IRegisterConfirmApiResponse>();
@@ -49,23 +51,27 @@ function ConfirmWrite() {
   };
 
   return (
-    <form>
-      <ConfirmWriteHeader onSubmit={onClickSubmit} />
+    <>
+      <form>
+        <ConfirmWriteHeader onSubmit={onClickSubmit} />
 
-      <ConfirmWriteTextInput text={text} setText={setText} />
+        <ConfirmWriteTextInput text={text} setText={setText} />
 
-      <ConfirmWriteVote
-        firstVoteText={firstVoteText}
-        setFirstVoteText={setFirstVoteText}
-        secondVoteText={secondVoteText}
-        setSecondVoteText={setSecondVoteText}
-      />
+        <ConfirmWriteVote
+          firstVoteText={firstVoteText}
+          setFirstVoteText={setFirstVoteText}
+          secondVoteText={secondVoteText}
+          setSecondVoteText={setSecondVoteText}
+        />
 
-      <ConfirmWriteImageSlideInput
-        inputImages={inputImages}
-        setInputImages={setInputImages}
-      />
-    </form>
+        <ConfirmWriteImageSlideInput
+          inputImages={inputImages}
+          setInputImages={setInputImages}
+        />
+      </form>
+
+      <ConfirmCalender date={new Date()} />
+    </>
   );
 }
 
