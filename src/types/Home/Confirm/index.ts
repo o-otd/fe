@@ -244,3 +244,12 @@ export interface ICommentDetailInputProps {
   onInputHandler: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onClickSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
+
+export interface ICommentLineInputProps {
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  textLength: number;
+  value: string;
+  buttonText: string;
+  placeholder: string;
+}
