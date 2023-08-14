@@ -4,17 +4,17 @@ import CalenderTitleButtonSvg from '@svg/calender-title-btn.png';
 import CalenderPrevButtonSvg from '@svg/calender-prev-btn.png';
 import CalenderNextButtonSvg from '@svg/calender-next-btn.png';
 import { calenderDays, monthObject } from 'constant';
-
-interface IConfirmCalenderProps {
-  date: Date;
-}
+import { IConfirmCalenderProps } from 'types/Home/Confirm';
 
 function ConfirmCalender({ date }: IConfirmCalenderProps) {
   const [currentDate, setCurrentDate] = useState(date);
   const [monthDays, setMonthDays] = useState<
     (number | null | { day: number; disabled: boolean })[]
   >([]);
-
+  const [selectedDay, setSelectedDay] = useState<{
+    day: number;
+    disabled: boolean;
+  } | null>(null);
   useEffect(() => {
     const newMonthDays = datePrint(currentDate);
 
@@ -53,6 +53,22 @@ function ConfirmCalender({ date }: IConfirmCalenderProps) {
     return dateArray;
   };
 
+  const prevCalendarHandler = () => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(currentDate.getMonth() - 1);
+    setCurrentDate(newDate);
+  };
+
+  const nextCalendarHandler = () => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(currentDate.getMonth() + 1);
+    setCurrentDate(newDate);
+  };
+
+  const dateClickHandler = (day: null | { day: number; disabled: boolean }) => {
+    setSelectedDay(day);
+  };
+
   return (
     <Calender>
       <CalenderBackDrop />
@@ -67,11 +83,11 @@ function ConfirmCalender({ date }: IConfirmCalenderProps) {
             </button>
           </CalenderHeaderYear>
           <CalenderHeaderControl>
-            <button>
+            <button onClick={prevCalendarHandler}>
               <img src={CalenderPrevButtonSvg} alt="이전 달" />
             </button>
 
-            <button>
+            <button onClick={nextCalendarHandler}>
               <img src={CalenderNextButtonSvg} alt="다음 달" />
             </button>
           </CalenderHeaderControl>
@@ -95,9 +111,13 @@ function ConfirmCalender({ date }: IConfirmCalenderProps) {
                 );
               } else {
                 return (
-                  <li key={idx}>
+                  <DateItem
+                    $selected={selectedDay?.day === day.day}
+                    key={idx}
+                    onClick={() => dateClickHandler(day)}
+                  >
                     <button disabled={day.disabled}>{day.day}</button>
-                  </li>
+                  </DateItem>
                 );
               }
             })}
@@ -219,4 +239,12 @@ const CalenderForm = styled.section`
       border-right: 1px solid rgba(84, 84, 88, 0.65);
     }
   }
+`;
+
+const DateItem = styled.li<{ $selected: boolean }>`
+  background-color: ${({ theme, $selected }) =>
+    $selected ? theme.colors.main : ''};
+  border-radius: ${({ theme, $selected }) =>
+    $selected ? theme.borderRadius.borderRadius50 : ''};
+  color: ${({ theme, $selected }) => ($selected ? theme.colors.gray1 : '')};
 `;

@@ -253,3 +253,7 @@ export interface ICommentLineInputProps {
   buttonText: string;
   placeholder: string;
 }
+
+export interface IConfirmCalenderProps {
+  date: Date;
+}
