@@ -11,7 +11,6 @@ import {
   ConfirmWriteTextInput,
   ConfirmWriteVote,
 } from 'components/Home/Confirm/ConfirmWrite';
-import styled from 'styled-components';
 
 function ConfirmWrite() {
   const apiNavigation = useApiNavigation<IRegisterConfirmApiResponse>();
@@ -21,6 +20,26 @@ function ConfirmWrite() {
 
   const [firstVoteText, setFirstVoteText] = useState<string>('');
   const [secondVoteText, setSecondVoteText] = useState<string>('');
+  const [isCalenderOpen, setIsCalenderOpen] = useState<boolean>(false);
+  const [activeButton, setActiveButton] = useState<string | null>(null);
+
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
+
+  const handleDateButton = (buttonType: string) => {
+    setActiveButton(buttonType);
+    setIsCalenderOpen(true);
+  };
+
+  const handleDateSelect = (date: string) => {
+    if (activeButton === 'start') {
+      setStartDate(date);
+    } else if (activeButton === 'end') {
+      setEndDate(date);
+    }
+
+    setIsCalenderOpen(false);
+  };
 
   const onClickSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -55,7 +74,13 @@ function ConfirmWrite() {
       <form>
         <ConfirmWriteHeader onSubmit={onClickSubmit} />
 
-        <ConfirmWriteTextInput text={text} setText={setText} />
+        <ConfirmWriteTextInput
+          text={text}
+          setText={setText}
+          onClickDate={handleDateButton}
+          startDate={startDate}
+          endDate={endDate}
+        />
 
         <ConfirmWriteVote
           firstVoteText={firstVoteText}
@@ -70,7 +95,13 @@ function ConfirmWrite() {
         />
       </form>
 
-      <ConfirmCalender date={new Date()} />
+      {isCalenderOpen && (
+        <ConfirmCalender
+          onClose={setIsCalenderOpen}
+          onSelect={handleDateSelect}
+          date={new Date()}
+        />
+      )}
     </>
   );
 }

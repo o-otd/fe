@@ -6,7 +6,7 @@ import CalenderNextButtonSvg from '@svg/calender-next-btn.png';
 import { calenderDays, monthObject } from 'constant';
 import { IConfirmCalenderProps } from 'types/Home/Confirm';
 
-function ConfirmCalender({ date }: IConfirmCalenderProps) {
+function ConfirmCalender({ date, onClose, onSelect }: IConfirmCalenderProps) {
   const [currentDate, setCurrentDate] = useState(date);
   const [monthDays, setMonthDays] = useState<
     (number | null | { day: number; disabled: boolean })[]
@@ -15,6 +15,8 @@ function ConfirmCalender({ date }: IConfirmCalenderProps) {
     day: number;
     disabled: boolean;
   } | null>(null);
+
+  const [selectDate, setSelectDate] = useState<string>('');
   useEffect(() => {
     const newMonthDays = datePrint(currentDate);
 
@@ -31,22 +33,26 @@ function ConfirmCalender({ date }: IConfirmCalenderProps) {
     const newDate = new Date(date);
     const adjDate = newDate.getDate();
     const year = newDate.getFullYear();
-    const month = newDate.getMonth() + 1;
+    const month = newDate.getMonth();
     const firstDay = new Date(newDate.setDate(1)).getDay();
-    const lastDay = new Date(year, month, 0).getDate();
+    const lastDay = new Date(year, month + 1, 0).getDate();
 
     for (let i = 0; i < firstDay; i++) {
       dateArray.push(null);
     }
 
+    const today = new Date();
     for (let i = 1; i <= lastDay; i++) {
-      if (date.getMonth() + 1 < month) {
-        dateArray.push(i);
-      } else if (date.getMonth() + 1 > month) {
+      if (
+        year < today.getFullYear() ||
+        (year === today.getFullYear() && month < today.getMonth()) ||
+        (year === today.getFullYear() &&
+          month === today.getMonth() &&
+          i < today.getDate())
+      ) {
         dateArray.push({ day: i, disabled: true });
       } else {
-        const isDisabled = adjDate > i;
-        dateArray.push({ day: i, disabled: isDisabled });
+        dateArray.push({ day: i, disabled: false });
       }
     }
 
@@ -57,15 +63,22 @@ function ConfirmCalender({ date }: IConfirmCalenderProps) {
     const newDate = new Date(currentDate);
     newDate.setMonth(currentDate.getMonth() - 1);
     setCurrentDate(newDate);
+    setSelectedDay(null);
   };
 
   const nextCalendarHandler = () => {
     const newDate = new Date(currentDate);
     newDate.setMonth(currentDate.getMonth() + 1);
     setCurrentDate(newDate);
+    setSelectedDay(null);
   };
 
   const dateClickHandler = (day: null | { day: number; disabled: boolean }) => {
+    const dateString =
+      String(currentDate.getFullYear()) +
+      String(currentDate.getMonth() + 1) +
+      String(day?.day);
+    setSelectDate(dateString);
     setSelectedDay(day);
   };
 
@@ -124,8 +137,8 @@ function ConfirmCalender({ date }: IConfirmCalenderProps) {
           </CalenderBodyDate>
         </section>
         <CalenderForm>
-          <button>취소</button>
-          <button>확인</button>
+          <button onClick={() => onClose(false)}>취소</button>
+          <button onClick={() => onSelect(selectDate)}>확인</button>
         </CalenderForm>
       </CalenderContent>
     </Calender>

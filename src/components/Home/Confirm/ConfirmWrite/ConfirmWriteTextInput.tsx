@@ -4,10 +4,17 @@ import ConfirmWriteArrowBottomSVG from '@svg/confirm-write-arrow-bottom.svg';
 import { ReactComponent as CalendarSVG } from '@svg/calendar.svg';
 import { IConfirmWriteTextInputProps } from 'types/Home/Confirm';
 
-function ConfirmWriteTextInput({ text, setText }: IConfirmWriteTextInputProps) {
+function ConfirmWriteTextInput({
+  text,
+  setText,
+  onClickDate,
+  startDate,
+  endDate,
+}: IConfirmWriteTextInputProps) {
   const onChangeTextInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
+
   return (
     <WriteForm>
       <WriteFormHeader>
@@ -19,9 +26,19 @@ function ConfirmWriteTextInput({ text, setText }: IConfirmWriteTextInputProps) {
           <WriteFormDate>
             <CalendarSVG />
             <WriteFormInput>
-              <input type="text" value="2022.11.27" />
+              <input
+                readOnly
+                onClick={() => onClickDate('start')}
+                type="text"
+                value={startDate}
+              />
               <span>~</span>
-              <input type="text" value="2022.12.04" />
+              <input
+                readOnly
+                onClick={() => onClickDate('end')}
+                type="text"
+                value={endDate}
+              />
             </WriteFormInput>
           </WriteFormDate>
         </WriteFormInfo>
@@ -100,6 +117,11 @@ const WriteFormInput = styled.div`
   margin-left: 4px;
   display: flex;
   align-items: center;
+
+  & input {
+    display: flex;
+    padding: 4px;
+  }
 `;
 
 const WriteFormTextArea = styled.textarea`
