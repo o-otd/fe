@@ -18,8 +18,15 @@ export const getFormattedDate = (date: string) => {
   return formattedDae;
 };
 
+export const getStringDate = (date: string) => {
+  console.log(date);
+  const stringDate = date !== '' ? date.split('.').join('') : '';
+
+  return stringDate;
+};
+
 export const getFormattedMonth = (date: Date) => {
-  const month = date.getMonth() + 1; // 0-11이므로 +1 해줍니다.
+  const month = date.getMonth() + 1;
   return month < 10 ? `0${month}` : `${month}`;
 };
 

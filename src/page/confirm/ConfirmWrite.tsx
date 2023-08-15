@@ -11,7 +11,7 @@ import {
   ConfirmWriteTextInput,
   ConfirmWriteVote,
 } from 'components/Home/Confirm/ConfirmWrite';
-import { getFormattedDate } from 'utils';
+import { getFormattedDate, getStringDate } from 'utils';
 
 function ConfirmWrite() {
   const apiNavigation = useApiNavigation<IRegisterConfirmApiResponse>();
@@ -33,10 +33,20 @@ function ConfirmWrite() {
   };
 
   const handleDateSelect = (date: string) => {
+    const selectedDate = getFormattedDate(date);
+
     if (activeButton === 'start') {
-      setStartDate(getFormattedDate(date));
+      if (selectedDate && endDate && selectedDate > endDate) {
+        alert('시작 날짜는 종료 날짜보다 뒤에 올 수 없습니다.');
+        return;
+      }
+      setStartDate(selectedDate);
     } else if (activeButton === 'end') {
-      setEndDate(getFormattedDate(date));
+      if (selectedDate && startDate && selectedDate < startDate) {
+        alert('종료 날짜는 시작 날짜보다 앞에 올 수 없습니다.');
+        return;
+      }
+      setEndDate(selectedDate);
     }
 
     setIsCalenderOpen(false);
@@ -48,7 +58,9 @@ function ConfirmWrite() {
       text.length === 0 ||
       inputImages.length === 0 ||
       firstVoteText === '' ||
-      secondVoteText === ''
+      secondVoteText === '' ||
+      getStringDate(startDate) === '' ||
+      getStringDate(endDate) === ''
     ) {
       return;
     } else {
@@ -59,12 +71,12 @@ function ConfirmWrite() {
       const response = await execute({
         content: text,
         images: inputImages,
-        startDate: '20230726',
-        endDate: '20230805',
+        startDate: getStringDate(startDate),
+        endDate: getStringDate(endDate),
         voteTypeReqs: voteTypeReqs,
       });
 
-      if (response && response.ok) {
+      if (response && !error) {
         apiNavigation('/confirm', response);
       }
     }
