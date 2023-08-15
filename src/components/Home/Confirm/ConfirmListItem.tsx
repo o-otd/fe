@@ -5,27 +5,23 @@ import ConfirmVoteCard from './ConfirmVoteCard';
 import ConfirmImageSlide from './ConfirmImageSlide';
 import ConfirmComment from './ConfirmComment';
 import { IConfirmListItemProps } from 'types/Home/Confirm';
-import useGetDate from 'hooks/useGetDate';
+import { getFormattedDate } from 'utils';
 
 function ConfirmListItem({ confirmData }: IConfirmListItemProps) {
-  const [startDate, endDate] = useGetDate(
-    confirmData.startDate,
-    confirmData.endDate,
-  );
   return (
     <Wrapper>
       <ConfirmContentCard
         user={confirmData.user}
-        startDate={startDate}
-        endDate={endDate}
+        startDate={getFormattedDate(confirmData.startDate)}
+        endDate={getFormattedDate(confirmData.endDate)}
         content={confirmData.content}
         remains={confirmData.remains}
       />
 
       <ConfirmVoteCard
         confirmId={confirmData.id}
-        startDate={startDate}
-        endDate={endDate}
+        startDate={getFormattedDate(confirmData.startDate)}
+        endDate={getFormattedDate(confirmData.endDate)}
         remains={confirmData.remains}
         myVoting={confirmData.myVoting}
         votes={confirmData.votes}

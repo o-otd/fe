@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import { ReactComponent as ConfirmVoteIconSVG } from '@svg/confirm-vote-icon.svg';
 import { IConfirmWriteVoteProps } from 'types/Home/Confirm';
 import WriteVoteInput from './WriteVoteInput';
+import { daysRemaining } from 'utils';
 
 function ConfirmWriteVote({
   firstVoteText,
   secondVoteText,
   setFirstVoteText,
   setSecondVoteText,
+  startDate,
+  endDate,
 }: IConfirmWriteVoteProps) {
   return (
     <WriteVote>
@@ -17,10 +20,17 @@ function ConfirmWriteVote({
           <ConfirmVoteIconSVG />
           <div>PICK</div>
         </WriteVoteTitle>
-        <WriteVoteDate>
-          <WriteVoteDateRemain>7일 남음</WriteVoteDateRemain>
-          <WriteVoteDatePeriod>2022.11.27 ~ 2022.12.04</WriteVoteDatePeriod>
-        </WriteVoteDate>
+        {startDate && endDate && (
+          <WriteVoteDate>
+            <WriteVoteDateRemain>
+              {daysRemaining(endDate)}일 남음
+            </WriteVoteDateRemain>
+
+            <WriteVoteDatePeriod>
+              {startDate} ~ {endDate}
+            </WriteVoteDatePeriod>
+          </WriteVoteDate>
+        )}
       </WriteVoteHeader>
       <div>
         <WriteVoteInput

@@ -47,6 +47,7 @@ const borderRadius = {
   borderRadius10: '10px',
   borderRadius15: '15px',
   borderRadius5: '5px',
+  borderRadius14: '14px',
 };
 
 const innerContainer = {

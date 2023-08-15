@@ -7,6 +7,9 @@ export interface IConfirmWriteHeaderProps {
 export interface IConfirmWriteTextInputProps {
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
+  onClickDate: (buttonType: string) => void;
+  startDate: string;
+  endDate: string;
 }
 
 export interface IConfirmWriteImageSlideInputProps {
@@ -195,6 +198,8 @@ export interface IConfirmWriteVoteProps {
   secondVoteText: string;
   setFirstVoteText: React.Dispatch<React.SetStateAction<string>>;
   setSecondVoteText: React.Dispatch<React.SetStateAction<string>>;
+  startDate: string;
+  endDate: string;
 }
 
 export interface IWriteVoteInputProps {
@@ -252,4 +257,10 @@ export interface ICommentLineInputProps {
   value: string;
   buttonText: string;
   placeholder: string;
+}
+
+export interface IConfirmCalenderProps {
+  date: Date;
+  onClose: React.Dispatch<React.SetStateAction<boolean>>;
+  onSelect: (date: string) => void;
 }

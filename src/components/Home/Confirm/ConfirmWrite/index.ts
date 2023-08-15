@@ -3,3 +3,4 @@ export { default as ConfirmWriteImageSlideInput } from './ConfirmWriteImageSlide
 export { default as ConfirmWriteTextInput } from './ConfirmWriteTextInput';
 export { default as ConfirmWriteVote } from './ConfirmWriteVote';
 export { default as WriteVoteInput } from './WriteVoteInput';
+export { default as ConfirmCalender } from './ConfirmCalender';
