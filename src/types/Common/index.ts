@@ -36,6 +36,7 @@ export interface IDecodeJWT {
   sub: string;
   iat: number;
   exp: number;
+  AUTH: string;
 }
 
 export interface IRouteProps {

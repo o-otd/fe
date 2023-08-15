@@ -3,7 +3,7 @@ import Cookie from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { removeToken, resetAuthDone, setToken } from 'redux/reducer/auth';
+import { resetAuthDone, setToken } from 'redux/reducer/auth';
 import { RootState, useAppDispatch } from 'redux/store';
 import { IDecodeJWT } from 'types/Common';
 import { logout } from 'utils';

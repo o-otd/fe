@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ConfirmWriteArrowBottomSVG from '@svg/confirm-write-arrow-bottom.svg';
 import { ReactComponent as CalendarSVG } from '@svg/calendar.svg';
 import { IConfirmWriteTextInputProps } from 'types/Home/Confirm';
-import { getFormattedDate } from 'utils';
+import useGetUserInfo from 'hooks/useGetUserInfo';
 
 function ConfirmWriteTextInput({
   text,
@@ -15,6 +15,7 @@ function ConfirmWriteTextInput({
   const onChangeTextInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
+  const userInfo = useGetUserInfo();
 
   return (
     <WriteForm>
