@@ -20,6 +20,7 @@ function CommentsItem({
   setActiveReplyId,
   isActiveModify,
   isActiveReply,
+  mutateComments,
   mutateModifyComments,
 }: ICommentsItemProps) {
   const { confirmId } = useParams();
@@ -102,6 +103,7 @@ function CommentsItem({
 
         if (!registerError && response) {
           setActiveReplyId(undefined);
+          mutateComments(response.data.comment);
         } else {
           alert(registerError);
         }
