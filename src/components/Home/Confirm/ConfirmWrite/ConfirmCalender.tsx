@@ -5,6 +5,7 @@ import CalenderPrevButtonSvg from '@svg/calender-prev-btn.png';
 import CalenderNextButtonSvg from '@svg/calender-next-btn.png';
 import { calenderDays, monthObject } from 'constant';
 import { IConfirmCalenderProps } from 'types/Home/Confirm';
+import { getFormattedMonth } from 'utils';
 
 function ConfirmCalender({ date, onClose, onSelect }: IConfirmCalenderProps) {
   const [currentDate, setCurrentDate] = useState(date);
@@ -31,7 +32,7 @@ function ConfirmCalender({ date, onClose, onSelect }: IConfirmCalenderProps) {
     let dateArray = [];
 
     const newDate = new Date(date);
-    const adjDate = newDate.getDate();
+
     const year = newDate.getFullYear();
     const month = newDate.getMonth();
     const firstDay = new Date(newDate.setDate(1)).getDay();
@@ -76,7 +77,7 @@ function ConfirmCalender({ date, onClose, onSelect }: IConfirmCalenderProps) {
   const dateClickHandler = (day: null | { day: number; disabled: boolean }) => {
     const dateString =
       String(currentDate.getFullYear()) +
-      String(currentDate.getMonth() + 1) +
+      String(getFormattedMonth(currentDate)) +
       String(day?.day);
     setSelectDate(dateString);
     setSelectedDay(day);

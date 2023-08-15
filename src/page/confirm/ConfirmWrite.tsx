@@ -11,6 +11,7 @@ import {
   ConfirmWriteTextInput,
   ConfirmWriteVote,
 } from 'components/Home/Confirm/ConfirmWrite';
+import { getFormattedDate } from 'utils';
 
 function ConfirmWrite() {
   const apiNavigation = useApiNavigation<IRegisterConfirmApiResponse>();
@@ -33,9 +34,9 @@ function ConfirmWrite() {
 
   const handleDateSelect = (date: string) => {
     if (activeButton === 'start') {
-      setStartDate(date);
+      setStartDate(getFormattedDate(date));
     } else if (activeButton === 'end') {
-      setEndDate(date);
+      setEndDate(getFormattedDate(date));
     }
 
     setIsCalenderOpen(false);
@@ -87,6 +88,8 @@ function ConfirmWrite() {
           setFirstVoteText={setFirstVoteText}
           secondVoteText={secondVoteText}
           setSecondVoteText={setSecondVoteText}
+          startDate={startDate}
+          endDate={endDate}
         />
 
         <ConfirmWriteImageSlideInput

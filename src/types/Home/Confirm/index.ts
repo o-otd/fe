@@ -198,6 +198,8 @@ export interface IConfirmWriteVoteProps {
   secondVoteText: string;
   setFirstVoteText: React.Dispatch<React.SetStateAction<string>>;
   setSecondVoteText: React.Dispatch<React.SetStateAction<string>>;
+  startDate: string;
+  endDate: string;
 }
 
 export interface IWriteVoteInputProps {

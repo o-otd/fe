@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ConfirmWriteArrowBottomSVG from '@svg/confirm-write-arrow-bottom.svg';
 import { ReactComponent as CalendarSVG } from '@svg/calendar.svg';
 import { IConfirmWriteTextInputProps } from 'types/Home/Confirm';
+import { getFormattedDate } from 'utils';
 
 function ConfirmWriteTextInput({
   text,
