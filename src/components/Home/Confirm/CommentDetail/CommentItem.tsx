@@ -146,6 +146,7 @@ function CommentItem({ commentData }: ICommentItemProps) {
             inputTextLength={inputTextLength}
             onClickSubmit={onClickSubmit}
             commentContent={commentContent}
+            mutateComments={mutateComments}
             mutateModifyComments={mutateModifyComments}
           />
         )}

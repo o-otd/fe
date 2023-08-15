@@ -10,6 +10,7 @@ function NestedComments({
   inputTextLength,
   onClickSubmit,
   commentContent,
+  mutateComments,
   mutateModifyComments,
 }: INestedCommentsProps) {
   const [activeCommentId, setActiveCommentId] = useState<number>();
@@ -40,6 +41,7 @@ function NestedComments({
                 isActive={comment.id === activeCommentId}
                 isActiveModify={comment.id === activeModifyId}
                 isActiveReply={comment.id === activeReplyId}
+                mutateComments={mutateComments}
                 mutateModifyComments={mutateModifyComments}
               />
             ))}
