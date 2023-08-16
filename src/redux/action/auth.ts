@@ -2,15 +2,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import Api from 'api/core/Api';
 import Cookie from 'js-cookie';
 import {
-  IAuthJoinByEmailData,
-  IAuthJoinByEmailResponse,
-  IAuthLogInByEmailData,
+  IJoinByEmailData,
+  IJoinByEmailApiResponse,
+  ILogInByEmailData,
   IAuthLogInByEmailResponse,
 } from 'types/Auth';
 
 export const authJoinByEmail = createAsyncThunk<
-  IAuthJoinByEmailResponse,
-  IAuthJoinByEmailData
+  IJoinByEmailApiResponse,
+  IJoinByEmailData
 >('auth/joinByEmail', async (data, thunkApi) => {
   try {
     const { email, password, name } = data;
@@ -35,7 +35,7 @@ export const authJoinByEmail = createAsyncThunk<
 
 export const authLoginByEmail = createAsyncThunk<
   IAuthLogInByEmailResponse,
-  IAuthLogInByEmailData
+  ILogInByEmailData
 >('auth/loginByEmail', async (data, thunkApi) => {
   try {
     const { email, password } = data;

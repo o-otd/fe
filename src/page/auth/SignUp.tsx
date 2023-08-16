@@ -1,17 +1,16 @@
 import Logo from 'components/Common/Logo';
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ValidationErrorSvg } from '@svg/validation-error.svg';
 import { useForm } from 'react-hook-form';
-import { IEmailSignUpInputData } from 'types/Auth';
+import { IEmailSignUpInputData, IJoinByEmailApiResponse } from 'types/Auth';
 import { emailRegex } from '../../utils/index';
 import Input from 'components/Auth/Input';
-import { RootState, useAppDispatch } from 'redux/store';
-import { authJoinByEmail } from 'redux/action/auth';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import AuthSubmitButton from 'components/Auth/AuthSubmitButton';
 import useValidErrors from 'hooks/useValidErrors';
+import { useApi } from 'hooks/useApi';
+import { joinByEmail } from 'api/auth';
+import useApiNavigation from 'hooks/useApiNavigation';
 
 function SignUp() {
   const {
@@ -21,30 +20,29 @@ function SignUp() {
     getValues,
     setError,
   } = useForm<IEmailSignUpInputData>();
-  const navigation = useNavigate();
-  const dispatch = useAppDispatch();
-  const { authDone, authError } = useSelector((state: RootState) => state.auth);
+
+  const { execute, error } = useApi(joinByEmail);
+  const apiNavigation = useApiNavigation<IJoinByEmailApiResponse>();
+
   const validError = useValidErrors(errors);
 
-  const onValid = (signUpInputData: IEmailSignUpInputData) => {
-    dispatch(
-      authJoinByEmail({
-        email: signUpInputData.email,
-        name: signUpInputData.nickName,
-        password: signUpInputData.password,
-      }),
-    );
+  const onValid = async (signUpInputData: IEmailSignUpInputData) => {
+    const { email, nickName, password } = signUpInputData;
+
+    const response = await execute({
+      email: email,
+      name: nickName,
+      password: password,
+    });
+
+    if (response && !error) {
+      if (response.error) {
+        setError('email', { message: response.error });
+      } else {
+        apiNavigation('/signin', response);
+      }
+    }
   };
-
-  useEffect(() => {
-    if (authDone) {
-      navigation('/signin', { replace: true });
-    }
-
-    if (authError) {
-      setError('email', { message: authError });
-    }
-  }, [authDone, authError]);
 
   return (
     <Auth>

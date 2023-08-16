@@ -23,17 +23,17 @@ export interface IInputProps {
   children?: React.ReactNode;
 }
 
-export interface IAuthJoinByEmailData extends IAuthLogInByEmailData {
+export interface IJoinByEmailData extends ILogInByEmailData {
   name: string;
 }
 
-export interface IAuthLogInByEmailData {
+export interface ILogInByEmailData {
   email: string;
   password: string;
 }
 
-export interface IAuthJoinByEmailResponse extends IApiResponse {
-  data: any;
+export interface IJoinByEmailApiResponse extends IApiResponse {
+  data: null;
 }
 
 export interface IAuthLogInByEmailResponse extends IApiResponse {
