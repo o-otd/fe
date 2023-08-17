@@ -36,7 +36,7 @@ export interface IJoinByEmailApiResponse extends IApiResponse {
   data: null;
 }
 
-export interface IAuthLogInByEmailResponse extends IApiResponse {
+export interface IAuthLogInByEmailApiResponse extends IApiResponse {
   data: {
     expiration: number;
     token: string;

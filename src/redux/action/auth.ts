@@ -5,7 +5,7 @@ import {
   IJoinByEmailData,
   IJoinByEmailApiResponse,
   ILogInByEmailData,
-  IAuthLogInByEmailResponse,
+  IAuthLogInByEmailApiResponse,
 } from 'types/Auth';
 
 export const authJoinByEmail = createAsyncThunk<
@@ -34,7 +34,7 @@ export const authJoinByEmail = createAsyncThunk<
 });
 
 export const authLoginByEmail = createAsyncThunk<
-  IAuthLogInByEmailResponse,
+  IAuthLogInByEmailApiResponse,
   ILogInByEmailData
 >('auth/loginByEmail', async (data, thunkApi) => {
   try {
