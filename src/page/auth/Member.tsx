@@ -15,6 +15,8 @@ import useValidErrors from 'hooks/useValidErrors';
 import { useApi } from 'hooks/useApi';
 import { logInByEmail } from 'api/auth';
 import useApiNavigation from 'hooks/useApiNavigation';
+import { useAppDispatch } from 'redux/store';
+import { setToken } from 'redux/reducer/auth';
 
 function Member() {
   const {
@@ -23,7 +25,7 @@ function Member() {
     formState: { errors },
     setError,
   } = useForm<IEmailSignInInputData>();
-
+  const dispatch = useAppDispatch();
   const { execute, error } = useApi(logInByEmail);
   const apiNavigation = useApiNavigation<IAuthLogInByEmailApiResponse>();
   const validErrors = useValidErrors(errors);
@@ -38,6 +40,7 @@ function Member() {
       if (response.error) {
         setError('email', { message: response.error });
       } else {
+        dispatch(setToken(response.data.token));
         apiNavigation('/', response);
       }
     }

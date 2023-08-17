@@ -19,7 +19,6 @@ export const getFormattedDate = (date: string) => {
 };
 
 export const getStringDate = (date: string) => {
-  console.log(date);
   const stringDate = date !== '' ? date.split('.').join('') : '';
 
   return stringDate;
