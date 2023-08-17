@@ -3,16 +3,14 @@ import Cookie from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { resetAuthDone, setToken } from 'redux/reducer/auth';
+import { setToken } from 'redux/reducer/auth';
 import { RootState, useAppDispatch } from 'redux/store';
 import { IDecodeJWT } from 'types/Common';
 import { logout } from 'utils';
 
 export default function useAuthRefresh() {
   const dispatch = useAppDispatch();
-  const { authDone, accessToken } = useSelector(
-    (state: RootState) => state.auth,
-  );
+  const { accessToken } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     const tokenFromCookie = Cookie.get('accessToken');
@@ -22,9 +20,6 @@ export default function useAuthRefresh() {
   }, []);
 
   useEffect(() => {
-    if (authDone) {
-      dispatch(resetAuthDone());
-    }
     if (accessToken) {
       const decodedToken = jwtDecode<IDecodeJWT>(accessToken);
       const expiryTime = decodedToken.exp * 1000;

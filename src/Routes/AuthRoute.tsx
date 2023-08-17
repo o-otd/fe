@@ -1,11 +1,12 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { IRouteProps } from 'types/Common';
-import { useSelector } from 'react-redux';
-import { RootState } from 'redux/store';
+
+import useGetToken from 'hooks/useGetToken';
 
 function AuthRoute({ children }: IRouteProps) {
-  const { accessToken } = useSelector((state: RootState) => state.auth);
+  const accessToken = useGetToken();
+
   return accessToken ? <Navigate to="/" /> : <>{children}</>;
 }
 
