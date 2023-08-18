@@ -1,8 +1,10 @@
-import AgeFilter from 'components/Common/Filter/AgeFilter';
-import ColorFilter from 'components/Common/Filter/ColorFilter';
-import GenderFilter from 'components/Common/Filter/GenderFilter';
-import RangeFilter from 'components/Common/Filter/RangeFilter';
-import StyleFilter from 'components/Common/Filter/StyleFilter';
+import {
+  AgeFilter,
+  ColorFilter,
+  GenderFilter,
+  RangeFilter,
+  StyleFilter,
+} from 'components/Common';
 
 export const tabItems = [
   { name: '성별', id: 0, content: <GenderFilter filterIndex={0} /> },

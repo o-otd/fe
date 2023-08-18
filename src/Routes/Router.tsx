@@ -1,4 +1,3 @@
-import Layout from 'components/Common/Layout';
 import Activity from 'page/today/Activity';
 import Member from 'page/auth/Member';
 import Profile from 'page/Profile';
@@ -16,11 +15,11 @@ import Today from 'page/today/Today';
 import Weekend from 'page/Weekend';
 import Confirm from 'page/confirm/Confirm';
 import CommentDetail from 'page/confirm/CommentDetail';
-import ScrollToTop from 'components/Common/ScrollToTop';
 import ConfirmWrite from 'page/confirm/ConfirmWrite';
 import AuthRoute from './AuthRoute';
 import PrivateRoute from './PrivateRoute';
 import useAuthRefresh from 'hooks/useAuthRefresh';
+import { Layout, ScrollToTop } from 'components/Common';
 
 function Router() {
   useAuthRefresh();

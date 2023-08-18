@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import checkSVG from '../../../styles/images/icons/check.svg';
 import { IGenderFilterProps } from 'types/Common';
-import useSetCurrentFilters from '../../../hooks/useSetCurrentFilters';
 import useSyncFilters from 'hooks/useSyncFilters';
+import useSetCurrentFilters from 'hooks/useSetCurrentFilters';
 
 function GenderFilter({ filterIndex }: IGenderFilterProps) {
   useSyncFilters(filterIndex);

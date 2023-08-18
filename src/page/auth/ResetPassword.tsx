@@ -1,11 +1,11 @@
-import Logo from 'components/Common/Logo';
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ValidationErrorSvg } from '@svg/validation-error.svg';
-import Input from 'components/Auth/Input';
 import { useForm } from 'react-hook-form';
 import { IResetEmailInputData } from 'types/Auth';
 import { emailRegex } from '../../utils/index';
+import { Input } from 'components/Auth';
+import { Logo } from 'components/Common';
 
 function ResetPassword() {
   const {

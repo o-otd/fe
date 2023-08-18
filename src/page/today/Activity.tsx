@@ -1,6 +1,6 @@
 import React from 'react';
-import Main from 'components/Home/Main';
 import { activityCategory } from 'constant/lookTab';
+import { Main } from 'components/Home';
 
 function Activity() {
   return (

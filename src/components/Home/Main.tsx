@@ -3,12 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import { ReactComponent as SuggestionLinkSvg } from '@svg/suggestion-link-btn.svg';
-import LookTabs from 'components/Common/LookTabs';
-import BottomFilter from 'components/Common/Filter/BottomFilter';
 import { Link } from 'react-router-dom';
-import Filters from 'components/Common/Filter/Filters';
 import useCurrentCategory from 'hooks/useCurrentCategory';
 import { IMainProps } from 'types/Home/Today';
+import { Filters, LookTabs } from 'components/Common';
+import BottomFilter from 'components/Common/filter/BottomFilter';
 
 function Main({ categories, baseUrl }: IMainProps) {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);

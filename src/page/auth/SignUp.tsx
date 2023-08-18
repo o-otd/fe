@@ -1,16 +1,15 @@
-import Logo from 'components/Common/Logo';
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as ValidationErrorSvg } from '@svg/validation-error.svg';
 import { useForm } from 'react-hook-form';
 import { IEmailSignUpInputData, IJoinByEmailApiResponse } from 'types/Auth';
 import { emailRegex } from '../../utils/index';
-import Input from 'components/Auth/Input';
-import AuthSubmitButton from 'components/Auth/AuthSubmitButton';
 import useValidErrors from 'hooks/useValidErrors';
 import { useApi } from 'hooks/useApi';
 import { joinByEmail } from 'api/auth';
 import useApiNavigation from 'hooks/useApiNavigation';
+import { AuthSubmitButton, Input } from 'components/Auth';
+import { Logo } from 'components/Common';
 
 function SignUp() {
   const {

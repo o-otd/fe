@@ -1,4 +1,3 @@
-import Logo from 'components/Common/Logo';
 import React from 'react';
 import { ReactComponent as ValidationErrorSvg } from '@svg/validation-error.svg';
 import styled from 'styled-components';
@@ -8,15 +7,15 @@ import {
   IAuthLogInByEmailApiResponse,
   IEmailSignInInputData,
 } from 'types/Auth';
-import Input from 'components/Auth/Input';
 import { Link } from 'react-router-dom';
-import AuthSubmitButton from 'components/Auth/AuthSubmitButton';
 import useValidErrors from 'hooks/useValidErrors';
 import { useApi } from 'hooks/useApi';
 import { logInByEmail } from 'api/auth';
 import useApiNavigation from 'hooks/useApiNavigation';
 import { useAppDispatch } from 'redux/store';
 import { setToken } from 'redux/reducer/auth';
+import { AuthSubmitButton, Input } from 'components/Auth';
+import { Logo } from 'components/Common';
 
 function Member() {
   const {

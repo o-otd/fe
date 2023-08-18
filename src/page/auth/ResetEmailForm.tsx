@@ -1,4 +1,4 @@
-import ContentSubmitButton from 'components/Common/ContentSubmitButton';
+import { ContentSubmitButton } from 'components/Common';
 import HeaderRectangle from 'components/Common/Logo';
 import React from 'react';
 import styled from 'styled-components';
