@@ -6,7 +6,7 @@ import TodayCard from 'components/Home/Today/TodayCard';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import LookSlideCard from 'components/Home/Today/LookSlideCard';
-import LookTabs from 'components/Common/LookTabs';
+import { LookTabs } from 'components/Common';
 
 function Today() {
   const [isOpen, setIsOpen] = useState<boolean>(false);

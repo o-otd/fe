@@ -1,9 +1,9 @@
-import Logo from 'components/Common/Logo';
 import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as EmailIconSvg } from '@svg/email-icon.svg';
 import { ReactComponent as GoogleIconSvg } from '@svg/google-icon.svg';
 import { AuthBottomInfo, AuthFind, AuthSelectButton } from 'components/Auth';
+import { Logo } from 'components/Common';
 
 function Register() {
   return (
