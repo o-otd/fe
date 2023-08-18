@@ -6,7 +6,8 @@ import { ReactComponent as SuggestionLinkSvg } from '@svg/suggestion-link-btn.sv
 import { Link } from 'react-router-dom';
 import useCurrentCategory from 'hooks/useCurrentCategory';
 import { IMainProps } from 'types/Home/Today';
-import { BottomFilter, Filters, LookTabs } from 'components/Common';
+import { Filters, LookTabs } from 'components/Common';
+import BottomFilter from 'components/Common/filter/BottomFilter';
 
 function Main({ categories, baseUrl }: IMainProps) {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);

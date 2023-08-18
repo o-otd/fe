@@ -1,5 +1,4 @@
 export { default as AgeFilter } from './AgeFilter';
-export { default as BottomFilter } from './BottomFilter';
 export { default as ColorFilter } from './ColorFilter';
 export { default as Filters } from './Filters';
 export { default as GenderFilter } from './GenderFilter';

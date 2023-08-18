@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import TodayCardModal from 'components/Home/Today/TodayCardModal';
-import TodayCard from 'components/Home/Today/TodayCard';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import LookSlideCard from 'components/Home/Today/LookSlideCard';
 import { LookTabs } from 'components/Common';
+import { LookSlideCard, TodayCard, TodayCardModal } from 'components/Home';
 
 function Today() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
