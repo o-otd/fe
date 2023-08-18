@@ -3,9 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as EmailIconSvg } from '@svg/email-icon.svg';
 import { ReactComponent as GoogleIconSvg } from '@svg/google-icon.svg';
-import AuthSelectButton from 'components/Auth/AuthSelectButton';
-import AuthBottomInfo from 'components/Auth/AuthBottomInfo';
-import AuthFind from 'components/Auth/AuthFind';
+import { AuthBottomInfo, AuthFind, AuthSelectButton } from 'components/Auth';
 
 function SignIn() {
   return (
