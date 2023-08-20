@@ -7,8 +7,8 @@ import { theme } from 'styles/theme';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from 'redux/store';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
