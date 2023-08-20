@@ -27,70 +27,34 @@ function Router() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route
-          path="/signup"
-          element={
-            <AuthRoute>
-              <SignUp />
-            </AuthRoute>
-          }
-        />
+        <Route path="/signup" element={<AuthRoute component={SignUp} />} />
         <Route
           path="/signin/member"
-          element={
-            <AuthRoute>
-              <Member />
-            </AuthRoute>
-          }
+          element={<AuthRoute component={Member} />}
         />
-        <Route
-          path="/signin"
-          element={
-            <AuthRoute>
-              <SignIn />
-            </AuthRoute>
-          }
-        />
+        <Route path="/signin" element={<AuthRoute component={SignIn} />} />
         <Route
           path="/reset"
-          element={
-            <AuthRoute>
-              <ResetPassword />
-            </AuthRoute>
-          }
+          element={<AuthRoute component={ResetPassword} />}
         />
         <Route
           path="/reset/password"
-          element={
-            <AuthRoute>
-              <ResetPasswordForm />
-            </AuthRoute>
-          }
+          element={<AuthRoute component={ResetPasswordForm} />}
         />
         <Route
           path="/signin/register"
-          element={
-            <AuthRoute>
-              <Register />
-            </AuthRoute>
-          }
+          element={<AuthRoute component={Register} />}
         />
         <Route
           path="/signin/email"
-          element={
-            <AuthRoute>
-              <ResetEmailForm />
-            </AuthRoute>
-          }
+          element={<AuthRoute component={ResetEmailForm} />}
         />
+
         <Route path="/comment/:confirmId" element={<CommentDetail />} />
+
         <Route
           path="/confirm/write"
-          element={
-            <PrivateRoute>
-              <ConfirmWrite />
-            </PrivateRoute>
-          }
+          element={<PrivateRoute component={ConfirmWrite} />}
         />
 
         <Route element={<Layout />}>
@@ -99,16 +63,11 @@ function Router() {
           <Route path="/activity" element={<Activity />} />
           <Route path="/tpo" element={<Tpo />} />
           <Route path="/temperatures" element={<Temperatures />} />
-
           <Route path="/weekend" element={<Weekend />} />
           <Route path="/confirm" element={<Confirm />} />
           <Route
             path="/profile"
-            element={
-              <PrivateRoute>
-                <Profile />
-              </PrivateRoute>
-            }
+            element={<PrivateRoute component={Profile} />}
           />
         </Route>
       </Routes>

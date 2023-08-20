@@ -40,7 +40,7 @@ export interface IDecodeJWT {
 }
 
 export interface IRouteProps {
-  children: React.ReactNode;
+  component: React.ComponentType;
 }
 
 export interface IImageFile {

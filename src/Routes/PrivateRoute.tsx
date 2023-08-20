@@ -4,13 +4,13 @@ import { IRouteProps } from 'types/Common';
 
 import useGetToken from 'hooks/useGetToken';
 
-function PrivateRoute({ children }: IRouteProps) {
+function PrivateRoute({ component: Component }: IRouteProps) {
   const accessToken = useGetToken();
 
   return !accessToken ? (
     <Navigate to="/signin" replace={true} />
   ) : (
-    <>{children}</>
+    <Component />
   );
 }
 
