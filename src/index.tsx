@@ -8,7 +8,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from 'redux/store';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -24,7 +24,7 @@ root.render(
         <GlobalFonts />
         <QueryClientProvider client={queryClient}>
           <App />
-          <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+          <ReactQueryDevtools initialIsOpen={false} panelPosition="bottom" />
         </QueryClientProvider>
       </ThemeProvider>
     </Provider>

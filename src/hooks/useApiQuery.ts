@@ -3,7 +3,7 @@ import {
   QueryKey,
   UseQueryOptions,
   useQuery,
-} from 'react-query';
+} from '@tanstack/react-query';
 
 export const useApiQuery = <T, V>(
   queryKey: QueryKey,

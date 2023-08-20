@@ -1,4 +1,4 @@
-import { UseMutationOptions, useMutation } from 'react-query';
+import { UseMutationOptions, useMutation } from '@tanstack/react-query';
 
 export const useApiMutation = <T, V>(
   apiFunction: (params?: T) => Promise<V>,
