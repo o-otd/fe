@@ -1,6 +1,5 @@
 import Activity from 'page/today/Activity';
 import Member from 'page/auth/Member';
-import Profile from 'page/Profile';
 import Register from 'page/auth/Register';
 import ResetEmailForm from 'page/auth/ResetEmailForm';
 import ResetPassword from 'page/auth/ResetPassword';
@@ -20,6 +19,7 @@ import AuthRoute from './AuthRoute';
 import PrivateRoute from './PrivateRoute';
 import useAuthRefresh from 'hooks/useAuthRefresh';
 import { Layout, ScrollToTop } from 'components/Common';
+import MyPage from 'page/myPage/MyPage';
 
 function Router() {
   useAuthRefresh();
@@ -65,10 +65,7 @@ function Router() {
           <Route path="/temperatures" element={<Temperatures />} />
           <Route path="/weekend" element={<Weekend />} />
           <Route path="/confirm" element={<Confirm />} />
-          <Route
-            path="/profile"
-            element={<PrivateRoute component={Profile} />}
-          />
+          <Route path="/mypage" element={<PrivateRoute component={MyPage} />} />
         </Route>
       </Routes>
     </BrowserRouter>

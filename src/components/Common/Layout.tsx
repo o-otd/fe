@@ -66,8 +66,8 @@ function Layout() {
                 컨펌
               </HeaderNavList>
               <HeaderNavList
-                $isActive={location.pathname.includes('/profile')}
-                to={'/profile'}
+                $isActive={location.pathname.includes('/mypage')}
+                to={'/mypage'}
               >
                 MY
               </HeaderNavList>
