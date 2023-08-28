@@ -34,3 +34,26 @@ export const monthObject: { [key: number]: string } = {
   11: 'Nov',
   12: 'Dec',
 };
+
+export const myPageLinks = [
+  {
+    id: 0,
+    linkTitle: '좋아요',
+    href: '/',
+  },
+  {
+    id: 1,
+    linkTitle: '북마크',
+    href: '/',
+  },
+  {
+    id: 2,
+    linkTitle: '내가 작성한 컨펌',
+    href: '/',
+  },
+  {
+    id: 3,
+    linkTitle: '내가 작성한 댓글',
+    href: '/',
+  },
+];

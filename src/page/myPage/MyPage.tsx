@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import dummyImage from '../../styles/images/dummy-profile.png';
 import MyImageAddPNG from '@svg/mypage-image-add.png';
-import MyPageArrowRightPNG from '@svg/arrow-right-07.png';
-import { Link } from 'react-router-dom';
+import { myPageLinks } from 'constant';
+import { MyPageLink } from 'components/Home/My';
 
 function MyPage() {
   return (
@@ -30,18 +30,14 @@ function MyPage() {
         </div>
       </MyPageCard>
 
-      <MyPageBoxLink>
-        <Link to={'/'}>
-          <h4>좋아요</h4>
-          <span>123</span>
-          <button>
-            <img src={MyPageArrowRightPNG} />
-          </button>
-        </Link>
-      </MyPageBoxLink>
+      {myPageLinks.map((linkItem) => (
+        <MyPageLink linkTitle={linkItem.linkTitle} />
+      ))}
     </main>
   );
 }
+
+export default MyPage;
 
 const MyPageCard = styled.section`
   margin-top: 4px;
@@ -116,42 +112,3 @@ const MyPageInfoText = styled.div`
     margin-left: 12px;
   }
 `;
-
-const MyPageBoxLink = styled.section`
-  margin-top: 4px;
-  border-radius: ${({ theme }) => theme.borderRadius.borderRadius30};
-  background-color: ${({ theme }) => theme.colors.gray3};
-
-  & a {
-    display: flex;
-    align-items: center;
-    padding: 23px 16px;
-    position: relative;
-  }
-
-  & h4 {
-    font-size: 16px;
-    font-weight: 600;
-    color: ${({ theme }) => theme.colors.white};
-    margin-right: 13px;
-  }
-
-  & span {
-    font-weight: 700;
-    color: ${({ theme }) => theme.colors.main};
-  }
-
-  & button {
-    position: absolute;
-    right: 16px;
-    width: 24px;
-    height: 24px;
-
-    & img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-`;
-
-export default MyPage;
