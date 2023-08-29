@@ -4,8 +4,11 @@ import dummyImage from '../../styles/images/dummy-profile.png';
 import MyImageAddPNG from '@svg/mypage-image-add.png';
 import { myPageLinks } from 'constant';
 import { MyPageLink } from 'components/Home/My';
+import useDetailNavigation from 'hooks/useDetailNavigation';
 
 function MyPage() {
+  const { pathNavigation } = useDetailNavigation('mypage/follow');
+
   return (
     <main>
       <MyPageCard>
@@ -20,10 +23,10 @@ function MyPage() {
         <div>
           <MyPageName>CNVXCX</MyPageName>
           <MyPageInfo>
-            <MyPageInfoText>
+            <MyPageInfoText onClick={pathNavigation}>
               <b>234</b>팔로잉
             </MyPageInfoText>
-            <MyPageInfoText>
+            <MyPageInfoText onClick={pathNavigation}>
               <b>14</b>팔로워
             </MyPageInfoText>
           </MyPageInfo>
@@ -31,7 +34,7 @@ function MyPage() {
       </MyPageCard>
 
       {myPageLinks.map((linkItem) => (
-        <MyPageLink linkTitle={linkItem.linkTitle} />
+        <MyPageLink key={linkItem.id} linkTitle={linkItem.linkTitle} />
       ))}
     </main>
   );
@@ -100,7 +103,7 @@ const MyPageInfoText = styled.div`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.gray7};
   font-weight: 400;
-
+  cursor: pointer;
   & b {
     font-size: 16px;
     color: ${({ theme }) => theme.colors.white};

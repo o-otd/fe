@@ -20,6 +20,7 @@ import PrivateRoute from './PrivateRoute';
 import useAuthRefresh from 'hooks/useAuthRefresh';
 import { Layout, ScrollToTop } from 'components/Common';
 import MyPage from 'page/myPage/MyPage';
+import Follow from 'page/myPage/Follow';
 
 function Router() {
   useAuthRefresh();
@@ -66,6 +67,10 @@ function Router() {
           <Route path="/weekend" element={<Weekend />} />
           <Route path="/confirm" element={<Confirm />} />
           <Route path="/mypage" element={<PrivateRoute component={MyPage} />} />
+          <Route
+            path="/mypage/follow"
+            element={<PrivateRoute component={Follow} />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
