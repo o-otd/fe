@@ -8,7 +8,7 @@ function Follow() {
     <main>
       <MyPageHeader>
         <div>
-          <Link to={'/'}>
+          <Link to={'/mypage'}>
             <button>
               <img src={MyPageArrowLeftPNG} />
             </button>
@@ -16,6 +16,15 @@ function Follow() {
             <h3>CNVXCX</h3>
           </Link>
         </div>
+
+        <MyPageTab>
+          <li>
+            <button>팔로잉(234)</button>
+          </li>
+          <li>
+            <button>팔로워(14)</button>
+          </li>
+        </MyPageTab>
       </MyPageHeader>
     </main>
   );
@@ -41,6 +50,35 @@ const MyPageHeader = styled.section`
 
     & img {
       width: 100%;
+    }
+  }
+`;
+
+const MyPageTab = styled.ul`
+  display: flex;
+  margin-top: 10px;
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & li {
+    flex-shrink: 0;
+    height: 34px;
+
+    & + & {
+      margin-left: 5px;
+    }
+
+    & button {
+      width: 100%;
+      height: 100%;
+      padding: 16px 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
     }
   }
 `;
