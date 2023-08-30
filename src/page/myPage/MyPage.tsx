@@ -34,7 +34,11 @@ function MyPage() {
       </MyPageCard>
 
       {myPageLinks.map((linkItem) => (
-        <MyPageLink key={linkItem.id} linkTitle={linkItem.linkTitle} />
+        <MyPageLink
+          key={linkItem.id}
+          linkTitle={linkItem.linkTitle}
+          href={linkItem.href}
+        />
       ))}
     </main>
   );

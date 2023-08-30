@@ -21,6 +21,7 @@ import useAuthRefresh from 'hooks/useAuthRefresh';
 import { Layout, ScrollToTop } from 'components/Common';
 import MyPage from 'page/myPage/MyPage';
 import Follow from 'page/myPage/Follow';
+import Likes from 'page/myPage/Likes';
 
 function Router() {
   useAuthRefresh();
@@ -70,6 +71,10 @@ function Router() {
           <Route
             path="/mypage/follow"
             element={<PrivateRoute component={Follow} />}
+          />
+          <Route
+            path="/mypage/likes"
+            element={<PrivateRoute component={Likes} />}
           />
         </Route>
       </Routes>
