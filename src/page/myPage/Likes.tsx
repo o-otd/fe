@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import MyPageArrowLeftPNG from '@svg/arrow-left-07.png';
+import MyPageDummyImage from '../../styles/images/mypage-dummy-image.png';
 
 function Likes() {
   return (
@@ -35,6 +36,37 @@ function Likes() {
           </li>
         </MyPageTab>
       </MyPageHeader>
+
+      <MyPageList>
+        <ul>
+          <li>
+            <Link to={'/'}>
+              <MyPageListImage>
+                <img src={MyPageDummyImage} />
+                <MyPageListCategory>옷장</MyPageListCategory>
+              </MyPageListImage>
+            </Link>
+          </li>
+
+          <li>
+            <Link to={'/'}>
+              <MyPageListImage>
+                <img src={MyPageDummyImage} />
+                <MyPageListCategory>옷장</MyPageListCategory>
+              </MyPageListImage>
+            </Link>
+          </li>
+
+          <li>
+            <Link to={'/'}>
+              <MyPageListImage>
+                <img src={MyPageDummyImage} />
+                <MyPageListCategory>옷장</MyPageListCategory>
+              </MyPageListImage>
+            </Link>
+          </li>
+        </ul>
+      </MyPageList>
     </>
   );
 }
@@ -90,4 +122,48 @@ const MyPageTab = styled.ul`
       font-size: 14px;
     }
   }
+`;
+
+const MyPageList = styled.section`
+  margin-top: 14px;
+
+  & ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 4px;
+
+    & li {
+      overflow: hidden;
+      border-radius: ${({ theme }) => theme.borderRadius.borderRadius30};
+
+      & a {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+`;
+
+const MyPageListImage = styled.div`
+  position: relative;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+`;
+
+const MyPageListCategory = styled.div`
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 11px;
+  background-color: rgba(77, 77, 88, 0.4);
+  color: #f2f2f7;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
 `;
