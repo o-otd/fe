@@ -5,12 +5,13 @@ import MyPageArrowRightPNG from '@svg/arrow-right-07.png';
 
 interface IMyPageLinkProps {
   linkTitle: string;
+  href: string;
 }
 
-function MyPageLink({ linkTitle }: IMyPageLinkProps) {
+function MyPageLink({ linkTitle, href }: IMyPageLinkProps) {
   return (
     <MyPageBoxLink>
-      <Link to={'/'}>
+      <Link to={href}>
         <h4>{linkTitle}</h4>
         <span>123</span>
         <button>

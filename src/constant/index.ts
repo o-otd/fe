@@ -39,7 +39,7 @@ export const myPageLinks = [
   {
     id: 0,
     linkTitle: '좋아요',
-    href: '/',
+    href: '/mypage/likes',
   },
   {
     id: 1,
